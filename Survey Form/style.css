@@ -1,0 +1,101 @@
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+body {
+    font-family: 'Raleway', Helvetica, sans-serif;
+    color: #333;
+    font-size: 1.1em;    
+} 
+
+.container {    
+    text-align: center;
+    background-color: #69B5B1;
+    width: 100%;
+    margin: auto; 
+    padding-top: 2%;
+    padding-bottom: 4%;     
+}
+
+#survey-form {
+    text-align: center;    
+    display: block;
+    background: #B9BDD0;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 10px;  
+    border-radius: 8px;  
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 10px;
+    margin: 5px;
+}
+
+.col-6 {    
+    margin: auto;    
+}
+
+.labClass {
+    text-align: right;   
+}
+
+.toRight {
+    text-align: right;    
+}
+
+.toLeft {
+    text-align: left;
+}
+
+#submit {
+    background-color: #59ace0;
+    border-radius: 6px;
+    color: white;
+    font-size: 1.2em;
+    height: 40px;
+    width: 100px;
+    margin: 10px;
+    border: 0px solid;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0px;
+  }
+
+  input, select, textarea {      
+      margin: 4px;      
+  }
+
+.input-field {
+    height: 20px;
+    border: 1px solid #c0c0c0;
+    border-radius: 2px;
+}
+
+#dropdown {
+    height: 25px;
+    border: 1px solid #c0c0c0;
+    border-radius: 2px;
+
+}
+ 
+#comments {
+    height: 50px;
+    width: 200px;
+}

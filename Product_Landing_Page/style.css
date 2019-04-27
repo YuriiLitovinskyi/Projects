@@ -14,8 +14,9 @@ img {
 .nav-bar {
     position: fixed;
     top: 0px;
-    width: 100%;
+    width: 98%;
     z-index: 10000;
+    padding-right: 20px;
 }
 
 .jumb-container {

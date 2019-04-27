@@ -1,6 +1,21 @@
+body {
+    background-color: #F7F7F7;
+}
+
 img {
     max-width: 300px;
     height:auto;
+}
+
+.nav-item {
+    padding: 0 20px;   
+}
+
+.nav-bar {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 10000;
 }
 
 .jumb-container {
@@ -16,4 +31,91 @@ img {
 .fa-3x {
 	margin: 10px;
 	margin-top: 30px;
+}
+
+#video {
+    display:block;
+    margin: auto;
+    padding: 80px;
+}
+
+.tenor-row {
+    align-items: center;
+}
+
+.tenor {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000;    
+    align-items: center;
+    margin: 10px;
+    text-align: center;
+}
+
+ol li {
+  display:block;
+   margin-left: -30px;
+}
+
+li {
+    list-style: none;
+}
+
+.level {
+    width: 100%;
+    font-weight: 700;
+    padding: 15px 0;
+    color: black;
+    text-transform: uppercase;
+    background-color: #ddd;
+}
+
+.btn-end {
+    margin-bottom: 15px;
+}
+
+footer {
+    margin-top: 30px;
+    background-color: #ddd;
+    padding: 20px;   
+}
+
+footer ul {
+    display: flex;
+    justify-content: flex-end;
+}
+
+footer ul li {
+    padding: 0 10px;
+}
+
+a {
+    color: #000;
+    text-decoration: none
+}
+
+a:hover {
+  color: #000;
+  text-decoration: none
+}
+
+footer span {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 7px;
+    font-size: 1em;
+    color: #444;
+}
+
+
+@media only screen and (max-width: 768px) {
+    #video {
+        padding: 30px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #video {
+        padding: 0px;
+    }
 }

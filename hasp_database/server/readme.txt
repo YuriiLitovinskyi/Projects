@@ -19,3 +19,15 @@ installing body-parser (otherwise post, put requests won't be working)
 ...........................(template saved)...............
 buinding apis with database.
    npm install --save mongoose
+
+
+(error Access to fetch has been blocked by CORS policy)
+TO FIX PROBLEM IN FILE server.js (folder "server")
+   npm install cors
+https://daveceddia.com/access-control-allow-origin-cors-errors-in-react-express/
+var express = require('express');
+// Import the library:
+var cors = require('cors');
+var app = express();
+// Then use it before your routes are set up:
+app.use(cors());

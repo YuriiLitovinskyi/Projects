@@ -35,3 +35,6 @@ var cors = require('cors');
 var app = express();
 // Then use it before your routes are set up:
 app.use(cors());
+
+
+adding proxy in package.json. Then when fetch we don't need to write full server address.

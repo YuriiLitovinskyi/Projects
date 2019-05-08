@@ -2,6 +2,11 @@ import React from "react";
 import "./hasp.css";
 
 class Hasp extends React.Component {
+
+    //constructor(props) {
+    //	super(props);
+  //  }
+
 	render(){
 		return(
 			<div className="card hasp">
@@ -15,7 +20,8 @@ class Hasp extends React.Component {
 			   <p >Name: {this.props.name}</p>
 			   <p >City: {this.props.city}</p>
 			   <p >Phone number: {this.props.phone}</p>
-			   <button className="btn btn-primary">Add New Hasp</button>
+			   <button className="btn btn-primary">Modify</button>
+			   <button className="btn btn-danger">Delete</button>
 			</div>
 			</div>
 		);

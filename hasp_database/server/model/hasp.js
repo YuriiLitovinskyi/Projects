@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 let hasp = new Schema({
-	dateCreated: {type: Date, default: Date.now},
+	dateCreated: {type: Date, default: () => Date.now() + 3*60*60*1000},
 	company: {
 		name: String,
 		city: String,

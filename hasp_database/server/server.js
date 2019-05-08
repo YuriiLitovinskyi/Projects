@@ -2,7 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
-app.use(cors());
+app.use(cors());   //no cors rules
+//const corsOptions = require("./cors-rules/cors-rules");  //apply cors rules. header is needed in requests
+//app.use(cors(corsOptions));
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -10,7 +12,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 const mongoose = require("mongoose");
 const db = mongoose.connect("mongodb://localhost/haspDB", {useNewUrlParser: true });
-mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
@@ -55,7 +56,7 @@ app.put("/hasp/change", function(req, res) {
 	//console.log(req.body);
     HaspInfo.findOneAndUpdate({_id: req.body._id}, {$set:req.body}, {new: true}, function(err, hasps) {
 		if (err) {
-			res.status(500).send({error: "Could not modified hasp info..."});
+			res.status(500).send({error: "Could not modify hasp info..."});
 		} else {           
            //console.log(hasps);
            res.status(200).send(hasps);

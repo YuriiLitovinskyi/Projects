@@ -1,10 +1,10 @@
 import "whatwg-fetch";
-//import axios from "axios"
+//import axios from "axios";
 
 class HttpService {
 	getHasps = () => {
 		let promise = new Promise((resolve, reject) => {
-			fetch("http://localhost:3004/hasp")
+			fetch("/hasp")    //proxy in package.json
 		    .then(res => {
 			  //console.log(res.json());
 			  resolve(res.json());

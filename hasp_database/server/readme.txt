@@ -31,3 +31,5 @@ var cors = require('cors');
 var app = express();
 // Then use it before your routes are set up:
 app.use(cors());
+
+we can add whitelist to cors rools, but in that case we need to add Head in request in Postman: Key: Origin; Value: http://localhost:3000

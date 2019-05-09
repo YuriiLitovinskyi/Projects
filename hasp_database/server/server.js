@@ -77,6 +77,18 @@ app.delete("/hasp/delete", function(req, res) {
 });
 
 
+//DELETE ALL FROM DB request
+app.delete("/hasp/deleteAll", function(req, res) {
+	HaspInfo.deleteMany({}, function(err) {
+		if (err) {
+			res.status(500).send({error: "Could not clead database..."});			
+		} else {
+			res.status(200).send({message: "All hasp info deleted from database succesfully..."});
+		}
+	});
+});
+
+
 const port = 3004;
 app.listen(port, function(){
 	console.log("Server started on port "+ port +"...");

@@ -1,0 +1,91 @@
+body {
+  background-color: #f5f5f5;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-main {
+  max-width: 100vh;
+  margin-top: 15px;  
+}
+
+.form-group {
+  margin-bottom: 0rem;  
+}
+
+.table .thead-dark th {
+  background-color: ##282c34;
+}
+
+.tableHead th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;  
+}
+
+.btnEdit {
+  color: green;
+  cursor: pointer;  
+}
+.btnEdit:hover {
+  font-size: 1.3em;
+  opacity: 0.8;
+  }
+
+.btnDelete {
+  color: tomato;
+  cursor: pointer;
+}
+
+.btnDelete:hover {
+  font-size: 1.3em;
+  opacity: 0.8;
+  }
+
+.haspContent {
+  color: #4a4a4a;  
+  font-weight: 600;
+  font-family: Calibri;
+}
+
+.indexNum {
+  font-weight: 800;   
+  color: #494949;
+}
+
+.col-form-label {
+  color: #686868;
+}
+
+.form-control {
+  box-shadow: 5px 5px 15px #888888;
+}
+
+.btn {
+  box-shadow: 10px 10px 15px #888888;
+}
+
+.btn-front {
+  margin-bottom: 40px;
+  margin-right: 110px;  
+}
+
+.btn-success {
+  margin: 15px;  
+}
+
+.btn:hover {
+  transform:scale(1.1,1.1);
+  -webkit-transform:scale(1.1,1.1);
+  -moz-transform:scale(1.1,1.1);
+}
+
+.table-striped {
+  margin-bottom: 40px;
+}
+
+.btn-dark {
+  margin-bottom: 20px;
+}

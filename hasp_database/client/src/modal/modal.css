@@ -1,0 +1,18 @@
+.modal-header {
+	color: #474747;
+    background-color: #cdcdcd;
+    text-shadow: 2px 4px 8px #6f6f6f;
+}
+
+.modal-body {
+	color: #696969;	
+}
+
+.modal-content {
+	background-color: #f5f5f5;	
+}
+
+.modal-body {
+	text-align: right;
+	padding-right: 120px;
+}

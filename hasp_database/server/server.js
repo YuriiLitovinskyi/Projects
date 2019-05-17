@@ -22,9 +22,9 @@ let HaspInfo = require("./model/hasp");
 app.post("/hasp", function(req, res) {
 	let hasp = new HaspInfo();
 	//hasp.dateCreated = Date.now;
-	hasp.company.name = req.body.company.name;
-	hasp.company.city = req.body.company.city;
-	hasp.company.phone = req.body.company.phone;
+	hasp.name = req.body.name;
+	hasp.city = req.body.city;
+	hasp.phone = req.body.phone;
 	hasp.serial = req.body.serial;
 	hasp.soft = req.body.soft;
 	hasp.numberOfKeys = req.body.numberOfKeys;

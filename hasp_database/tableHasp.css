@@ -1,0 +1,18 @@
+.btnEdit {
+	color: green;
+	cursor: pointer;	
+}
+.btnEdit:hover {
+	font-size: 1.3em;
+	opacity: 0.8;
+	}
+
+.btnDelete {
+	color: tomato;
+	cursor: pointer;
+}
+
+.btnDelete:hover {
+	font-size: 1.3em;
+	opacity: 0.8;
+	}

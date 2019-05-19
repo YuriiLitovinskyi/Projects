@@ -48,6 +48,15 @@ class App extends React.Component {
           console.log(ppkData1[0].radio);
           console.log(ppkData1[0].adapters);
           console.log(ppkData1[0].wsensors);
+
+           
+    console.log("wsensor1 connection: " + ppkData1[0].wsensors[11].conn);
+    console.log("wsensor1 door: " + ppkData1[0].wsensors[11].door);
+     console.log("adapter1 power: " + ppkData1[0].adapters[1].power);
+
+         //console.log(Object.keys(this.state.ppks.wsensors));
+     
+          
       })
       .catch((err) => {
         console.log(err);        
@@ -59,6 +68,10 @@ class App extends React.Component {
 
     let ppkData = Object.values(this.state.ppks);
     let ppk = Object.keys(this.state.ppks);
+
+   
+
+   
 
    return (
     <div className="App">
@@ -132,12 +145,17 @@ class App extends React.Component {
 
 
 
+
+
+
           
           </div>
           )
       })}
       </ul>
 
+
+            
 
     </div>
   );

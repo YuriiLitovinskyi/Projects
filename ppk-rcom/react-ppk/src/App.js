@@ -115,7 +115,7 @@ class App extends React.Component {
        type="submit">Show current info
      </button>
 
-      <h2> My Devises:</h2>
+      <h2> My Devices:</h2>
       {ppk.map((item, index) => {
         return (
           
@@ -132,16 +132,16 @@ class App extends React.Component {
         return (
           <div key={index + 1}>
 		  <li style={{backgroundColor: '#dbb1b1', borderRadius: 17}}>PPK Number: {ppk[index]}</li>
-          <li>PPK Model: {item.model === "8l" ? "Dunay-8L" : item.model === "4l" ? "Dunay-4L" : "Unknown device"}</li>
-          <li style={{ backgroundColor: item.online === 0 ? "red" : "green" }}>Current Status: {item.online === 0 ? "offline" : item.online === 1 ? "online" : "No info"}</li>
-          <li>220V: {this.ppkCurrentState(item.power)}</li>
-          <li>AK Battery: {this.ppkCurrentState(item.accum)}</li>
-          <li>Tamper: {item.door === 0 ? "Opened" : item.door === 1 ? "Closed" : "No info"}</li>
+          <li style={{ color: "#0d19a5"}}>PPK Model: {item.model === "8l" ? "Dunay-8L" : item.model === "4l" ? "Dunay-4L" : "Unknown device"}</li>
+          <li style={{ color: item.online === 0 ? "red" : item.online === 1 ? "green" : "grey" }}>Current Status: {item.online === 0 ? "offline" : item.online === 1 ? "online" : "No info"}</li>
+          <li style={{ color: item.power === 0 ? "red" : item.power === 1 ? "green" : "grey" }}>220V: {this.ppkCurrentState(item.power)}</li>
+          <li style={{ color: item.accum === 0 ? "red" : item.accum === 1 ? "green" : "grey" }}>Accumulator Battery: {this.ppkCurrentState(item.accum)}</li>
+          <li style={{ color: item.door === 0 ? "red" : item.door === 1 ? "green" : "grey" }}>Tamper: {item.door === 0 ? "Opened" : item.door === 1 ? "Closed" : "No info"}</li>
           
-          <li>Group 1: {item.groups[1] === 0 ? "Disarmed" : item.groups[1] === 1 ? "Armed" : "No info"}</li>
-          <li>Group 2: {item.groups[2] === 0 ? "Disarmed" : item.groups[2] === 1 ? "Armed" : "No info"}</li>
-          <li>Group 3: {item.groups[3] === 0 ? "Disarmed" : item.groups[3] === 1 ? "Armed" : "No info"}</li>
-          <li>Group 4: {item.groups[4] === 0 ? "Disarmed" : item.groups[4] === 1 ? "Armed" : "No info"}</li>
+          <li style={{ color: item.groups[1] === 1 ? "red" : item.groups[1] === 0 ? "green" : "grey" }}>Group 1: {item.groups[1] === 0 ? "Disarmed" : item.groups[1] === 1 ? "Armed" : "No info"}</li>
+          <li style={{ color: item.groups[2] === 1 ? "red" : item.groups[2] === 0 ? "green" : "grey" }}>Group 2: {item.groups[2] === 0 ? "Disarmed" : item.groups[2] === 1 ? "Armed" : "No info"}</li>
+          <li style={{ color: item.groups[3] === 1 ? "red" : item.groups[3] === 0 ? "green" : "grey" }}>Group 3: {item.groups[3] === 0 ? "Disarmed" : item.groups[3] === 1 ? "Armed" : "No info"}</li>
+          <li style={{ color: item.groups[4] === 1 ? "red" : item.groups[4] === 0 ? "green" : "grey" }}>Group 4: {item.groups[4] === 0 ? "Disarmed" : item.groups[4] === 1 ? "Armed" : "No info"}</li>
           
           <li>Zone 1: {this.zonesCurrentState(item.lines[1])}</li>
           <li>Zone 2: {this.zonesCurrentState(item.lines[2])}</li>
@@ -160,9 +160,9 @@ class App extends React.Component {
           <li>Zone 15: {this.zonesCurrentState(item.lines[15])}</li>
           <li>Zone 16: {this.zonesCurrentState(item.lines[16])}</li>
 
-          <li>UK2: {this.ppkCurrentState(item.uk2)}</li>
-          <li>UK3: {this.ppkCurrentState(item.uk3)}</li>
-          <li>Relay: {this.ppkCurrentState(item.relay2)}</li>
+          <li style={{ color: item.uk2 === 1 ? "blue" : item.uk2 === 0 ? "green" : "grey" }}>UK2: {this.ppkCurrentState(item.uk2)}</li>
+          <li style={{ color: item.uk3 === 1 ? "blue" : item.uk3 === 0 ? "green" : "grey" }}>UK3: {this.ppkCurrentState(item.uk3)}</li>
+          <li style={{ color: item.relay2 === 1 ? "blue" : item.relay2 === 0 ? "green" : "grey" }}>Relay: {this.ppkCurrentState(item.relay2)}</li>
           <br /> 
 
 

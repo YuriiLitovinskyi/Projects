@@ -9,7 +9,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      ppks: []
+      ppks: [],
+      alert: false
     }
 
     this.loadPpkInfo = this.loadPpkInfo.bind(this);	
@@ -59,8 +60,12 @@ class App extends React.Component {
      console.log("adapter1 power: " + ppkData1[1].adapters[1].power);
 
          //console.log(Object.keys(this.state.ppks.wsensors));
-     
-          
+        
+          if (ppkData1[1].adapters[1].power === 0){
+             this.setState({
+                  alert: true
+               })
+     }
       })
       .catch((err) => {
         console.log(err);        
@@ -73,7 +78,7 @@ class App extends React.Component {
 		   case 88:
 		     return "Norm";		     
 		   case 80:
-		     return "Breaked";
+		     return "Breaked";         
            case 112:
              return "Shorted";	
            case 120:
@@ -174,6 +179,7 @@ class App extends React.Component {
 
    return (
     <div className="App">
+     {this.state.alert ?  <p>Alert!</p> : <p>No alert!</p> }
      
  <button 
        className="btn btn-primary btn-front" 
@@ -493,7 +499,7 @@ class App extends React.Component {
 		  
 		  <br /> 
 
-
+   
 
 
 

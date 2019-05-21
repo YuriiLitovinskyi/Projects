@@ -31,3 +31,41 @@
     transform: rotate(360deg);
   }
 }
+
+
+.norm-zone {
+	color: green;
+}
+
+.breaked-zone {
+	color: red;	
+}
+
+.shorted-zone {
+	color: red;
+}
+
+.faulted-zone {
+	color: #ead917;
+}
+
+.no-info-zone {
+	color: grey;
+	/*visibility: hidden;*/
+}
+
+.red {
+	color: red;
+}
+
+.green {
+	color: green;
+}
+
+.grey {
+	color: grey;
+}
+
+.blue {
+	color: #0d19a5;
+}

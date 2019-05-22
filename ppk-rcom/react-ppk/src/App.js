@@ -1,6 +1,10 @@
 import React from 'react';
 import axios from "axios";
 import './App.css';
+import Alert from 'react-s-alert';
+
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 
 
 class App extends React.Component {
@@ -14,6 +18,7 @@ class App extends React.Component {
     }
 
     this.loadPpkInfo = this.loadPpkInfo.bind(this);	
+	this.zonesCurrentState = this.zonesCurrentState.bind(this);
   }
 
     componentDidMount(){     
@@ -59,33 +64,39 @@ class App extends React.Component {
     console.log("wsensor1 door: " + ppkData1[1].wsensors[11].door);
      console.log("adapter1 power: " + ppkData1[1].adapters[1].power);
 
-         //console.log(Object.keys(this.state.ppks.wsensors));
-        
-          if (ppkData1[1].adapters[1].power === 0){
-             this.setState({
-                  alert: true
-               })
-     }
+         		  
+		
       })
       .catch((err) => {
         console.log(err);        
       }); 
       
   }
+  
+   alertHandler(){	   
+	   Alert.error('ALARM!', {
+		    //preserveContext: true,
+            position: 'top-left',
+            effect: 'stackslide',
+			beep: false,
+            timeout: 2000
+        }); 
+   }
 
  zonesCurrentState(state){
 	   switch(state){
 		   case 88:
 		     return "Norm";		     
 		   case 80:
-		     return "Breaked";         
+		     this.alertHandler(); 
+			 return "Breaked!";            		 
            case 112:
              return "Shorted";	
            case 120:
              return "Faulted";		   
 		   default:
 		     return "No info";			 
-	   }
+	   }	   
    }
    
    ppkCurrentState(state) {
@@ -165,6 +176,8 @@ class App extends React.Component {
 	   }
    }
    
+  
+   
    
  render(){  
 
@@ -178,8 +191,7 @@ class App extends React.Component {
    
 
    return (
-    <div className="App">
-     {this.state.alert ?  <p>Alert!</p> : <p>No alert!</p> }
+    <div className="App">     
      
  <button 
        className="btn btn-primary btn-front" 
@@ -187,15 +199,7 @@ class App extends React.Component {
        type="submit">Show current info
      </button>
 
-      <h2> My Devices:</h2>
-      {ppk.map((item, index) => {
-        return (
-          
-          <div key={index}>My device #{index+1}: {item}</div>    
-        
-          )
-        
-      })}
+      <h2> My Devices:</h2>     
      
 
       <ul>Current info:
@@ -205,7 +209,7 @@ class App extends React.Component {
         return (
           <div key={index + 1}>
 		  <li style={{backgroundColor: "#dbb1b1", borderRadius: 17, fontWeight: "bold"}}>PPK Number: {ppk[index]}</li>
-          <li style={{ color: "#0d19a5"}}>PPK Model: {this.ppkModel(item.model)}</li>
+          <li style={{ color: "#0d19a5"}}><i className="fas fa-shield-alt"></i> PPK Model: {this.ppkModel(item.model)}</li>
           <li className={ item.online === 0 ? "red" : item.online === 1 ? "green" : "grey" }>Current Status: {this.ppkOnlineStatus(item.online)}</li>
           <li className={ item.power === 0 ? "red" : item.power === 1 ? "green" : "grey" }>220V: {this.ppkCurrentState(item.power)}</li>
           <li className={ item.accum === 0 ? "red" : item.accum === 1 ? "green" : "grey" }>Accumulator Battery: {this.ppkCurrentState(item.accum)}</li>
@@ -522,10 +526,23 @@ class App extends React.Component {
 	
       </ul>
 	  
-	
+	<table className="table table-borderless table-sm">
+  <thead>
+    <tr>      
+      <th scope="col">Name</th>
+      <th scope="col">Event</th>      
+    </tr>
+  </thead>
+  <tbody>
+    <tr>      
+      <td>Mark</td>
+      <td>Otto</td>      
+    </tr>   
+  </tbody>
+</table>
 
             
-
+<Alert stack={{limit: 3}} beep='./alert-sound/1.mp3' />
     </div>
   );
 }

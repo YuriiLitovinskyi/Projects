@@ -69,3 +69,17 @@
 .blue {
 	color: #0d19a5;
 }
+
+.table {
+	max-width: 50vh;
+	margin: auto;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 600px;
+  margin: auto;
+  background-color: #e8f0ff;
+}

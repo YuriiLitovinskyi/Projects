@@ -75,10 +75,10 @@ class App extends React.Component {
   
    alertHandler(){	   
 	   Alert.error('ALARM!', {
-		    //preserveContext: true,
+		        //preserveContext: true,
             position: 'top-left',
             effect: 'stackslide',
-			beep: false,
+			      beep: false,
             timeout: 2000
         }); 
    }
@@ -207,7 +207,7 @@ class App extends React.Component {
       {ppkData.map((item, index) => {	
        if (item.model === "8l")	{  
         return (
-          <div key={index + 1}>
+          <div className="ppkCard" key={index + 1}>
 		  <li style={{backgroundColor: "#dbb1b1", borderRadius: 17, fontWeight: "bold"}}>PPK Number: {ppk[index]}</li>
           <li style={{ color: "#0d19a5"}}><i className="fas fa-shield-alt"></i> PPK Model: {this.ppkModel(item.model)}</li>
           <li className={ item.online === 0 ? "red" : item.online === 1 ? "green" : "grey" }>Current Status: {this.ppkOnlineStatus(item.online)}</li>
@@ -299,10 +299,10 @@ class App extends React.Component {
           <li className={ item.door === 0 ? "red" : item.door === 1 ? "green" : "grey" }>Tamper: {this.ppkAdapterTamperState(item.door)}</li>
           
 		  {/*Groups*/}
-          <li className={item.groups[1] === 0 ? "green" : item.groups[1] === 1 ? "red" : "grey" }>Group 1: {this.ppsGroupState(item.groups[1])}</li>
-          <li className={item.groups[2] === 0 ? "green" : item.groups[2] === 1 ? "red" : "grey" }>Group 2: {this.ppsGroupState(item.groups[2])}</li>
-          <li className={item.groups[3] === 0 ? "green" : item.groups[3] === 1 ? "red" : "grey" }>Group 3: {this.ppsGroupState(item.groups[3])}</li>
-          <li className={item.groups[4] === 0 ? "green" : item.groups[4] === 1 ? "red" : "grey" }>Group 4: {this.ppsGroupState(item.groups[4])}</li>
+      <li className={item.groups[1] === 0 ? "green" : item.groups[1] === 1 ? "red" : "grey" }>Group 1: {this.ppsGroupState(item.groups[1])}</li>
+      <li className={item.groups[2] === 0 ? "green" : item.groups[2] === 1 ? "red" : "grey" }>Group 2: {this.ppsGroupState(item.groups[2])}</li>
+      <li className={item.groups[3] === 0 ? "green" : item.groups[3] === 1 ? "red" : "grey" }>Group 3: {this.ppsGroupState(item.groups[3])}</li>
+      <li className={item.groups[4] === 0 ? "green" : item.groups[4] === 1 ? "red" : "grey" }>Group 4: {this.ppsGroupState(item.groups[4])}</li>
 		  <li className={item.groups[5] === 0 ? "green" : item.groups[5] === 1 ? "red" : "grey" }>Group 5: {this.ppsGroupState(item.groups[5])}</li>
 		  <li className={item.groups[6] === 0 ? "green" : item.groups[6] === 1 ? "red" : "grey" }>Group 6: {this.ppsGroupState(item.groups[6])}</li>
 		  <li className={item.groups[7] === 0 ? "green" : item.groups[7] === 1 ? "red" : "grey" }>Group 7: {this.ppsGroupState(item.groups[7])}</li>

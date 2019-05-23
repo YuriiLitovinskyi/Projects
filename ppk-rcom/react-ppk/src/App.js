@@ -12,13 +12,19 @@ class App extends React.Component {
   constructor(props){
     super(props);
 
-    this.state = {
-      ppks: [],
-      alert: false,
-	  ipState: "",
-	  portState: "",
-	  userNameState: "",
-	  passwordState: ""
+if (localStorage.getItem("formData")) {
+  this.state = JSON.parse(localStorage.getItem("formData"));
+} else {
+  this.state = {
+     ppks: [],
+     alert: false,
+    ipState: "",
+    portState: "",
+    userNameState: "",
+    passwordState: "",
+    refreshButttonDisabled: true
+}
+    
     }
 
     this.loadPpkInfo = this.loadPpkInfo.bind(this);	
@@ -36,19 +42,27 @@ class App extends React.Component {
 
   //Event Handlers
   ipHandler = (event) => {
-	  this.setState({ipState: event.target.value})
+	  this.setState({ipState: event.target.value}, () => {
+      localStorage.setItem("formData", JSON.stringify(this.state));
+    })
   }
   
   portHandler = (event) => {
-	  this.setState({portState: event.target.value})
+	  this.setState({portState: event.target.value}, () => {
+      localStorage.setItem("formData", JSON.stringify(this.state));
+    })
   }
   
   userNameHandler = (event) => {
-	  this.setState({userNameState: event.target.value})
+	  this.setState({userNameState: event.target.value}, () => {
+      localStorage.setItem("formData", JSON.stringify(this.state));
+    })
   }
   
   passwordHandler = (event) => {
-	  this.setState({passwordState: event.target.value})
+	  this.setState({passwordState: event.target.value}, () => {
+      localStorage.setItem("formData", JSON.stringify(this.state));
+    })
   }
 
   loadPpkInfo(e){
@@ -72,7 +86,8 @@ class App extends React.Component {
       .then((ppks) => {
         console.log(ppks.data);
         this.setState({
-          ppks: ppks.data.data
+          ppks: ppks.data.data,
+          refreshButttonDisabled: false
         });
         console.log(this.state.ppks);
         console.log(Object.keys(this.state.ppks));
@@ -219,7 +234,7 @@ class App extends React.Component {
 
    return (
     <div className="App">   
-      <form onSubmit={this.loadPpkInfo}>
+      <form className="formInput" onSubmit={this.loadPpkInfo}>
   <div className="form-row">
     <div className="col">
       <input type="text" minLength="7" maxLength="15" className="form-control form-control-sm" placeholder="xxx.xxx.xxx.xxx" required value={this.state.ipState} onChange={this.ipHandler.bind(this)}/>
@@ -232,7 +247,7 @@ class App extends React.Component {
       <input type="text" className="form-control form-control-sm" placeholder="Username" maxLength="20" required value={this.state.userNameState} onChange={this.userNameHandler.bind(this)} />
     </div>
 	<div className="col">
-      <input type="password" className="form-control form-control-sm" placeholder="Password" maxLength="20" required value={this.state.passwordState} onChange={this.passwordHandler.bind(this)} />
+      <input type="password" className="form-control form-control-sm" placeholder="Password" maxLength="20" required autoComplete="password" value={this.state.passwordState} onChange={this.passwordHandler.bind(this)} />
     </div>
   </div>
   <div className="col-auto my-1">
@@ -242,6 +257,7 @@ class App extends React.Component {
      
  <button 
        className="btn btn-primary btn-front" 
+       disabled={this.state.refreshButttonDisabled} 
        onClick={this.loadPpkInfo}
        type="submit">Show current info
      </button>

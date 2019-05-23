@@ -7,12 +7,12 @@
 h2 {
 	color: #6c7a89;
 	margin: 10px;
-	text-shadow: 3px 3px 7px #abb7b7;
+	text-shadow: 5px 5px 10px #888888;
 }
 
 button {
 	margin: 10px;
-	box-shadow: 3px 3px 7px #abb7b7;
+	box-shadow: 5px 5px 10px #888888;
 }
 
 
@@ -100,4 +100,16 @@ li:hover {
   transform:scale(1.1,1.1);
   -webkit-transform:scale(1.1,1.1);
   -moz-transform:scale(1.1,1.1);
+}
+
+.formInput {
+	max-width: 90vh;
+	margin: auto;
+}
+
+.form-control {
+	border-radius: 5px;
+	background-color: #404040;
+	color: white;
+	box-shadow: 5px 5px 10px #888888;
 }

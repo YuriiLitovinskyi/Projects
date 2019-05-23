@@ -14,7 +14,11 @@ class App extends React.Component {
 
     this.state = {
       ppks: [],
-      alert: false
+      alert: false,
+	  ipState: "",
+	  portState: "",
+	  userNameState: "",
+	  passwordState: ""
     }
 
     this.loadPpkInfo = this.loadPpkInfo.bind(this);	
@@ -23,23 +27,46 @@ class App extends React.Component {
 
     componentDidMount(){     
 	  //this.intervalId = setInterval(() => this.loadPpkInfo(), 5000);
-	   this.loadPpkInfo();
+	   //this.loadPpkInfo();
     }
 	
 	componentWillUnmount(){
 		//clearInterval(this.intervalId);
 	}
 
-  loadPpkInfo(){
-    axios.post("http://194.187.110.62:15004/api/devices/state/", {}, {
+  //Event Handlers
+  ipHandler = (event) => {
+	  this.setState({ipState: event.target.value})
+  }
+  
+  portHandler = (event) => {
+	  this.setState({portState: event.target.value})
+  }
+  
+  userNameHandler = (event) => {
+	  this.setState({userNameState: event.target.value})
+  }
+  
+  passwordHandler = (event) => {
+	  this.setState({passwordState: event.target.value})
+  }
+
+  loadPpkInfo(e){
+	  e.preventDefault();
+	  const ipAddress = this.state.ipState;
+	  const port = this.state.portState;
+	  const userName = this.state.userNameState;
+	  const pass = this.state.passwordState;
+	  
+    axios.post("http://"+ipAddress+":"+port+"/api/devices/state/", {}, {
        headers: {
         "Access-Control-Allow-Origin": "*", 
         "Access-Control-Allow-Method": "POST",		
         "Content-Type": "application/json"                 
       },
       auth: {
-        username: "Yurii",
-        password: 123456
+        username: userName,
+        password: pass
       }            
     })
       .then((ppks) => {
@@ -191,7 +218,27 @@ class App extends React.Component {
    
 
    return (
-    <div className="App">     
+    <div className="App">   
+      <form onSubmit={this.loadPpkInfo}>
+  <div className="form-row">
+    <div className="col">
+      <input type="text" minLength="7" maxLength="15" className="form-control form-control-sm" placeholder="xxx.xxx.xxx.xxx" required value={this.state.ipState} onChange={this.ipHandler.bind(this)}/>
+    </div>
+    <div className="col">
+      <input type="number" className="form-control form-control-sm" placeholder="Port" required  error={this.state.numberOfKeys > 65535 ? 'Enter a number less than 65535' : ''}
+                     max={65535} value={this.state.portState} onChange={this.portHandler.bind(this)} />
+    </div>
+    <div className="col">
+      <input type="text" className="form-control form-control-sm" placeholder="Username" maxLength="20" required value={this.state.userNameState} onChange={this.userNameHandler.bind(this)} />
+    </div>
+	<div className="col">
+      <input type="password" className="form-control form-control-sm" placeholder="Password" maxLength="20" required value={this.state.passwordState} onChange={this.passwordHandler.bind(this)} />
+    </div>
+  </div>
+  <div className="col-auto my-1">
+      <button type="submit" className="btn btn-primary">Submit</button>
+    </div>
+</form>
      
  <button 
        className="btn btn-primary btn-front" 
@@ -202,28 +249,28 @@ class App extends React.Component {
       <h2> My Devices:</h2>     
      
 
-      <ul>Current info:
+      <ul>
 	  
       {ppkData.map((item, index) => {	
        if (item.model === "8l")	{  
         return (
           <div className="ppkCard" key={index + 1}>
-		  <li style={{backgroundColor: "#dbb1b1", borderRadius: 17, fontWeight: "bold"}}>PPK Number: {ppk[index]}</li>
-          <li style={{ color: "#0d19a5"}}><i className="fas fa-shield-alt"></i> PPK Model: {this.ppkModel(item.model)}</li>
+		  <li className="ppkName">PPK Number: {ppk[index]}</li>
+          <li style={{ color: "#0d19a5", fontWeight: "bold"}}><i className="fas fa-shield-alt"></i> PPK Model: {this.ppkModel(item.model)}</li>
           <li className={ item.online === 0 ? "red" : item.online === 1 ? "green" : "grey" }>Current Status: {this.ppkOnlineStatus(item.online)}</li>
           <li className={ item.power === 0 ? "red" : item.power === 1 ? "green" : "grey" }>220V: {this.ppkCurrentState(item.power)}</li>
           <li className={ item.accum === 0 ? "red" : item.accum === 1 ? "green" : "grey" }>Accumulator Battery: {this.ppkCurrentState(item.accum)}</li>
           <li className={ item.door === 0 ? "red" : item.door === 1 ? "green" : "grey" }>Tamper: {this.ppkAdapterTamperState(item.door)}</li>
 		  
 		  {/*Groups*/}
-          <li className={item.groups[1] === 0 ? "green" : item.groups[1] === 1 ? "red" : "grey" }>Group 1: {this.ppsGroupState(item.groups[1])}</li>
-          <li className={item.groups[2] === 0 ? "green" : item.groups[2] === 1 ? "red" : "grey" }>Group 2: {this.ppsGroupState(item.groups[2])}</li>
-          <li className={item.groups[3] === 0 ? "green" : item.groups[3] === 1 ? "red" : "grey" }>Group 3: {this.ppsGroupState(item.groups[3])}</li>
-          <li className={item.groups[4] === 0 ? "green" : item.groups[4] === 1 ? "red" : "grey" }>Group 4: {this.ppsGroupState(item.groups[4])}</li>
-		  <li className={item.groups[5] === 0 ? "green" : item.groups[5] === 1 ? "red" : "grey" }>Group 5: {this.ppsGroupState(item.groups[5])}</li>
-		  <li className={item.groups[6] === 0 ? "green" : item.groups[6] === 1 ? "red" : "grey" }>Group 6: {this.ppsGroupState(item.groups[6])}</li>
-		  <li className={item.groups[7] === 0 ? "green" : item.groups[7] === 1 ? "red" : "grey" }>Group 7: {this.ppsGroupState(item.groups[7])}</li>
-		  <li className={item.groups[8] === 0 ? "green" : item.groups[8] === 1 ? "red" : "grey" }>Group 8: {this.ppsGroupState(item.groups[8])}</li>
+          <li className={item.groups[1] === 0 ? "green" : item.groups[1] === 1 ? "blue" : "grey" }>Group 1: {this.ppsGroupState(item.groups[1])}</li>
+          <li className={item.groups[2] === 0 ? "green" : item.groups[2] === 1 ? "blue" : "grey" }>Group 2: {this.ppsGroupState(item.groups[2])}</li>
+          <li className={item.groups[3] === 0 ? "green" : item.groups[3] === 1 ? "blue" : "grey" }>Group 3: {this.ppsGroupState(item.groups[3])}</li>
+          <li className={item.groups[4] === 0 ? "green" : item.groups[4] === 1 ? "blue" : "grey" }>Group 4: {this.ppsGroupState(item.groups[4])}</li>
+		  <li className={item.groups[5] === 0 ? "green" : item.groups[5] === 1 ? "blue" : "grey" }>Group 5: {this.ppsGroupState(item.groups[5])}</li>
+		  <li className={item.groups[6] === 0 ? "green" : item.groups[6] === 1 ? "blue" : "grey" }>Group 6: {this.ppsGroupState(item.groups[6])}</li>
+		  <li className={item.groups[7] === 0 ? "green" : item.groups[7] === 1 ? "blue" : "grey" }>Group 7: {this.ppsGroupState(item.groups[7])}</li>
+		  <li className={item.groups[8] === 0 ? "green" : item.groups[8] === 1 ? "blue" : "grey" }>Group 8: {this.ppsGroupState(item.groups[8])}</li>
 		            
 		  {/*Zones*/}
           <li className={item.lines[1] === 88 ? "norm-zone" : 
@@ -290,31 +337,31 @@ class App extends React.Component {
           </div>
      ) } else if (item.model === "4l") {
 	 return (
-          <div key={index + 1}>
-		  <li style={{backgroundColor: "#dbb1b1", borderRadius: 17, fontWeight: "bold"}}>PPK Number: {ppk[index]}</li>
-          <li style={{ color: "#0d19a5"}}>PPK Model: {this.ppkModel(item.model)}</li>
+          <div className="ppkCard" key={index + 1}>
+		  <li className="ppkName">PPK Number: {ppk[index]}</li>
+          <li style={{ color: "#0d19a5", fontWeight: "bold"}}><i className="fas fa-shield-alt"></i> PPK Model: {this.ppkModel(item.model)}</li>
           <li className={ item.online === 0 ? "red" : item.online === 1 ? "green" : "grey" }>Current Status: {this.ppkOnlineStatus(item.online)}</li>
           <li className={ item.power === 0 ? "red" : item.power === 1 ? "green" : "grey" }>220V: {this.ppkCurrentState(item.power)}</li>
           <li className={ item.accum === 0 ? "red" : item.accum === 1 ? "green" : "grey" }>Accumulator Battery: {this.ppkCurrentState(item.accum)}</li>
           <li className={ item.door === 0 ? "red" : item.door === 1 ? "green" : "grey" }>Tamper: {this.ppkAdapterTamperState(item.door)}</li>
           
 		  {/*Groups*/}
-      <li className={item.groups[1] === 0 ? "green" : item.groups[1] === 1 ? "red" : "grey" }>Group 1: {this.ppsGroupState(item.groups[1])}</li>
-      <li className={item.groups[2] === 0 ? "green" : item.groups[2] === 1 ? "red" : "grey" }>Group 2: {this.ppsGroupState(item.groups[2])}</li>
-      <li className={item.groups[3] === 0 ? "green" : item.groups[3] === 1 ? "red" : "grey" }>Group 3: {this.ppsGroupState(item.groups[3])}</li>
-      <li className={item.groups[4] === 0 ? "green" : item.groups[4] === 1 ? "red" : "grey" }>Group 4: {this.ppsGroupState(item.groups[4])}</li>
-		  <li className={item.groups[5] === 0 ? "green" : item.groups[5] === 1 ? "red" : "grey" }>Group 5: {this.ppsGroupState(item.groups[5])}</li>
-		  <li className={item.groups[6] === 0 ? "green" : item.groups[6] === 1 ? "red" : "grey" }>Group 6: {this.ppsGroupState(item.groups[6])}</li>
-		  <li className={item.groups[7] === 0 ? "green" : item.groups[7] === 1 ? "red" : "grey" }>Group 7: {this.ppsGroupState(item.groups[7])}</li>
-		  <li className={item.groups[8] === 0 ? "green" : item.groups[8] === 1 ? "red" : "grey" }>Group 8: {this.ppsGroupState(item.groups[8])}</li>
-		  <li className={item.groups[9] === 0 ? "green" : item.groups[9] === 1 ? "red" : "grey" }>Group 9: {this.ppsGroupState(item.groups[9])}</li>
-		  <li className={item.groups[10] === 0 ? "green" : item.groups[10] === 1 ? "red" : "grey" }>Group 10: {this.ppsGroupState(item.groups[10])}</li>
-		  <li className={item.groups[11] === 0 ? "green" : item.groups[11] === 1 ? "red" : "grey" }>Group 11: {this.ppsGroupState(item.groups[11])}</li>
-		  <li className={item.groups[12] === 0 ? "green" : item.groups[12] === 1 ? "red" : "grey" }>Group 12: {this.ppsGroupState(item.groups[12])}</li>
-		  <li className={item.groups[13] === 0 ? "green" : item.groups[13] === 1 ? "red" : "grey" }>Group 13: {this.ppsGroupState(item.groups[13])}</li>
-		  <li className={item.groups[14] === 0 ? "green" : item.groups[14] === 1 ? "red" : "grey" }>Group 14: {this.ppsGroupState(item.groups[14])}</li>
-		  <li className={item.groups[15] === 0 ? "green" : item.groups[15] === 1 ? "red" : "grey" }>Group 15: {this.ppsGroupState(item.groups[15])}</li>
-		  <li className={item.groups[16] === 0 ? "green" : item.groups[16] === 1 ? "red" : "grey" }>Group 16: {this.ppsGroupState(item.groups[16])}</li>
+      <li className={item.groups[1] === 0 ? "green" : item.groups[1] === 1 ? "blue" : "grey" }>Group 1: {this.ppsGroupState(item.groups[1])}</li>
+      <li className={item.groups[2] === 0 ? "green" : item.groups[2] === 1 ? "blue" : "grey" }>Group 2: {this.ppsGroupState(item.groups[2])}</li>
+      <li className={item.groups[3] === 0 ? "green" : item.groups[3] === 1 ? "blue" : "grey" }>Group 3: {this.ppsGroupState(item.groups[3])}</li>
+      <li className={item.groups[4] === 0 ? "green" : item.groups[4] === 1 ? "blue" : "grey" }>Group 4: {this.ppsGroupState(item.groups[4])}</li>
+		  <li className={item.groups[5] === 0 ? "green" : item.groups[5] === 1 ? "blue" : "grey" }>Group 5: {this.ppsGroupState(item.groups[5])}</li>
+		  <li className={item.groups[6] === 0 ? "green" : item.groups[6] === 1 ? "blue" : "grey" }>Group 6: {this.ppsGroupState(item.groups[6])}</li>
+		  <li className={item.groups[7] === 0 ? "green" : item.groups[7] === 1 ? "blue" : "grey" }>Group 7: {this.ppsGroupState(item.groups[7])}</li>
+		  <li className={item.groups[8] === 0 ? "green" : item.groups[8] === 1 ? "blue" : "grey" }>Group 8: {this.ppsGroupState(item.groups[8])}</li>
+		  <li className={item.groups[9] === 0 ? "green" : item.groups[9] === 1 ? "blue" : "grey" }>Group 9: {this.ppsGroupState(item.groups[9])}</li>
+		  <li className={item.groups[10] === 0 ? "green" : item.groups[10] === 1 ? "blue" : "grey" }>Group 10: {this.ppsGroupState(item.groups[10])}</li>
+		  <li className={item.groups[11] === 0 ? "green" : item.groups[11] === 1 ? "blue" : "grey" }>Group 11: {this.ppsGroupState(item.groups[11])}</li>
+		  <li className={item.groups[12] === 0 ? "green" : item.groups[12] === 1 ? "blue" : "grey" }>Group 12: {this.ppsGroupState(item.groups[12])}</li>
+		  <li className={item.groups[13] === 0 ? "green" : item.groups[13] === 1 ? "blue" : "grey" }>Group 13: {this.ppsGroupState(item.groups[13])}</li>
+		  <li className={item.groups[14] === 0 ? "green" : item.groups[14] === 1 ? "blue" : "grey" }>Group 14: {this.ppsGroupState(item.groups[14])}</li>
+		  <li className={item.groups[15] === 0 ? "green" : item.groups[15] === 1 ? "blue" : "grey" }>Group 15: {this.ppsGroupState(item.groups[15])}</li>
+		  <li className={item.groups[16] === 0 ? "green" : item.groups[16] === 1 ? "blue" : "grey" }>Group 16: {this.ppsGroupState(item.groups[16])}</li>
           
 		  {/*Zones*/}
           <li className={item.lines[1] === 88 ? "norm-zone" : 
@@ -524,22 +571,8 @@ class App extends React.Component {
 	  
 	  
 	
-      </ul>
-	  
-	<table className="table table-borderless table-sm">
-  <thead>
-    <tr>      
-      <th scope="col">Name</th>
-      <th scope="col">Event</th>      
-    </tr>
-  </thead>
-  <tbody>
-    <tr>      
-      <td>Mark</td>
-      <td>Otto</td>      
-    </tr>   
-  </tbody>
-</table>
+      </ul>	  
+	
 
             
 <Alert stack={{limit: 3}} beep='./alert-sound/1.mp3' />

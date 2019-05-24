@@ -65,7 +65,8 @@ button {
   letter-spacing: 0.5px;
   word-spacing: 1px;
   text-shadow: 3px 3px 7px #abb7b7;
-  box-shadow: 5px 5px 20px #888888;
+  box-shadow: 7px 7px 35px #888888;
+  border: 3px solid #abb7b7;
 }
 
 li {
@@ -73,7 +74,7 @@ li {
 	font-family: sans-serif;
 }
 
-.ppkName {
+.ppkNumber {
 	background-color: #67809f;
 	color: white;
 	border-radius: 17px;
@@ -83,7 +84,7 @@ li {
 	margin-bottom: 10px;
 	padding: 4px;
 	font-size: 18px;
-	box-shadow: 3px 3px 7px #abb7b7;
+	box-shadow: 6px 6px 7px #abb7b7;
 }
 
 .ppkModel {
@@ -112,4 +113,22 @@ li:hover {
 	background-color: #404040;
 	color: white;
 	box-shadow: 5px 5px 10px #888888;
+}
+
+label {
+	font-family: sans-serif;
+	color: #6c7a89;	
+	text-shadow: 3px 3px 5px #abb7b7;
+	font-weight: bold;
+}
+
+@media screen and (max-width: 992px) {
+    .ppkCard {
+		width: 85%;
+	}
+	
+	.ppkName {
+		width: 80%;
+	}
+  
 }

@@ -12,24 +12,7 @@ export default class App extends Component<Props> {
 	  users: []
     }
   }
-/*
-  componentDidMount(){
-    return fetch("https://jsonplaceholder.typicode.com/users")
-	.then((response) => response.json())
-	.then((responseJSON) => {
-		console.log(responseJSON)
-		this.setState({
-			isLoading: false,
-			users: responseJSON
-		})
-	    }
-		)
-		.catch((err) => {
-			console.log(err);
-		})
-  }
-  */
-  
+ 
 
 
 componentDidMount(){
@@ -38,7 +21,7 @@ componentDidMount(){
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        //"Authorization": "Basic " + Base64.encode("Yurii:123456")
+        "Authorization": "Basic " + Base64.encode("Yurii:123456")
       }
       })
 	  .then((response) => response.json())
@@ -46,7 +29,7 @@ componentDidMount(){
 		  console.log(responseJSON.data);
 		  this.setState({
 			isLoading: false,
-			ppks: responseJSON.data.data
+			ppks: responseJSON.data
 		})
 	  })      
       .catch((err) => {
@@ -58,8 +41,9 @@ componentDidMount(){
   render() {
 
     let ppkData = Object.values(this.state.ppks);
+    let ppk = Object.keys(this.state.ppks);
 
-    if(this.state.isLoading){
+    if (this.state.isLoading){
 		return(
 		  <View style={{flex: 1, padding: 40}}>
 		    <Text style={styles.welcome}>Loading...</Text>
@@ -70,20 +54,24 @@ componentDidMount(){
 
     return (
       <View style={{flex: 1, paddingTop:20}}>
-           <Text style={styles.welcome}>Welcome to React Native! Hello There!</Text> 
+           <Text style={styles.welcome}>Devices:</Text> 
 		   <ScrollView>
-		   {/*<FlatList
-		       data={this.state.users}
-			   renderItem={({item}) => <Text>{item.name}, {item.email}</Text>}
-               keyExtractor={({id}, index) => id}
-		     />
-		   */}
 		   
-		     <FlatList
+		   
+        <FlatList 
+            data={ppk}            
+            renderItem={({item}) => <Text>PPK Number: {item}</Text>}
+           keyExtractor={(index) => index}
+          />
+		    <FlatList
+          
 		       data={ppkData}
-			   renderItem={({item}) => <Text>{item.power}, {item.door}</Text>}
-               keyExtractor={(index) =>index+1}
+           numColumns={1}
+			     renderItem={({item, index}) => <Text>PPK: {ppk[index]}, Model: {item.model} Online: {item.online}, Power: {item.power}, Door: {item.door}, Battery: {item.accum}</Text>}
+           keyExtractor={({id}, index) => id}
 		     />
+         <Text>SectionList?</Text>
+         
            </ScrollView> 		   
       </View>
     );

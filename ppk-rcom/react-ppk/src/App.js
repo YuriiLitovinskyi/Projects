@@ -175,6 +175,8 @@ if (localStorage.getItem("formData")) {
 		     return "Dunay 8L";
 		   case "4l":
              return "Dunay 4L";
+           case "2l":
+             return "Dunay 2L";
            default:
              return "Unknown device";		   
 	   }
@@ -395,7 +397,7 @@ if (localStorage.getItem("formData")) {
           <br /> 
           </div>
 		  
-     ) } else if (item.model === "4l") {
+     ) } else if (item.model === "4l" || "2l") {
 	 return (
           <div className="ppkCard" key={index + 1}>
 		  <li className="ppkNumber">PPK Number: {ppk[index]}</li>

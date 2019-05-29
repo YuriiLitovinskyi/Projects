@@ -190,96 +190,96 @@ componentDidMount(){
             {ppkData.map((item, index) => { 
               if (item.model === "8l") {
                return (
-                 <View key={index + 1}>                 
-                  <Text>PPK Number: {ppk[index]}</Text>
-                  <Text>Model: {this.ppkModel(item.model)}</Text>
+                 <View style={styles.ppkCard8l} key={index + 1}>                 
+                  <Text style={styles.ppkNumber}>PPK Number: {ppk[index]}</Text>
+                  <Text style={styles.ppkModel}>Model: {this.ppkModel(item.model)}</Text>
                   <Text style={item.online === 0 ? styles.red : item.online === 1 ? styles.green : styles.grey}>Status: {this.ppkOnlineStatus(item.online)}</Text>
-                  <Text>220V: {this.ppkCurrentState(item.power)}</Text>
-                  <Text>Battery: {this.ppkCurrentState(item.accum)}</Text>
-                  <Text>Tamper: {this.ppkAdapterTamperState(item.door)}</Text>
-                  <Text>Group 1: {this.ppkGroupState(item.groups[1])}</Text>
-                  <Text>Group 2: {this.ppkGroupState(item.groups[2])}</Text>
-                  <Text>Group 3: {this.ppkGroupState(item.groups[3])}</Text>
-                  <Text>Group 4: {this.ppkGroupState(item.groups[4])}</Text>
-                  <Text>Group 5: {this.ppkGroupState(item.groups[5])}</Text>
-                  <Text>Group 6: {this.ppkGroupState(item.groups[6])}</Text>
-                  <Text>Group 7: {this.ppkGroupState(item.groups[7])}</Text>
-                  <Text>Group 8: {this.ppkGroupState(item.groups[8])}</Text>
-                  <Text>Zone 1: {this.zonesCurrentState(item.lines[1])}</Text>
-                  <Text>Zone 2: {this.zonesCurrentState(item.lines[2])}</Text>
-                  <Text>Zone 3: {this.zonesCurrentState(item.lines[3])}</Text>
-                  <Text>Zone 4: {this.zonesCurrentState(item.lines[4])}</Text>
-                  <Text>Zone 5: {this.zonesCurrentState(item.lines[5])}</Text>
-                  <Text>Zone 6: {this.zonesCurrentState(item.lines[6])}</Text>
-                  <Text>Zone 7: {this.zonesCurrentState(item.lines[7])}</Text>
-                  <Text>Zone 8: {this.zonesCurrentState(item.lines[8])}</Text>
-                  <Text>Relay: {this.ppkCurrentState(item.relay2)}</Text>
-                  <Text>UK2: {this.ppkCurrentState(item.uk2)}</Text>
-                  <Text>UK3: {this.ppkCurrentState(item.uk3)}</Text>
+                  <Text style={item.power === 0 ? styles.red : item.power === 1 ? styles.green : styles.grey}>220V: {this.ppkCurrentState(item.power)}</Text>
+                  <Text style={item.accum === 0 ? styles.red : item.accum === 1 ? styles.green : styles.grey}>Battery: {this.ppkCurrentState(item.accum)}</Text>
+                  <Text style={item.door === 0 ? styles.red : item.door === 1 ? styles.green : styles.grey}>Tamper: {this.ppkAdapterTamperState(item.door)}</Text>
+                  <Text style={item.groups[1] === 0 ? styles.green : item.groups[1] === 1 ? styles.blue : styles.grey}>Group 1: {this.ppkGroupState(item.groups[1])}</Text>
+                  <Text style={item.groups[2] === 0 ? styles.green : item.groups[2] === 1 ? styles.blue : styles.grey}>Group 2: {this.ppkGroupState(item.groups[2])}</Text>
+                  <Text style={item.groups[3] === 0 ? styles.green : item.groups[3] === 1 ? styles.blue : styles.grey}>Group 3: {this.ppkGroupState(item.groups[3])}</Text>
+                  <Text style={item.groups[4] === 0 ? styles.green : item.groups[4] === 1 ? styles.blue : styles.grey}>Group 4: {this.ppkGroupState(item.groups[4])}</Text>
+                  <Text style={item.groups[5] === 0 ? styles.green : item.groups[5] === 1 ? styles.blue : styles.grey}>Group 5: {this.ppkGroupState(item.groups[5])}</Text>
+                  <Text style={item.groups[6] === 0 ? styles.green : item.groups[6] === 1 ? styles.blue : styles.grey}>Group 6: {this.ppkGroupState(item.groups[6])}</Text>
+                  <Text style={item.groups[7] === 0 ? styles.green : item.groups[7] === 1 ? styles.blue : styles.grey}>Group 7: {this.ppkGroupState(item.groups[7])}</Text>
+                  <Text style={item.groups[8] === 0 ? styles.green : item.groups[8] === 1 ? styles.blue : styles.grey}>Group 8: {this.ppkGroupState(item.groups[8])}</Text>
+                  <Text style={item.lines[1] === 88 ? styles.normZone : item.lines[1] === 80 ? styles.breakedZone : item.lines[1] === 112 ? styles.shortedZone : item.lines[1] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 1: {this.zonesCurrentState(item.lines[1])}</Text>
+                  <Text style={item.lines[2] === 88 ? styles.normZone : item.lines[2] === 80 ? styles.breakedZone : item.lines[2] === 112 ? styles.shortedZone : item.lines[2] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 2: {this.zonesCurrentState(item.lines[2])}</Text>
+                  <Text style={item.lines[3] === 88 ? styles.normZone : item.lines[3] === 80 ? styles.breakedZone : item.lines[3] === 112 ? styles.shortedZone : item.lines[3] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 3: {this.zonesCurrentState(item.lines[3])}</Text>
+                  <Text style={item.lines[4] === 88 ? styles.normZone : item.lines[4] === 80 ? styles.breakedZone : item.lines[4] === 112 ? styles.shortedZone : item.lines[4] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 4: {this.zonesCurrentState(item.lines[4])}</Text>
+                  <Text style={item.lines[5] === 88 ? styles.normZone : item.lines[5] === 80 ? styles.breakedZone : item.lines[5] === 112 ? styles.shortedZone : item.lines[5] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 5: {this.zonesCurrentState(item.lines[5])}</Text>
+                  <Text style={item.lines[6] === 88 ? styles.normZone : item.lines[6] === 80 ? styles.breakedZone : item.lines[6] === 112 ? styles.shortedZone : item.lines[6] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 6: {this.zonesCurrentState(item.lines[6])}</Text>
+                  <Text style={item.lines[7] === 88 ? styles.normZone : item.lines[7] === 80 ? styles.breakedZone : item.lines[7] === 112 ? styles.shortedZone : item.lines[7] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 7: {this.zonesCurrentState(item.lines[7])}</Text>
+                  <Text style={item.lines[8] === 88 ? styles.normZone : item.lines[8] === 80 ? styles.breakedZone : item.lines[8] === 112 ? styles.shortedZone : item.lines[8] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 8: {this.zonesCurrentState(item.lines[8])}</Text>
+                  <Text style={item.relay2 === 0 ? styles.green : item.relay2 === 1 ? styles.blue : styles.grey}>Relay: {this.ppkCurrentState(item.relay2)}</Text>
+                  <Text style={item.uk2 === 0 ? styles.green : item.uk2 === 1 ? styles.blue : styles.grey}>UK2: {this.ppkCurrentState(item.uk2)}</Text>
+                  <Text style={item.uk3 === 0 ? styles.green : item.uk3 === 1 ? styles.blue : styles.grey}>UK3: {this.ppkCurrentState(item.uk3)}</Text>
                 </View>
               )} else if (item.model === "4l" || "2l") {
                 return (
-                <View key={index + 1}>
-                  <Text>PPK Number: {ppk[index]}</Text>
-                  <Text>Model: {this.ppkModel(item.model)}</Text>
-                  <Text>Status: {this.ppkOnlineStatus(item.online)}</Text>
-                  <Text>220V: {this.ppkCurrentState(item.power)}</Text>
-                  <Text>Battery: {this.ppkCurrentState(item.accum)}</Text>
-                  <Text>Tamper: {this.ppkAdapterTamperState(item.door)}</Text>
-                  <Text>Group 1: {this.ppkGroupState(item.groups[1])}</Text>
-                  <Text>Group 2: {this.ppkGroupState(item.groups[2])}</Text>
-                  <Text>Group 3: {this.ppkGroupState(item.groups[3])}</Text>
-                  <Text>Group 4: {this.ppkGroupState(item.groups[4])}</Text>
-                  <Text>Group 5: {this.ppkGroupState(item.groups[5])}</Text>
-                  <Text>Group 6: {this.ppkGroupState(item.groups[6])}</Text>
-                  <Text>Group 7: {this.ppkGroupState(item.groups[7])}</Text>
-                  <Text>Group 8: {this.ppkGroupState(item.groups[8])}</Text>
-                  <Text>Group 9: {this.ppkGroupState(item.groups[9])}</Text>
-                  <Text>Group 10: {this.ppkGroupState(item.groups[10])}</Text>
-                  <Text>Group 11: {this.ppkGroupState(item.groups[11])}</Text>
-                  <Text>Group 12: {this.ppkGroupState(item.groups[12])}</Text>
-                  <Text>Group 13: {this.ppkGroupState(item.groups[13])}</Text>
-                  <Text>Group 14: {this.ppkGroupState(item.groups[14])}</Text>
-                  <Text>Group 15: {this.ppkGroupState(item.groups[15])}</Text>
-                  <Text>Group 16: {this.ppkGroupState(item.groups[16])}</Text>
-                  <Text>Zone 1: {this.zonesCurrentState(item.lines[1])}</Text>
-                  <Text>Zone 2: {this.zonesCurrentState(item.lines[2])}</Text>
-                  <Text>Zone 3: {this.zonesCurrentState(item.lines[3])}</Text>
-                  <Text>Zone 4: {this.zonesCurrentState(item.lines[4])}</Text>
-                  <Text>Zone 5: {this.zonesCurrentState(item.lines[5])}</Text>
-                  <Text>Zone 6: {this.zonesCurrentState(item.lines[6])}</Text>
-                  <Text>Zone 7: {this.zonesCurrentState(item.lines[7])}</Text>
-                  <Text>Zone 8: {this.zonesCurrentState(item.lines[8])}</Text>
-                  <Text>Zone 9: {this.zonesCurrentState(item.lines[9])}</Text>
-                  <Text>Zone 10: {this.zonesCurrentState(item.lines[10])}</Text>
-                  <Text>Zone 11: {this.zonesCurrentState(item.lines[11])}</Text>
-                  <Text>Zone 12: {this.zonesCurrentState(item.lines[12])}</Text>
-                  <Text>Zone 13: {this.zonesCurrentState(item.lines[13])}</Text>
-                  <Text>Zone 14: {this.zonesCurrentState(item.lines[14])}</Text>
-                  <Text>Zone 15: {this.zonesCurrentState(item.lines[15])}</Text>
-                  <Text>Zone 16: {this.zonesCurrentState(item.lines[16])}</Text>
-                  <Text>Adapter 1 Status: {this.adapterConnectionStatus(item.adapters[1].conn)}</Text>
-                  <Text>Adapter 1 Tamper: {this.ppkAdapterTamperState(item.adapters[1].door)}</Text>
-                  <Text>Adapter 1 Power: {this.adapterPowerState(item.adapters[1].power)}</Text>
-                  <Text>Adapter 2 Status: {this.adapterConnectionStatus(item.adapters[2].conn)}</Text>
-                  <Text>Adapter 2 Tamper: {this.ppkAdapterTamperState(item.adapters[2].door)}</Text>
-                  <Text>Adapter 2 Power: {this.adapterPowerState(item.adapters[2].power)}</Text>
-                  <Text>Adapter 3 Status: {this.adapterConnectionStatus(item.adapters[3].conn)}</Text>
-                  <Text>Adapter 3 Tamper: {this.ppkAdapterTamperState(item.adapters[3].door)}</Text>
-                  <Text>Adapter 3 Power: {this.adapterPowerState(item.adapters[3].power)}</Text>
-                  <Text>Adapter 4 Status: {this.adapterConnectionStatus(item.adapters[4].conn)}</Text>
-                  <Text>Adapter 4 Tamper: {this.ppkAdapterTamperState(item.adapters[4].door)}</Text>
-                  <Text>Adapter 4 Power: {this.adapterPowerState(item.adapters[4].power)}</Text>
-                  <Text>Wireless Sensor 1 Status: {this.adapterConnectionStatus(item.wsensors[11].conn)}</Text>
-                  <Text>Wireless Sensor 1 Tamper: {this.ppkAdapterTamperState(item.wsensors[11].door)}</Text>
-                  <Text>Wireless Sensor 2 Status: {this.adapterConnectionStatus(item.wsensors[12].conn)}</Text>
-                  <Text>Wireless Sensor 2 Tamper: {this.ppkAdapterTamperState(item.wsensors[12].door)}</Text>
-                  <Text>Wireless Sensor 3 Status: {this.adapterConnectionStatus(item.wsensors[13].conn)}</Text>
-                  <Text>Wireless Sensor 3 Tamper: {this.ppkAdapterTamperState(item.wsensors[13].door)}</Text>
-                  <Text>Relay: {this.ppkCurrentState(item.c[0])}</Text>
-                  <Text>C1: {this.ppkCurrentState(item.c[1])}</Text>
-                  <Text>C2: {this.ppkCurrentState(item.c[2])}</Text>
-                  <Text>C3: {this.ppkCurrentState(item.c[3])}</Text>
+                <View style={styles.ppkCard4l} key={index + 1}>
+                  <Text style={styles.ppkNumber}>PPK Number: {ppk[index]}</Text>
+                  <Text style={styles.ppkModel}>Model: {this.ppkModel(item.model)}</Text>
+                  <Text style={item.online === 0 ? styles.red : item.online === 1 ? styles.green : styles.grey}>Status: {this.ppkOnlineStatus(item.online)}</Text>
+                  <Text style={item.power === 0 ? styles.red : item.power === 1 ? styles.green : styles.grey}>220V: {this.ppkCurrentState(item.power)}</Text>
+                  <Text style={item.accum === 0 ? styles.red : item.accum === 1 ? styles.green : styles.grey}>Battery: {this.ppkCurrentState(item.accum)}</Text>
+                  <Text style={item.door === 0 ? styles.red : item.door === 1 ? styles.green : styles.grey}>Tamper: {this.ppkAdapterTamperState(item.door)}</Text>
+                  <Text style={item.groups[1] === 0 ? styles.green : item.groups[1] === 1 ? styles.blue : styles.grey}>Group 1: {this.ppkGroupState(item.groups[1])}</Text>
+                  <Text style={item.groups[2] === 0 ? styles.green : item.groups[2] === 1 ? styles.blue : styles.grey}>Group 2: {this.ppkGroupState(item.groups[2])}</Text>
+                  <Text style={item.groups[3] === 0 ? styles.green : item.groups[3] === 1 ? styles.blue : styles.grey}>Group 3: {this.ppkGroupState(item.groups[3])}</Text>
+                  <Text style={item.groups[4] === 0 ? styles.green : item.groups[4] === 1 ? styles.blue : styles.grey}>Group 4: {this.ppkGroupState(item.groups[4])}</Text>
+                  <Text style={item.groups[5] === 0 ? styles.green : item.groups[5] === 1 ? styles.blue : styles.grey}>Group 5: {this.ppkGroupState(item.groups[5])}</Text>
+                  <Text style={item.groups[6] === 0 ? styles.green : item.groups[6] === 1 ? styles.blue : styles.grey}>Group 6: {this.ppkGroupState(item.groups[6])}</Text>
+                  <Text style={item.groups[7] === 0 ? styles.green : item.groups[7] === 1 ? styles.blue : styles.grey}>Group 7: {this.ppkGroupState(item.groups[7])}</Text>
+                  <Text style={item.groups[8] === 0 ? styles.green : item.groups[8] === 1 ? styles.blue : styles.grey}>Group 8: {this.ppkGroupState(item.groups[8])}</Text>
+                  <Text style={item.groups[9] === 0 ? styles.green : item.groups[9] === 1 ? styles.blue : styles.grey}>Group 9: {this.ppkGroupState(item.groups[9])}</Text>
+                  <Text style={item.groups[10] === 0 ? styles.green : item.groups[10] === 1 ? styles.blue : styles.grey}>Group 10: {this.ppkGroupState(item.groups[10])}</Text>
+                  <Text style={item.groups[11] === 0 ? styles.green : item.groups[11] === 1 ? styles.blue : styles.grey}>Group 11: {this.ppkGroupState(item.groups[11])}</Text>
+                  <Text style={item.groups[12] === 0 ? styles.green : item.groups[12] === 1 ? styles.blue : styles.grey}>Group 12: {this.ppkGroupState(item.groups[12])}</Text>
+                  <Text style={item.groups[13] === 0 ? styles.green : item.groups[13] === 1 ? styles.blue : styles.grey}>Group 13: {this.ppkGroupState(item.groups[13])}</Text>
+                  <Text style={item.groups[14] === 0 ? styles.green : item.groups[14] === 1 ? styles.blue : styles.grey}>Group 14: {this.ppkGroupState(item.groups[14])}</Text>
+                  <Text style={item.groups[15] === 0 ? styles.green : item.groups[15] === 1 ? styles.blue : styles.grey}>Group 15: {this.ppkGroupState(item.groups[15])}</Text>
+                  <Text style={item.groups[16] === 0 ? styles.green : item.groups[16] === 1 ? styles.blue : styles.grey}>Group 16: {this.ppkGroupState(item.groups[16])}</Text>
+                  <Text style={item.lines[1] === 88 ? styles.normZone : item.lines[1] === 80 ? styles.breakedZone : item.lines[1] === 112 ? styles.shortedZone : item.lines[1] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 1: {this.zonesCurrentState(item.lines[1])}</Text>
+                  <Text style={item.lines[2] === 88 ? styles.normZone : item.lines[2] === 80 ? styles.breakedZone : item.lines[2] === 112 ? styles.shortedZone : item.lines[2] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 2: {this.zonesCurrentState(item.lines[2])}</Text>
+                  <Text style={item.lines[3] === 88 ? styles.normZone : item.lines[3] === 80 ? styles.breakedZone : item.lines[3] === 112 ? styles.shortedZone : item.lines[3] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 3: {this.zonesCurrentState(item.lines[3])}</Text>
+                  <Text style={item.lines[4] === 88 ? styles.normZone : item.lines[4] === 80 ? styles.breakedZone : item.lines[4] === 112 ? styles.shortedZone : item.lines[4] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 4: {this.zonesCurrentState(item.lines[4])}</Text>
+                  <Text style={item.lines[5] === 88 ? styles.normZone : item.lines[5] === 80 ? styles.breakedZone : item.lines[5] === 112 ? styles.shortedZone : item.lines[5] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 5: {this.zonesCurrentState(item.lines[5])}</Text>
+                  <Text style={item.lines[6] === 88 ? styles.normZone : item.lines[6] === 80 ? styles.breakedZone : item.lines[6] === 112 ? styles.shortedZone : item.lines[6] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 6: {this.zonesCurrentState(item.lines[6])}</Text>
+                  <Text style={item.lines[7] === 88 ? styles.normZone : item.lines[7] === 80 ? styles.breakedZone : item.lines[7] === 112 ? styles.shortedZone : item.lines[7] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 7: {this.zonesCurrentState(item.lines[7])}</Text>
+                  <Text style={item.lines[8] === 88 ? styles.normZone : item.lines[8] === 80 ? styles.breakedZone : item.lines[8] === 112 ? styles.shortedZone : item.lines[8] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 8: {this.zonesCurrentState(item.lines[8])}</Text>
+                  <Text style={item.lines[9] === 88 ? styles.normZone : item.lines[9] === 80 ? styles.breakedZone : item.lines[9] === 112 ? styles.shortedZone : item.lines[9] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 9: {this.zonesCurrentState(item.lines[9])}</Text>
+                  <Text style={item.lines[10] === 88 ? styles.normZone : item.lines[10] === 80 ? styles.breakedZone : item.lines[10] === 112 ? styles.shortedZone : item.lines[10] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 10: {this.zonesCurrentState(item.lines[10])}</Text>
+                  <Text style={item.lines[11] === 88 ? styles.normZone : item.lines[11] === 80 ? styles.breakedZone : item.lines[11] === 112 ? styles.shortedZone : item.lines[11] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 11: {this.zonesCurrentState(item.lines[11])}</Text>
+                  <Text style={item.lines[12] === 88 ? styles.normZone : item.lines[12] === 80 ? styles.breakedZone : item.lines[12] === 112 ? styles.shortedZone : item.lines[12] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 12: {this.zonesCurrentState(item.lines[12])}</Text>
+                  <Text style={item.lines[13] === 88 ? styles.normZone : item.lines[13] === 80 ? styles.breakedZone : item.lines[13] === 112 ? styles.shortedZone : item.lines[13] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 13: {this.zonesCurrentState(item.lines[13])}</Text>
+                  <Text style={item.lines[14] === 88 ? styles.normZone : item.lines[14] === 80 ? styles.breakedZone : item.lines[14] === 112 ? styles.shortedZone : item.lines[14] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 14: {this.zonesCurrentState(item.lines[14])}</Text>
+                  <Text style={item.lines[15] === 88 ? styles.normZone : item.lines[15] === 80 ? styles.breakedZone : item.lines[15] === 112 ? styles.shortedZone : item.lines[15] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 15: {this.zonesCurrentState(item.lines[15])}</Text>
+                  <Text style={item.lines[16] === 88 ? styles.normZone : item.lines[16] === 80 ? styles.breakedZone : item.lines[16] === 112 ? styles.shortedZone : item.lines[16] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 16: {this.zonesCurrentState(item.lines[16])}</Text>
+                  <Text style={item.adapters[1].conn === 0 ? styles.red : item.adapters[1].conn === 1 ? styles.green : styles.grey}>Adapter 1 Status: {this.adapterConnectionStatus(item.adapters[1].conn)}</Text>
+                  <Text style={item.adapters[1].door === 0 ? styles.red : item.adapters[1].door === 1 ? styles.green : styles.grey}>Adapter 1 Tamper: {this.ppkAdapterTamperState(item.adapters[1].door)}</Text>
+                  <Text style={item.adapters[1].power === 0 ? styles.red : item.adapters[1].power === 1 ? styles.green : styles.grey}>Adapter 1 Power: {this.adapterPowerState(item.adapters[1].power)}</Text>
+                  <Text style={item.adapters[2].conn === 0 ? styles.red : item.adapters[2].conn === 1 ? styles.green : styles.grey}>Adapter 2 Status: {this.adapterConnectionStatus(item.adapters[2].conn)}</Text>
+                  <Text style={item.adapters[2].door === 0 ? styles.red : item.adapters[2].door === 1 ? styles.green : styles.grey}>Adapter 2 Tamper: {this.ppkAdapterTamperState(item.adapters[2].door)}</Text>
+                  <Text style={item.adapters[2].power === 0 ? styles.red : item.adapters[2].power === 1 ? styles.green : styles.grey}>Adapter 2 Power: {this.adapterPowerState(item.adapters[2].power)}</Text>
+                  <Text style={item.adapters[3].conn === 0 ? styles.red : item.adapters[3].conn === 1 ? styles.green : styles.grey}>Adapter 3 Status: {this.adapterConnectionStatus(item.adapters[3].conn)}</Text>
+                  <Text style={item.adapters[3].door === 0 ? styles.red : item.adapters[3].door === 1 ? styles.green : styles.grey}>Adapter 3 Tamper: {this.ppkAdapterTamperState(item.adapters[3].door)}</Text>
+                  <Text style={item.adapters[3].power === 0 ? styles.red : item.adapters[3].power === 1 ? styles.green : styles.grey}>Adapter 3 Power: {this.adapterPowerState(item.adapters[3].power)}</Text>
+                  <Text style={item.adapters[4].conn === 0 ? styles.red : item.adapters[4].conn === 1 ? styles.green : styles.grey}>Adapter 4 Status: {this.adapterConnectionStatus(item.adapters[4].conn)}</Text>
+                  <Text style={item.adapters[4].door === 0 ? styles.red : item.adapters[4].door === 1 ? styles.green : styles.grey}>Adapter 4 Tamper: {this.ppkAdapterTamperState(item.adapters[4].door)}</Text>
+                  <Text style={item.adapters[4].power === 0 ? styles.red : item.adapters[4].power === 1 ? styles.green : styles.grey}>Adapter 4 Power: {this.adapterPowerState(item.adapters[4].power)}</Text>
+                  <Text style={item.wsensors[11].conn === 0 ? styles.red : item.wsensors[11].conn === 1 ? styles.green : styles.grey}>Wireless Sensor 1 Status: {this.adapterConnectionStatus(item.wsensors[11].conn)}</Text>
+                  <Text style={item.wsensors[11].door === 0 ? styles.red :  item.wsensors[11].door === 1 ? styles.green : styles.grey}>Wireless Sensor 1 Tamper: {this.ppkAdapterTamperState(item.wsensors[11].door)}</Text>
+                  <Text style={item.wsensors[12].conn === 0 ? styles.red : item.wsensors[12].conn === 1 ? styles.green : styles.grey}>Wireless Sensor 2 Status: {this.adapterConnectionStatus(item.wsensors[12].conn)}</Text>
+                  <Text style={item.wsensors[12].door === 0 ? styles.red :  item.wsensors[12].door === 1 ? styles.green : styles.grey}>Wireless Sensor 2 Tamper: {this.ppkAdapterTamperState(item.wsensors[12].door)}</Text>
+                  <Text style={item.wsensors[13].conn === 0 ? styles.red : item.wsensors[13].conn === 1 ? styles.green : styles.grey}>Wireless Sensor 3 Status: {this.adapterConnectionStatus(item.wsensors[13].conn)}</Text>
+                  <Text style={item.wsensors[13].door === 0 ? styles.red :  item.wsensors[13].door === 1 ? styles.green : styles.grey}>Wireless Sensor 3 Tamper: {this.ppkAdapterTamperState(item.wsensors[13].door)}</Text>
+                  <Text style={item.c[0] === 0 ? styles.green : item.c[0] === 1 ? styles.blue : styles.grey}>Relay: {this.ppkCurrentState(item.c[0])}</Text>
+                  <Text style={item.c[1] === 0 ? styles.green : item.c[1] === 1 ? styles.blue : styles.grey}>C1: {this.ppkCurrentState(item.c[1])}</Text>
+                  <Text style={item.c[2] === 0 ? styles.green : item.c[2] === 1 ? styles.blue : styles.grey}>C2: {this.ppkCurrentState(item.c[2])}</Text>
+                  <Text style={item.c[3] === 0 ? styles.green : item.c[3] === 1 ? styles.blue : styles.grey}>C3: {this.ppkCurrentState(item.c[3])}</Text>
 
                   
                 </View> 
@@ -338,6 +338,52 @@ const styles = StyleSheet.create({
   },
   blue: {
 	  color: "#0d19a5",
+  },
+  normZone: {
+  color: "green",
+  },
+
+  breakedZone: {
+    color: "red", 
+  },
+
+  shortedZone: {
+    color: "red",
+  },
+
+  faultedZone: {
+    color: "#ead917",
+  },
+
+  noInfoZone: {
+    color: "grey",
+    /*visibility: "hidden",*/
+  },
+  ppkNumber: {
+    backgroundColor: "#67809f",
+    color: "white",
+    fontWeight: "bold",
+    borderRadius: 6,
+    padding: 5,
+    fontSize: 15,
+  },
+  ppkModel: {
+    color: "#0d19a5",
+    fontWeight: "bold",
+  },
+  ppkCard8l: {
+    alignItems: "center",
+    backgroundColor: "#d2d7d3",
+    marginBottom: 10,
+    padding: 10,    
+    borderRadius: 20,
+  },
+  ppkCard4l: {
+    alignItems: "center",
+    backgroundColor: "#d2d7d3",
+    marginBottom: 10,
+    padding: 10,
+    borderRadius: 20,
   },
   
 });

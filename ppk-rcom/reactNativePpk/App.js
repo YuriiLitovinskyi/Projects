@@ -193,7 +193,7 @@ componentDidMount(){
                  <View key={index + 1}>                 
                   <Text>PPK Number: {ppk[index]}</Text>
                   <Text>Model: {this.ppkModel(item.model)}</Text>
-                  <Text>Status: {this.ppkOnlineStatus(item.online)}</Text>
+                  <Text style={item.online === 0 ? styles.red : item.online === 1 ? styles.green : styles.grey}>Status: {this.ppkOnlineStatus(item.online)}</Text>
                   <Text>220V: {this.ppkCurrentState(item.power)}</Text>
                   <Text>Battery: {this.ppkCurrentState(item.accum)}</Text>
                   <Text>Tamper: {this.ppkAdapterTamperState(item.door)}</Text>
@@ -326,5 +326,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 5,
-  }  
+  },
+  red: {
+	  color: "red",
+  },
+  green: {
+	  color: "green",	  
+  },
+  grey: {
+	  color: "grey",
+  },
+  blue: {
+	  color: "#0d19a5",
+  },
+  
 });

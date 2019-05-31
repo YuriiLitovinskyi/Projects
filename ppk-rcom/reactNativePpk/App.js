@@ -8,7 +8,8 @@ import {
 	ScrollView, 
 	FlatList, 
 	ActivityIndicator,
-	SectionList
+	SectionList,
+  Alert
   } from 'react-native';
 
 
@@ -21,11 +22,21 @@ export default class App extends Component<Props> {
 	  isLoading: true,
 	  users: []
     }
+    //this.loadPpkInfo = this.loadPpkInfo.bind(this);
   }
- 
+/* 
+componentDidMount(){
+  this.intervalId = setInterval(() => this.loadPpkInfo(), 5000);
+  loadPpkInfo();
+}
 
+componentWillUnmount(){
+  // clearInterval(this.intervalId);
+}
+*/
 
 componentDidMount(){
+  // this.intervalId = setInterval(() => {
     fetch("http://194.187.110.62:15004/api/devices/state/",{
       method: "POST",
       headers: {
@@ -34,17 +45,20 @@ componentDidMount(){
         "Authorization": "Basic " + Base64.encode("Yurii:123456")
       }
       })
-	  .then((response) => response.json())
-	  .then((responseJSON) => {
-		  console.log(responseJSON.data);
-		  this.setState({
-			isLoading: false,
-			ppks: responseJSON.data
-		})
-	  })      
+    .then((response) => response.json())
+    .then((responseJSON) => {
+      console.log(responseJSON.data);
+      this.setState({
+      isLoading: false,
+      ppks: responseJSON.data
+    })
+    })      
       .catch((err) => {
         console.log(err)
       })
+
+ //  }, 5000);
+    
   }
 
   ppkOnlineStatus(state){
@@ -99,6 +113,8 @@ componentDidMount(){
          return "Disarmed";
        case 1:
          return "Armed";
+       case 2:
+         return "Armed(Staying home)";
        default:
          return "No info";       
      }
@@ -109,7 +125,7 @@ componentDidMount(){
        case 88:
          return "Norm";        
        case 80:
-         this.alertHandler(); 
+        // this.alertHandler(); 
        return "Break!";                
            case 112:
              return "Short";  
@@ -141,6 +157,19 @@ componentDidMount(){
          return "No info";
      }
    }
+
+  /*
+   alertHandler(){     
+       Alert.alert(
+        'ALERT!',
+        'ZONE BREAK!',
+      [
+       {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ],
+      { cancelable: false }
+      ) 
+   }
+   */
 
 
   render() {

@@ -142,6 +142,8 @@ if (localStorage.getItem("formData")) {
 		     return "Disarmed";
 		   case 1:
 		     return "Armed";
+		   case 2:
+             return "Armed (Staying home mode)";
 		   default:
 		     return "No info";		   
 	   }

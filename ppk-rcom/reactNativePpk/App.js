@@ -255,22 +255,22 @@ componentDidMount(){
                   <Text style={item.power === 0 ? styles.red : item.power === 1 ? styles.green : styles.grey}>220V: {this.ppkCurrentState(item.power)}</Text>
                   <Text style={item.accum === 0 ? styles.red : item.accum === 1 ? styles.green : styles.grey}>Battery: {this.ppkCurrentState(item.accum)}</Text>
                   <Text style={item.door === 0 ? styles.red : item.door === 1 ? styles.green : styles.grey}>Tamper: {this.ppkAdapterTamperState(item.door)}</Text>
-                  <Text style={item.groups[1] === 0 ? styles.green : item.groups[1] === 1 ? styles.blue : styles.grey}>Group 1: {this.ppkGroupState(item.groups[1])}</Text>
-                  <Text style={item.groups[2] === 0 ? styles.green : item.groups[2] === 1 ? styles.blue : styles.grey}>Group 2: {this.ppkGroupState(item.groups[2])}</Text>
-                  <Text style={item.groups[3] === 0 ? styles.green : item.groups[3] === 1 ? styles.blue : styles.grey}>Group 3: {this.ppkGroupState(item.groups[3])}</Text>
-                  <Text style={item.groups[4] === 0 ? styles.green : item.groups[4] === 1 ? styles.blue : styles.grey}>Group 4: {this.ppkGroupState(item.groups[4])}</Text>
-                  <Text style={item.groups[5] === 0 ? styles.green : item.groups[5] === 1 ? styles.blue : styles.grey}>Group 5: {this.ppkGroupState(item.groups[5])}</Text>
-                  <Text style={item.groups[6] === 0 ? styles.green : item.groups[6] === 1 ? styles.blue : styles.grey}>Group 6: {this.ppkGroupState(item.groups[6])}</Text>
-                  <Text style={item.groups[7] === 0 ? styles.green : item.groups[7] === 1 ? styles.blue : styles.grey}>Group 7: {this.ppkGroupState(item.groups[7])}</Text>
-                  <Text style={item.groups[8] === 0 ? styles.green : item.groups[8] === 1 ? styles.blue : styles.grey}>Group 8: {this.ppkGroupState(item.groups[8])}</Text>
-                  <Text style={item.groups[9] === 0 ? styles.green : item.groups[9] === 1 ? styles.blue : styles.grey}>Group 9: {this.ppkGroupState(item.groups[9])}</Text>
-                  <Text style={item.groups[10] === 0 ? styles.green : item.groups[10] === 1 ? styles.blue : styles.grey}>Group 10: {this.ppkGroupState(item.groups[10])}</Text>
-                  <Text style={item.groups[11] === 0 ? styles.green : item.groups[11] === 1 ? styles.blue : styles.grey}>Group 11: {this.ppkGroupState(item.groups[11])}</Text>
-                  <Text style={item.groups[12] === 0 ? styles.green : item.groups[12] === 1 ? styles.blue : styles.grey}>Group 12: {this.ppkGroupState(item.groups[12])}</Text>
-                  <Text style={item.groups[13] === 0 ? styles.green : item.groups[13] === 1 ? styles.blue : styles.grey}>Group 13: {this.ppkGroupState(item.groups[13])}</Text>
-                  <Text style={item.groups[14] === 0 ? styles.green : item.groups[14] === 1 ? styles.blue : styles.grey}>Group 14: {this.ppkGroupState(item.groups[14])}</Text>
-                  <Text style={item.groups[15] === 0 ? styles.green : item.groups[15] === 1 ? styles.blue : styles.grey}>Group 15: {this.ppkGroupState(item.groups[15])}</Text>
-                  <Text style={item.groups[16] === 0 ? styles.green : item.groups[16] === 1 ? styles.blue : styles.grey}>Group 16: {this.ppkGroupState(item.groups[16])}</Text>
+                  <Text style={item.groups[1] === 0 ? styles.green : item.groups[1] === 1 ? styles.blue : item.groups[1] === 2 ? styles.blue : styles.grey}>Group 1: {this.ppkGroupState(item.groups[1])}</Text>
+                  <Text style={item.groups[2] === 0 ? styles.green : item.groups[2] === 1 ? styles.blue : item.groups[2] === 2 ? styles.blue : styles.grey}>Group 2: {this.ppkGroupState(item.groups[2])}</Text>
+                  <Text style={item.groups[3] === 0 ? styles.green : item.groups[3] === 1 ? styles.blue : item.groups[3] === 2 ? styles.blue : styles.grey}>Group 3: {this.ppkGroupState(item.groups[3])}</Text>
+                  <Text style={item.groups[4] === 0 ? styles.green : item.groups[4] === 1 ? styles.blue : item.groups[4] === 2 ? styles.blue : styles.grey}>Group 4: {this.ppkGroupState(item.groups[4])}</Text>
+                  <Text style={item.groups[5] === 0 ? styles.green : item.groups[5] === 1 ? styles.blue : item.groups[5] === 2 ? styles.blue : styles.grey}>Group 5: {this.ppkGroupState(item.groups[5])}</Text>
+                  <Text style={item.groups[6] === 0 ? styles.green : item.groups[6] === 1 ? styles.blue : item.groups[6] === 2 ? styles.blue : styles.grey}>Group 6: {this.ppkGroupState(item.groups[6])}</Text>
+                  <Text style={item.groups[7] === 0 ? styles.green : item.groups[7] === 1 ? styles.blue : item.groups[7] === 2 ? styles.blue : styles.grey}>Group 7: {this.ppkGroupState(item.groups[7])}</Text>
+                  <Text style={item.groups[8] === 0 ? styles.green : item.groups[8] === 1 ? styles.blue : item.groups[8] === 2 ? styles.blue : styles.grey}>Group 8: {this.ppkGroupState(item.groups[8])}</Text>
+                  <Text style={item.groups[9] === 0 ? styles.green : item.groups[9] === 1 ? styles.blue : item.groups[9] === 2 ? styles.blue : styles.grey}>Group 9: {this.ppkGroupState(item.groups[9])}</Text>
+                  <Text style={item.groups[10] === 0 ? styles.green : item.groups[10] === 1 ? styles.blue : item.groups[10] === 2 ? styles.blue : styles.grey}>Group 10: {this.ppkGroupState(item.groups[10])}</Text>
+                  <Text style={item.groups[11] === 0 ? styles.green : item.groups[11] === 1 ? styles.blue : item.groups[11] === 2 ? styles.blue : styles.grey}>Group 11: {this.ppkGroupState(item.groups[11])}</Text>
+                  <Text style={item.groups[12] === 0 ? styles.green : item.groups[12] === 1 ? styles.blue : item.groups[12] === 2 ? styles.blue : styles.grey}>Group 12: {this.ppkGroupState(item.groups[12])}</Text>
+                  <Text style={item.groups[13] === 0 ? styles.green : item.groups[13] === 1 ? styles.blue : item.groups[13] === 2 ? styles.blue : styles.grey}>Group 13: {this.ppkGroupState(item.groups[13])}</Text>
+                  <Text style={item.groups[14] === 0 ? styles.green : item.groups[14] === 1 ? styles.blue : item.groups[14] === 2 ? styles.blue : styles.grey}>Group 14: {this.ppkGroupState(item.groups[14])}</Text>
+                  <Text style={item.groups[15] === 0 ? styles.green : item.groups[15] === 1 ? styles.blue : item.groups[15] === 2 ? styles.blue : styles.grey}>Group 15: {this.ppkGroupState(item.groups[15])}</Text>
+                  <Text style={item.groups[16] === 0 ? styles.green : item.groups[16] === 1 ? styles.blue : item.groups[16] === 2 ? styles.blue : styles.grey}>Group 16: {this.ppkGroupState(item.groups[16])}</Text>
                   <Text style={item.lines[1] === 88 ? styles.normZone : item.lines[1] === 80 ? styles.breakedZone : item.lines[1] === 112 ? styles.shortedZone : item.lines[1] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 1: {this.zonesCurrentState(item.lines[1])}</Text>
                   <Text style={item.lines[2] === 88 ? styles.normZone : item.lines[2] === 80 ? styles.breakedZone : item.lines[2] === 112 ? styles.shortedZone : item.lines[2] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 2: {this.zonesCurrentState(item.lines[2])}</Text>
                   <Text style={item.lines[3] === 88 ? styles.normZone : item.lines[3] === 80 ? styles.breakedZone : item.lines[3] === 112 ? styles.shortedZone : item.lines[3] === 120 ? styles.faultedZone : styles.noInfoZone}>Zone 3: {this.zonesCurrentState(item.lines[3])}</Text>

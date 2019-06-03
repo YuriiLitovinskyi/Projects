@@ -425,67 +425,83 @@ if (localStorage.getItem("formData")) {
           
 		  {/*Groups*/}
           <li className={item.groups[1] === 0 ? "green" : 
-		    item.groups[1] === 1 ? "blue" : "grey" }>
+		    item.groups[1] === 1 ? "blue" :
+		    item.groups[1] === 2 ? "blue" : "grey" }>
 		    Group 1: {this.ppsGroupState(item.groups[1])}
 		  </li>
           <li className={item.groups[2] === 0 ? "green" : 
-		    item.groups[2] === 1 ? "blue" : "grey" }>
+		    item.groups[2] === 1 ? "blue" :
+		    item.groups[2] === 2 ? "blue" : "grey" }>
 		    Group 2: {this.ppsGroupState(item.groups[2])}
 		  </li>
           <li className={item.groups[3] === 0 ? "green" : 
-		    item.groups[3] === 1 ? "blue" : "grey" }>
+		    item.groups[3] === 1 ? "blue" :
+		    item.groups[3] === 2 ? "blue" : "grey" }>
 		    Group 3: {this.ppsGroupState(item.groups[3])}
 		  </li>
           <li className={item.groups[4] === 0 ? "green" : 
-		    item.groups[4] === 1 ? "blue" : "grey" }>
+		    item.groups[4] === 1 ? "blue" :
+		    item.groups[4] === 2 ? "blue" : "grey" }>
 		    Group 4: {this.ppsGroupState(item.groups[4])}
 		  </li>
 		  <li className={item.groups[5] === 0 ? "green" : 
-		    item.groups[5] === 1 ? "blue" : "grey" }>
+		    item.groups[5] === 1 ? "blue" :
+		    item.groups[5] === 2 ? "blue" : "grey" }>
 		    Group 5: {this.ppsGroupState(item.groups[5])}
 		  </li>
 		  <li className={item.groups[6] === 0 ? "green" : 
-		    item.groups[6] === 1 ? "blue" : "grey" }>
+		    item.groups[6] === 1 ? "blue" :
+		    item.groups[6] === 2 ? "blue" : "grey" }>
 		    Group 6: {this.ppsGroupState(item.groups[6])}
 		  </li>
 		  <li className={item.groups[7] === 0 ? "green" : 
-		    item.groups[7] === 1 ? "blue" : "grey" }>
+		    item.groups[7] === 1 ? "blue" :
+		    item.groups[7] === 2 ? "blue" : "grey" }>
 		    Group 7: {this.ppsGroupState(item.groups[7])}
 		  </li>
 		  <li className={item.groups[8] === 0 ? "green" : 
-		    item.groups[8] === 1 ? "blue" : "grey" }>
+		    item.groups[8] === 1 ? "blue" :
+		    item.groups[8] === 2 ? "blue" : "grey" }>
 		    Group 8: {this.ppsGroupState(item.groups[8])}
 		  </li>
 		  <li className={item.groups[9] === 0 ? "green" : 
-		    item.groups[9] === 1 ? "blue" : "grey" }>
+		    item.groups[9] === 1 ? "blue" :
+		    item.groups[9] === 2 ? "blue" : "grey" }>
 		    Group 9: {this.ppsGroupState(item.groups[9])}
 		  </li>
 		  <li className={item.groups[10] === 0 ? "green" : 
-		    item.groups[10] === 1 ? "blue" : "grey" }>
+		    item.groups[10] === 1 ? "blue" :
+		    item.groups[10] === 2 ? "blue" : "grey" }>
 		    Group 10: {this.ppsGroupState(item.groups[10])}
 		  </li>
 		  <li className={item.groups[11] === 0 ? "green" : 
-		    item.groups[11] === 1 ? "blue" : "grey" }>
+		    item.groups[11] === 1 ? "blue" :
+		    item.groups[11] === 2 ? "blue" : "grey" }>
 		    Group 11: {this.ppsGroupState(item.groups[11])}
 		  </li>
 		  <li className={item.groups[12] === 0 ? "green" : 
-		    item.groups[12] === 1 ? "blue" : "grey" }>
+		    item.groups[12] === 1 ? "blue" :
+		    item.groups[12] === 2 ? "blue" : "grey" }>
 		    Group 12: {this.ppsGroupState(item.groups[12])}
 		  </li>
 		  <li className={item.groups[13] === 0 ? "green" : 
-		    item.groups[13] === 1 ? "blue" : "grey" }>
+		    item.groups[13] === 1 ? "blue" :
+		    item.groups[13] === 2 ? "blue" : "grey" }>
 		    Group 13: {this.ppsGroupState(item.groups[13])}
 		  </li>
 		  <li className={item.groups[14] === 0 ? "green" : 
-		    item.groups[14] === 1 ? "blue" : "grey" }>
+		    item.groups[14] === 1 ? "blue" :
+		    item.groups[14] === 2 ? "blue" : "grey" }>
 		    Group 14: {this.ppsGroupState(item.groups[14])}
 		  </li>
 		  <li className={item.groups[15] === 0 ? "green" : 
-		    item.groups[15] === 1 ? "blue" : "grey" }>
+		    item.groups[15] === 1 ? "blue" :
+		    item.groups[15] === 2 ? "blue" : "grey" }>
 		    Group 15: {this.ppsGroupState(item.groups[15])}
 		  </li>
 		  <li className={item.groups[16] === 0 ? "green" : 
-		    item.groups[16] === 1 ? "blue" : "grey" }>
+		    item.groups[16] === 1 ? "blue" :
+		    item.groups[16] === 2 ? "blue" : "grey" }>
 		    Group 16: {this.ppsGroupState(item.groups[16])}
 		  </li>
           

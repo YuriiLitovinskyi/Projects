@@ -124,6 +124,21 @@ if (localStorage.getItem("formData")) {
 		     return "No info";			 
 	   }	   
    }
+
+   zonesCssClass(data){
+	   	switch(data){
+	   		case 88:
+	   		 return "norm-zone";
+	   		case 80:
+	   		 return "breaked-zone";
+	   		case 112:
+	   		 return "shorted-zone";
+	   		case 120:
+	   		 return "faulted-zone";
+	   		default:
+	   		 return "hide";
+	   	}
+   }  
    
    ppkCurrentState(state) {
 	   switch(state) {
@@ -157,7 +172,7 @@ if (localStorage.getItem("formData")) {
 		    case 2:
 		     return "blue";
 		    default:
-		     return "grey";
+		     return "hide";
 	   	}
    }
    
@@ -370,53 +385,29 @@ if (localStorage.getItem("formData")) {
 		  </li>
 		            
 		  {/*Zones*/}
-          <li className={item.lines[1] === 88 ? "norm-zone" : 
-		    item.lines[1] === 80 ? "breaked-zone" : 
-			item.lines[1] === 112 ? "shorted-zone" : 
-			item.lines[1] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 1: {this.zonesCurrentState(item.lines[1])}
+          <li className={ this.zonesCssClass(item.lines[1]) }>
+			Zone 1: { this.zonesCurrentState(item.lines[1]) }
 		  </li>
-          <li className={item.lines[2] === 88 ? "norm-zone" : 
-		    item.lines[2] === 80 ? "breaked-zone" : 
-			item.lines[2] === 112 ? "shorted-zone" : 
-			item.lines[2] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 2: {this.zonesCurrentState(item.lines[2])}
+          <li className={ this.zonesCssClass(item.lines[2]) }>
+			Zone 2: { this.zonesCurrentState(item.lines[2]) }
 		  </li>
-          <li className={item.lines[3] === 88 ? "norm-zone" : 
-		    item.lines[3] === 80 ? "breaked-zone" : 
-			item.lines[3] === 112 ? "shorted-zone" : 
-			item.lines[3] === 120 ? "faulted-zone" : "no-info-zone"}>
-		    Zone 3: {this.zonesCurrentState(item.lines[3])}
+          <li className={ this.zonesCssClass(item.lines[3]) }>
+		    Zone 3: { this.zonesCurrentState(item.lines[3]) }
 		  </li>
-          <li className={item.lines[4] === 88 ? "norm-zone" : 
-		    item.lines[4] === 80 ? "breaked-zone" : 
-			item.lines[4] === 112 ? "shorted-zone" : 
-			item.lines[4] === 120 ? "faulted-zone" : "no-info-zone"}>
+          <li className={ this.zonesCssClass(item.lines[4]) }>
 		    Zone 4: {this.zonesCurrentState(item.lines[4])}
 		  </li>
-          <li className={item.lines[5] === 88 ? "norm-zone" : 
-		    item.lines[5] === 80 ? "breaked-zone" : 
-			item.lines[5] === 112 ? "shorted-zone" : 
-			item.lines[5] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 5: {this.zonesCurrentState(item.lines[5])}
+          <li className={ this.zonesCssClass(item.lines[5]) }>
+			Zone 5: { this.zonesCurrentState(item.lines[5]) }
 		  </li>
-          <li className={item.lines[6] === 88 ? "norm-zone" : 
-		    item.lines[6] === 80 ? "breaked-zone" : 
-			item.lines[6] === 112 ? "shorted-zone" : 
-			item.lines[6] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 6: {this.zonesCurrentState(item.lines[6])}
+          <li className={ this.zonesCssClass(item.lines[6]) }>
+			Zone 6: { this.zonesCurrentState(item.lines[6]) }
 		  </li>
-          <li className={item.lines[7] === 88 ? "norm-zone" : 
-		    item.lines[7] === 80 ? "breaked-zone" : 
-			item.lines[7] === 112 ? "shorted-zone" : 
-			item.lines[7] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 7: {this.zonesCurrentState(item.lines[7])}
+          <li className={ this.zonesCssClass(item.lines[7]) }>
+			Zone 7: { this.zonesCurrentState(item.lines[7]) }
 	      </li>
-          <li className={item.lines[8] === 88 ? "norm-zone" : 
-		    item.lines[8] === 80 ? "breaked-zone" : 
-			item.lines[8] === 112 ? "shorted-zone" : 
-			item.lines[8] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 8: {this.zonesCurrentState(item.lines[8])}
+          <li className={ this.zonesCssClass(item.lines[8]) }>
+			Zone 8: { this.zonesCurrentState(item.lines[8]) }
 		  </li>          
           
           {/*Outputs and Relay*/} 		  
@@ -506,101 +497,53 @@ if (localStorage.getItem("formData")) {
 		  </li>
           
 		  {/*Zones*/}
-          <li className={item.lines[1] === 88 ? "norm-zone" : 
-		    item.lines[1] === 80 ? "breaked-zone" : 
-			item.lines[1] === 112 ? "shorted-zone" : 
-			item.lines[1] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 1: {this.zonesCurrentState(item.lines[1])}
+          <li className={ this.zonesCssClass(item.lines[1]) }>
+			Zone 1: { this.zonesCurrentState(item.lines[1]) }
 		  </li>
-          <li className={item.lines[2] === 88 ? "norm-zone" : 
-		    item.lines[2] === 80 ? "breaked-zone" : 
-			item.lines[2] === 112 ? "shorted-zone" : 
-			item.lines[2] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 2: {this.zonesCurrentState(item.lines[2])}
+          <li className={ this.zonesCssClass(item.lines[2]) }>
+			Zone 2: { this.zonesCurrentState(item.lines[2]) }
 		  </li>
-          <li className={item.lines[3] === 88 ? "norm-zone" : 
-		    item.lines[3] === 80 ? "breaked-zone" : 
-			item.lines[3] === 112 ? "shorted-zone" : 
-			item.lines[3] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 3: {this.zonesCurrentState(item.lines[3])}
+          <li className={ this.zonesCssClass(item.lines[3]) }>
+			Zone 3: { this.zonesCurrentState(item.lines[3]) }
 		  </li>
-          <li className={item.lines[4] === 88 ? "norm-zone" : 
-		    item.lines[4] === 80 ? "breaked-zone" : 
-			item.lines[4] === 112 ? "shorted-zone" : 
-			item.lines[4] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 4: {this.zonesCurrentState(item.lines[4])}
+          <li className={ this.zonesCssClass(item.lines[4]) }>
+			Zone 4: { this.zonesCurrentState(item.lines[4]) }
 		  </li>
-          <li className={item.lines[5] === 88 ? "norm-zone" : 
-		    item.lines[5] === 80 ? "breaked-zone" : 
-			item.lines[5] === 112 ? "shorted-zone" : 
-			item.lines[5] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 5: {this.zonesCurrentState(item.lines[5])}
+          <li className={ this.zonesCssClass(item.lines[5]) }>
+			Zone 5: { this.zonesCurrentState(item.lines[5]) }
 		  </li>
-          <li className={item.lines[6] === 88 ? "norm-zone" : 
-		    item.lines[6] === 80 ? "breaked-zone" : 
-			item.lines[6] === 112 ? "shorted-zone" : 
-			item.lines[6] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 6: {this.zonesCurrentState(item.lines[6])}
+          <li className={ this.zonesCssClass(item.lines[6]) }>
+			Zone 6: { this.zonesCurrentState(item.lines[6]) }
 		  </li>
-          <li className={item.lines[7] === 88 ? "norm-zone" : 
-		    item.lines[7] === 80 ? "breaked-zone" : 
-			item.lines[7] === 112 ? "shorted-zone" : 
-			item.lines[7] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 7: {this.zonesCurrentState(item.lines[7])}
+          <li className={ this.zonesCssClass(item.lines[7]) }>
+			Zone 7: { this.zonesCurrentState(item.lines[7]) }
 		  </li>
-          <li className={item.lines[8] === 88 ? "norm-zone" : 
-		    item.lines[8] === 80 ? "breaked-zone" : 
-			item.lines[8] === 112 ? "shorted-zone" : 
-			item.lines[8] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 8: {this.zonesCurrentState(item.lines[8])}
+          <li className={ this.zonesCssClass(item.lines[8]) }>
+			Zone 8: { this.zonesCurrentState(item.lines[8]) }
 		  </li>
-          <li className={item.lines[9] === 88 ? "norm-zone" : 
-		    item.lines[9] === 80 ? "breaked-zone" : 
-			item.lines[9] === 112 ? "shorted-zone" : 
-			item.lines[9] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 9: {this.zonesCurrentState(item.lines[9])}
+          <li className={ this.zonesCssClass(item.lines[9]) }>
+			Zone 9: { this.zonesCurrentState(item.lines[9]) }
 		  </li>
-          <li className={item.lines[10] === 88 ? "norm-zone" : 
-		    item.lines[10] === 80 ? "breaked-zone" : 
-			item.lines[10] === 112 ? "shorted-zone" : 
-			item.lines[10] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 10: {this.zonesCurrentState(item.lines[10])}
+          <li className={ this.zonesCssClass(item.lines[10]) }>
+			Zone 10: { this.zonesCurrentState(item.lines[10]) }
 		  </li>
-          <li className={item.lines[11] === 88 ? "norm-zone" : 
-		    item.lines[11] === 80 ? "breaked-zone" : 
-			item.lines[11] === 112 ? "shorted-zone" : 
-			item.lines[11] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 11: {this.zonesCurrentState(item.lines[11])}
+          <li className={ this.zonesCssClass(item.lines[11]) }>
+			Zone 11: { this.zonesCurrentState(item.lines[11]) }
 		  </li>
-          <li className={item.lines[12] === 88 ? "norm-zone" : 
-		    item.lines[12] === 80 ? "breaked-zone" : 
-			item.lines[12] === 112 ? "shorted-zone" : 
-			item.lines[12] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 12: {this.zonesCurrentState(item.lines[12])}
+          <li className={ this.zonesCssClass(item.lines[12]) }>
+			Zone 12: { this.zonesCurrentState(item.lines[12]) }
 		  </li>
-          <li className={item.lines[13] === 88 ? "norm-zone" : 
-		    item.lines[13] === 80 ? "breaked-zone" : 
-			item.lines[13] === 112 ? "shorted-zone" : 
-			item.lines[13] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 13: {this.zonesCurrentState(item.lines[13])}
+          <li className={ this.zonesCssClass(item.lines[13]) }>
+			Zone 13: { this.zonesCurrentState(item.lines[13]) }
 		  </li>
-          <li className={item.lines[14] === 88 ? "norm-zone" : 
-		    item.lines[14] === 80 ? "breaked-zone" : 
-			item.lines[14] === 112 ? "shorted-zone" : 
-			item.lines[14] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 14: {this.zonesCurrentState(item.lines[14])}
+          <li className={ this.zonesCssClass(item.lines[14]) }>
+			Zone 14: { this.zonesCurrentState(item.lines[14]) }
 		  </li>
-          <li className={item.lines[15] === 88 ? "norm-zone" : 
-		    item.lines[15] === 80 ? "breaked-zone" : 
-			item.lines[15] === 112 ? "shorted-zone" : 
-			item.lines[15] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 15: {this.zonesCurrentState(item.lines[15])}
+          <li className={ this.zonesCssClass(item.lines[15]) }>
+			Zone 15: { this.zonesCurrentState(item.lines[15]) }
 		  </li>
-          <li className={item.lines[16] === 88 ? "norm-zone" : 
-		    item.lines[16] === 80 ? "breaked-zone" : 
-			item.lines[16] === 112 ? "shorted-zone" : 
-			item.lines[16] === 120 ? "faulted-zone" : "no-info-zone"}>
-			Zone 16: {this.zonesCurrentState(item.lines[16])}
+          <li className={ this.zonesCssClass(item.lines[16]) }>
+			Zone 16: { this.zonesCurrentState(item.lines[16]) }
 		  </li>
 
           {/*Adapters*/}

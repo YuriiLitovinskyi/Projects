@@ -239,6 +239,17 @@ if (localStorage.getItem("formData")) {
 	   		 return "grey";
 	   	}
    }
+
+   outputRelayCssClass(data){ 
+	   	switch(data){
+	   		case 0:
+	   		 return "green";
+	   		case 1:
+	   		 return "blue";
+	   		default:
+	   		 return "grey";
+	   	}
+   }
       
  render(){  
 
@@ -316,24 +327,19 @@ if (localStorage.getItem("formData")) {
           <li style={{ color: "#0d19a5", fontWeight: "bold"}}>
 		    <i className="fas fa-shield-alt"></i> PPK Model: {this.ppkModel(item.model)}
 		  </li>
-          <li className={ item.online === 0 ? "red" :
- 		    item.online === 1 ? "green" : "grey" }>
+          <li className={ this.baseCssClass(item.online)}>
 			Current Status: {this.ppkOnlineStatus(item.online)}
 		  </li>
-		  <li className={ item.enabled === 0 ? "red" :
- 		    item.enabled === 1 ? "green" : "grey" }>
+		  <li className={ this.baseCssClass(item.enabled)}>
 			Centralized Remote Control Status: {this.ppkCRCStatus(item.enabled)}
 		  </li>		  
-          <li className={ item.power === 0 ? "red" : 
-		    item.power === 1 ? "green" : "grey" }>
+          <li className={ this.baseCssClass(item.power)}>
 			220V: {this.ppkCurrentState(item.power)}
 		  </li>
-          <li className={ item.accum === 0 ? "red" : 
-		    item.accum === 1 ? "green" : "grey" }>
+          <li className={ this.baseCssClass(item.accum)}>
 			Accumulator Battery: {this.ppkCurrentState(item.accum)}
 		  </li>
-          <li className={ item.door === 0 ? "red" : 
-		    item.door === 1 ? "green" : "grey" }>
+          <li className={ this.baseCssClass(item.door)}>
 			Tamper: {this.ppkAdapterTamperState(item.door)}
 		  </li>
 		  
@@ -414,16 +420,13 @@ if (localStorage.getItem("formData")) {
 		  </li>          
           
           {/*Outputs and Relay*/} 		  
-          <li className={item.uk2 === 0 ? "green" : 
-		    item.uk2 === 1 ? "blue" : "grey"}>
+          <li className={ this.outputRelayCssClass(item.uk2) }>
 		    UK2: {this.ppkCurrentState(item.uk2)}
 		  </li>
-          <li className={item.uk3 === 0 ? "green" : 
-		    item.uk3 === 1 ? "blue" : "grey"}>
+          <li className={ this.outputRelayCssClass(item.uk3) }>
 		    UK3: {this.ppkCurrentState(item.uk3)}
 		  </li>
-          <li className={item.relay2 === 0 ? "green" : 
-		    item.relay2 === 1 ? "blue" : "grey"}>
+          <li className={ this.outputRelayCssClass(item.relay2) }>
 		    Relay: {this.ppkCurrentState(item.relay2)}
 		  </li>
           <br /> 
@@ -436,24 +439,19 @@ if (localStorage.getItem("formData")) {
           <li style={{ color: "#0d19a5", fontWeight: "bold"}}>
 		    <i className="fas fa-shield-alt"></i> PPK Model: {this.ppkModel(item.model)}
 		    </li>
-          <li className={ item.online === 0 ? "red" : 
-		    item.online === 1 ? "green" : "grey" }>
-			Current Status: {this.ppkOnlineStatus(item.online)}
+          <li className={ this.baseCssClass(item.online) }>
+			Current Status: {this.ppkOnlineStatus(item.online) }
 		  </li>
-		  <li className={ item.enabled === 0 ? "red" :
- 		    item.enabled === 1 ? "green" : "grey" }>
+		  <li className={ this.baseCssClass(item.enabled) }>
 			Centralized Remote Control Status: {this.ppkCRCStatus(item.enabled)}
 		  </li>
-          <li className={ item.power === 0 ? "red" : 
-		    item.power === 1 ? "green" : "grey" }>
+          <li className={ this.baseCssClass(item.power) }>
 		    220V: {this.ppkCurrentState(item.power)}
 		  </li>
-          <li className={ item.accum === 0 ? "red" : 
-		    item.accum === 1 ? "green" : "grey" }>
+          <li className={ this.baseCssClass(item.accum) }>
 		    Accumulator Battery: {this.ppkCurrentState(item.accum)}
 		  </li>
-          <li className={ item.door === 0 ? "red" : 
-		    item.door === 1 ? "green" : "grey" }>
+          <li className={ this.baseCssClass(item.door) }>
 		    Tamper: {this.ppkAdapterTamperState(item.door)}
 		  </li>
           
@@ -812,20 +810,16 @@ if (localStorage.getItem("formData")) {
 		 
 		  
 		  {/*Outputs and Relay*/} 	
-          <li className={item.c[0] === 0 ? "green" : 
-		    item.c[0] === 1 ? "blue" : "grey"}>
+          <li className={ this.outputRelayCssClass(item.c[0]) }>
 		    Relay: {this.ppkCurrentState(item.c[0])}
 		  </li>
-		  <li className={item.c[1] === 0 ? "green" : 
-		    item.c[1] === 1 ? "blue" : "grey"}>
+		  <li className={ this.outputRelayCssClass(item.c[1])}>
 		    C1: {this.ppkCurrentState(item.c[1])}
 		  </li>
-		  <li className={item.c[2] === 0 ? "green" : 
-		    item.c[2] === 1 ? "blue" : "grey"}>
+		  <li className={ this.outputRelayCssClass(item.c[2]) }>
 		    C2: {this.ppkCurrentState(item.c[2])}
 		  </li>
-		  <li className={item.c[3] === 0 ? "green" : 
-		    item.c[3] === 1 ? "blue" : "grey"}>
+		  <li className={ this.outputRelayCssClass(item.c[3]) }>
 		    C3: {this.ppkCurrentState(item.c[3])}
 		  </li>	  
 		  <br />  

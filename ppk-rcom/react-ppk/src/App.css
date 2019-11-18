@@ -53,6 +53,10 @@ button {
 	color: #0d19a5;
 }
 
+.hide {
+	display: none;
+}
+
 .ppkCard {
   list-style-type: none;  
   padding: 0;

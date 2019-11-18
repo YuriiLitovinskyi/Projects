@@ -33,7 +33,7 @@ if (localStorage.getItem("formData")) {
 
     setinterv(e){   
        e.preventDefault();	
-	   this.intervalId = setInterval(() => this.loadPpkInfo(), 5000);
+	   this.intervalId = setInterval(() => this.loadPpkInfo(), 50000);
 	   this.loadPpkInfo();
     }
 	
@@ -105,7 +105,7 @@ if (localStorage.getItem("formData")) {
             position: 'top-left',
             effect: 'stackslide',
 			beep: false,
-            timeout: 5000
+            //timeout: 5000
         }); 
    }
 
@@ -148,6 +148,18 @@ if (localStorage.getItem("formData")) {
 		     return "No info";		   
 	   }
    }
+
+   ppkGroupClass(data){
+	   	switch(data) {	   		
+		    case 0:
+		     return "green";
+		    case 1:
+		    case 2:
+		     return "blue";
+		    default:
+		     return "grey";
+	   	}
+   }
    
    ppkOnlineStatus(state){
 	   switch(state) {
@@ -158,6 +170,17 @@ if (localStorage.getItem("formData")) {
 		   default:
              return "No info";		   
 	   }
+   }
+
+   ppkCRCStatus(state){
+	   	switch(state) {
+	   		case 0:
+		     return "Disabled";
+		    case 1:
+		     return "Enabled";
+		    default:
+		     return "No info";
+	   	}
    }
    
    ppkAdapterTamperState(state){
@@ -205,10 +228,21 @@ if (localStorage.getItem("formData")) {
 		     return "No info";
 	   }
    }
+
+   baseCssClass(data){
+	   	switch(data){
+	   		case 0:
+	   		 return "red";
+	   		case 1:
+	   		 return "green";
+	   		default:
+	   		 return "grey";
+	   	}
+   }
       
  render(){  
 
-    let ppkData = Object.values(this.state.ppks);
+    let ppkData = Object.values(this.state.ppks);    
     let ppk = Object.keys(this.state.ppks);
     
    return (
@@ -286,6 +320,10 @@ if (localStorage.getItem("formData")) {
  		    item.online === 1 ? "green" : "grey" }>
 			Current Status: {this.ppkOnlineStatus(item.online)}
 		  </li>
+		  <li className={ item.enabled === 0 ? "red" :
+ 		    item.enabled === 1 ? "green" : "grey" }>
+			Centralized Remote Control Status: {this.ppkCRCStatus(item.enabled)}
+		  </li>		  
           <li className={ item.power === 0 ? "red" : 
 		    item.power === 1 ? "green" : "grey" }>
 			220V: {this.ppkCurrentState(item.power)}
@@ -300,36 +338,28 @@ if (localStorage.getItem("formData")) {
 		  </li>
 		  
 		  {/*Groups*/}
-          <li className={item.groups[1] === 0 ? "green" : 
-		    item.groups[1] === 1 ? "blue" : "grey" }>
+          <li className={this.ppkGroupClass(item.groups[1])}>
 			Group 1: {this.ppsGroupState(item.groups[1])}
 		  </li>
-          <li className={item.groups[2] === 0 ? "green" : 
-		    item.groups[2] === 1 ? "blue" : "grey" }>
+          <li className={this.ppkGroupClass(item.groups[2])}>
 			Group 2: {this.ppsGroupState(item.groups[2])}
 		  </li>
-          <li className={item.groups[3] === 0 ? "green" : 
-		    item.groups[3] === 1 ? "blue" : "grey" }>
+          <li className={this.ppkGroupClass(item.groups[3])}>
 			Group 3: {this.ppsGroupState(item.groups[3])}
 		  </li>
-          <li className={item.groups[4] === 0 ? "green" : 
-		    item.groups[4] === 1 ? "blue" : "grey" }>
+          <li className={this.ppkGroupClass(item.groups[4])}>
 			Group 4: {this.ppsGroupState(item.groups[4])}
 		  </li>
-		  <li className={item.groups[5] === 0 ? "green" : 
-		    item.groups[5] === 1 ? "blue" : "grey" }>
+		  <li className={this.ppkGroupClass(item.groups[5])}>
 			Group 5: {this.ppsGroupState(item.groups[5])}
 		  </li>
-		  <li className={item.groups[6] === 0 ? "green" : 
-		    item.groups[6] === 1 ? "blue" : "grey" }>
+		  <li className={this.ppkGroupClass(item.groups[6])}>
 			Group 6: {this.ppsGroupState(item.groups[6])}
 		  </li>
-		  <li className={item.groups[7] === 0 ? "green" : 
-		    item.groups[7] === 1 ? "blue" : "grey" }>
+		  <li className={this.ppkGroupClass(item.groups[7])}>
 			Group 7: {this.ppsGroupState(item.groups[7])}
 		  </li>
-		  <li className={item.groups[8] === 0 ? "green" : 
-		    item.groups[8] === 1 ? "blue" : "grey" }>
+		  <li className={this.ppkGroupClass(item.groups[8])}>
 			Group 8: {this.ppsGroupState(item.groups[8])}
 		  </li>
 		            
@@ -410,6 +440,10 @@ if (localStorage.getItem("formData")) {
 		    item.online === 1 ? "green" : "grey" }>
 			Current Status: {this.ppkOnlineStatus(item.online)}
 		  </li>
+		  <li className={ item.enabled === 0 ? "red" :
+ 		    item.enabled === 1 ? "green" : "grey" }>
+			Centralized Remote Control Status: {this.ppkCRCStatus(item.enabled)}
+		  </li>
           <li className={ item.power === 0 ? "red" : 
 		    item.power === 1 ? "green" : "grey" }>
 		    220V: {this.ppkCurrentState(item.power)}
@@ -424,84 +458,52 @@ if (localStorage.getItem("formData")) {
 		  </li>
           
 		  {/*Groups*/}
-          <li className={item.groups[1] === 0 ? "green" : 
-		    item.groups[1] === 1 ? "blue" :
-		    item.groups[1] === 2 ? "blue" : "grey" }>
+          <li className={this.ppkGroupClass(item.groups[1])}>
 		    Group 1: {this.ppsGroupState(item.groups[1])}
 		  </li>
-          <li className={item.groups[2] === 0 ? "green" : 
-		    item.groups[2] === 1 ? "blue" :
-		    item.groups[2] === 2 ? "blue" : "grey" }>
+          <li className={this.ppkGroupClass(item.groups[2])}>
 		    Group 2: {this.ppsGroupState(item.groups[2])}
 		  </li>
-          <li className={item.groups[3] === 0 ? "green" : 
-		    item.groups[3] === 1 ? "blue" :
-		    item.groups[3] === 2 ? "blue" : "grey" }>
+          <li className={this.ppkGroupClass(item.groups[3])}>
 		    Group 3: {this.ppsGroupState(item.groups[3])}
 		  </li>
-          <li className={item.groups[4] === 0 ? "green" : 
-		    item.groups[4] === 1 ? "blue" :
-		    item.groups[4] === 2 ? "blue" : "grey" }>
+          <li className={this.ppkGroupClass(item.groups[4])}>
 		    Group 4: {this.ppsGroupState(item.groups[4])}
 		  </li>
-		  <li className={item.groups[5] === 0 ? "green" : 
-		    item.groups[5] === 1 ? "blue" :
-		    item.groups[5] === 2 ? "blue" : "grey" }>
+		  <li className={this.ppkGroupClass(item.groups[5])}>
 		    Group 5: {this.ppsGroupState(item.groups[5])}
 		  </li>
-		  <li className={item.groups[6] === 0 ? "green" : 
-		    item.groups[6] === 1 ? "blue" :
-		    item.groups[6] === 2 ? "blue" : "grey" }>
+		  <li className={this.ppkGroupClass(item.groups[6])}>
 		    Group 6: {this.ppsGroupState(item.groups[6])}
 		  </li>
-		  <li className={item.groups[7] === 0 ? "green" : 
-		    item.groups[7] === 1 ? "blue" :
-		    item.groups[7] === 2 ? "blue" : "grey" }>
+		  <li className={this.ppkGroupClass(item.groups[7])}>
 		    Group 7: {this.ppsGroupState(item.groups[7])}
 		  </li>
-		  <li className={item.groups[8] === 0 ? "green" : 
-		    item.groups[8] === 1 ? "blue" :
-		    item.groups[8] === 2 ? "blue" : "grey" }>
+		  <li className={this.ppkGroupClass(item.groups[8])}>
 		    Group 8: {this.ppsGroupState(item.groups[8])}
 		  </li>
-		  <li className={item.groups[9] === 0 ? "green" : 
-		    item.groups[9] === 1 ? "blue" :
-		    item.groups[9] === 2 ? "blue" : "grey" }>
+		  <li className={this.ppkGroupClass(item.groups[9])}>
 		    Group 9: {this.ppsGroupState(item.groups[9])}
 		  </li>
-		  <li className={item.groups[10] === 0 ? "green" : 
-		    item.groups[10] === 1 ? "blue" :
-		    item.groups[10] === 2 ? "blue" : "grey" }>
+		  <li className={this.ppkGroupClass(item.groups[10])}>
 		    Group 10: {this.ppsGroupState(item.groups[10])}
 		  </li>
-		  <li className={item.groups[11] === 0 ? "green" : 
-		    item.groups[11] === 1 ? "blue" :
-		    item.groups[11] === 2 ? "blue" : "grey" }>
+		  <li className={this.ppkGroupClass(item.groups[11])}>
 		    Group 11: {this.ppsGroupState(item.groups[11])}
 		  </li>
-		  <li className={item.groups[12] === 0 ? "green" : 
-		    item.groups[12] === 1 ? "blue" :
-		    item.groups[12] === 2 ? "blue" : "grey" }>
+		  <li className={this.ppkGroupClass(item.groups[12])}>
 		    Group 12: {this.ppsGroupState(item.groups[12])}
 		  </li>
-		  <li className={item.groups[13] === 0 ? "green" : 
-		    item.groups[13] === 1 ? "blue" :
-		    item.groups[13] === 2 ? "blue" : "grey" }>
+		  <li className={this.ppkGroupClass(item.groups[13])}>
 		    Group 13: {this.ppsGroupState(item.groups[13])}
 		  </li>
-		  <li className={item.groups[14] === 0 ? "green" : 
-		    item.groups[14] === 1 ? "blue" :
-		    item.groups[14] === 2 ? "blue" : "grey" }>
+		  <li className={this.ppkGroupClass(item.groups[14])}>
 		    Group 14: {this.ppsGroupState(item.groups[14])}
 		  </li>
-		  <li className={item.groups[15] === 0 ? "green" : 
-		    item.groups[15] === 1 ? "blue" :
-		    item.groups[15] === 2 ? "blue" : "grey" }>
+		  <li className={this.ppkGroupClass(item.groups[15])}>
 		    Group 15: {this.ppsGroupState(item.groups[15])}
 		  </li>
-		  <li className={item.groups[16] === 0 ? "green" : 
-		    item.groups[16] === 1 ? "blue" :
-		    item.groups[16] === 2 ? "blue" : "grey" }>
+		  <li className={this.ppkGroupClass(item.groups[16])}>
 		    Group 16: {this.ppsGroupState(item.groups[16])}
 		  </li>
           
@@ -604,85 +606,210 @@ if (localStorage.getItem("formData")) {
 		  </li>
 
           {/*Adapters*/}
-		  <li className={item.adapters[1].conn === 0 ? "red" : 
-		    item.adapters[1].conn === 1 ? "green" : "grey"}>
-		    Adapter 1 Status: {this.adapterConnectionStatus(item.adapters[1].conn)}
+
+          <li className={item.adapters[1] === undefined ? "hide" : this.baseCssClass(item.adapters[1].conn)}>
+		    Adapter 1 Status: {item.adapters[1] === undefined ? "" : this.adapterConnectionStatus(item.adapters[1].conn)}
 		  </li>
-		  <li className={item.adapters[1].door === 0 ? "red" : 
-		    item.adapters[1].door === 1 ? "green" : "grey"}>
-		    Adapter 1 Tamper: {this.ppkAdapterTamperState(item.adapters[1].door)}
+		  <li className={item.adapters[1] === undefined ? "hide" : this.baseCssClass(item.adapters[1].door)}>
+		    Adapter 1 Tamper: {item.adapters[1] === undefined ? "" : this.ppkAdapterTamperState(item.adapters[1].door)}
 		  </li>
-		  <li className={item.adapters[1].power === 0 ? "red" : 
-		    item.adapters[1].power === 1 ? "green" : "grey"}>
-		    Adapter 1 Power: {this.adapterPowerState(item.adapters[1].power)}
+		  <li className={item.adapters[1] === undefined ? "hide" : this.baseCssClass(item.adapters[1].power)}>
+		    Adapter 1 Power: {item.adapters[1] === undefined ? "" : this.adapterPowerState(item.adapters[1].power)}
 		  </li>
-		  
-		  <li className={item.adapters[2].conn === 0 ? "red" : 
-		    item.adapters[2].conn === 1 ? "green" : "grey"}>
-		    Adapter 2 Status: {this.adapterConnectionStatus(item.adapters[2].conn)}
+
+		  <li className={item.adapters[2] === undefined ? "hide" : this.baseCssClass(item.adapters[2].conn)}>
+		    Adapter 2 Status: {item.adapters[2] === undefined ? "" : this.adapterConnectionStatus(item.adapters[2].conn)}
 		  </li>
-		  <li className={item.adapters[2].door === 0 ? "red" : 
-		    item.adapters[2].door === 1 ? "green" : "grey"}>
-		    Adapter 2 Tamper: {this.ppkAdapterTamperState(item.adapters[2].door)}
+		  <li className={item.adapters[2] === undefined ? "hide" : this.baseCssClass(item.adapters[2].door)}>
+		    Adapter 2 Tamper: {item.adapters[2] === undefined ? "" : this.ppkAdapterTamperState(item.adapters[2].door)}
 		  </li>
-		  <li className={item.adapters[2].power === 0 ? "red" : 
-		    item.adapters[2].power === 1 ? "green" : "grey"}>
-		    Adapter 2 Power: {this.adapterPowerState(item.adapters[2].power)}
+		  <li className={item.adapters[2] === undefined ? "hide" : this.baseCssClass(item.adapters[2].power)}>
+		    Adapter 2 Power: {item.adapters[2] === undefined ? "" : this.adapterPowerState(item.adapters[2].power)}
 		  </li>
-		  
-		  <li className={item.adapters[3].conn === 0 ? "red" : 
-		    item.adapters[3].conn === 1 ? "green" : "grey"}>
-		    Adapter 3 Status: {this.adapterConnectionStatus(item.adapters[3].conn)}
+
+		  <li className={item.adapters[3] === undefined ? "hide" : this.baseCssClass(item.adapters[3].conn)}>
+		    Adapter 3 Status: {item.adapters[3] === undefined ? "" : this.adapterConnectionStatus(item.adapters[3].conn)}
 		  </li>
-		  <li className={item.adapters[3].door === 0 ? "red" : 
-		    item.adapters[3].door === 1 ? "green" : "grey"}>
-		    Adapter 3 Tamper: {this.ppkAdapterTamperState(item.adapters[3].door)}
+		  <li className={item.adapters[3] === undefined ? "hide" : this.baseCssClass(item.adapters[3].door)}>
+		    Adapter 3 Tamper: {item.adapters[3] === undefined ? "" : this.ppkAdapterTamperState(item.adapters[3].door)}
 		  </li>
-		  <li className={item.adapters[3].power === 0 ? "red" : 
-		    item.adapters[3].power === 1 ? "green" : "grey"}>
-		    Adapter 3 Power: {this.adapterPowerState(item.adapters[3].power)}
+		  <li className={item.adapters[3] === undefined ? "hide" : this.baseCssClass(item.adapters[3].power)}>
+		    Adapter 3 Power: {item.adapters[3] === undefined ? "" : this.adapterPowerState(item.adapters[3].power)}
 		  </li>
-		  
-		  <li className={item.adapters[4].conn === 0 ? "red" : 
-		    item.adapters[4].conn === 1 ? "green" : "grey"}>
-		    Adapter 4 Status: {this.adapterConnectionStatus(item.adapters[4].conn)}
+
+		  <li className={item.adapters[4] === undefined ? "hide" : this.baseCssClass(item.adapters[4].conn)}>
+		    Adapter 4 Status: {item.adapters[4] === undefined ? "" : this.adapterConnectionStatus(item.adapters[4].conn)}
 		  </li>
-		  <li className={item.adapters[4].door === 0 ? "red" : 
-		    item.adapters[4].door === 1 ? "green" : "grey"}>
-		    Adapter 4 Tamper: {this.ppkAdapterTamperState(item.adapters[4].door)}
+		  <li className={item.adapters[4] === undefined ? "hide" : this.baseCssClass(item.adapters[4].door)}>
+		    Adapter 4 Tamper: {item.adapters[4] === undefined ? "" : this.ppkAdapterTamperState(item.adapters[4].door)}
 		  </li>
-		  <li className={item.adapters[4].power === 0 ? "red" : 
-		    item.adapters[4].power === 1 ? "green" : "grey"}>
-		    Adapter 4 Power: {this.adapterPowerState(item.adapters[4].power)}
+		  <li className={item.adapters[4] === undefined ? "hide" : this.baseCssClass(item.adapters[4].power)}>
+		    Adapter 4 Power: {item.adapters[4] === undefined ? "" : this.adapterPowerState(item.adapters[4].power)}
 		  </li>
+        
 		  
 		  {/*Wireless Sensors*/}
-		  <li className={item.wsensors[11].conn === 0 ? "red" : 
-		    item.wsensors[11].conn === 1 ? "green" : "grey"}>
-			Wireless Sensor 1 Status: {this.adapterConnectionStatus(item.wsensors[11].conn)}
+
+		   <li className={item.wsensors[1] === undefined ? "hide" : this.baseCssClass(item.wsensors[1].conn)}>
+			Wireless Sensor 1 Status: {item.wsensors[1] === undefined ? "" : this.adapterConnectionStatus(item.wsensors[1].conn)}
 		  </li>
-		  <li className={item.wsensors[11].door === 0 ? "red" : 
-		    item.wsensors[11].door === 1 ? "green" : "grey"}>
-			Wireless Sensor 1 Tamper: {this.ppkAdapterTamperState(item.wsensors[11].door)}
+		  <li className={item.wsensors[1] === undefined ? "hide" : this.baseCssClass(item.wsensors[1].door)}>
+			Wireless Sensor 1 Tamper: {item.wsensors[1] === undefined ? "" : this.ppkAdapterTamperState(item.wsensors[1].door)}
 		  </li>
-		  
-		  <li className={item.wsensors[12].conn === 0 ? "red" : 
-		    item.wsensors[12].conn === 1 ? "green" : "grey"}>
-			Wireless Sensor 2 Status: {this.adapterConnectionStatus(item.wsensors[12].conn)}
+		  <li className={item.wsensors[1] === undefined ? "hide" : this.baseCssClass(item.wsensors[1].power)}>
+		    Wireless Sensor 1 Power: {item.wsensors[1] === undefined ? "" : this.adapterPowerState(item.wsensors[1].power)}
 		  </li>
-		  <li className={item.wsensors[12].door === 0 ? "red" : 
-		    item.wsensors[12].door === 1 ? "green" : "grey"}>
-			Wireless Sensor 2 Tamper: {this.ppkAdapterTamperState(item.wsensors[12].door)}
+
+		   <li className={item.wsensors[2] === undefined ? "hide" : this.baseCssClass(item.wsensors[2].conn)}>
+			Wireless Sensor 2 Status: {item.wsensors[2] === undefined ? "" : this.adapterConnectionStatus(item.wsensors[2].conn)}
 		  </li>
-		  
-		  <li className={item.wsensors[13].conn === 0 ? "red" : 
-		    item.wsensors[13].conn === 1 ? "green" : "grey"}>
-			Wireless Sensor 3 Status: {this.adapterConnectionStatus(item.wsensors[13].conn)}
+		  <li className={item.wsensors[2] === undefined ? "hide" : this.baseCssClass(item.wsensors[2].door)}>
+			Wireless Sensor 2 Tamper: {item.wsensors[2] === undefined ? "" : this.ppkAdapterTamperState(item.wsensors[2].door)}
 		  </li>
-		  <li className={item.wsensors[13].door === 0 ? "red" : 
-		    item.wsensors[13].door === 1 ? "green" : "grey"}>
-			Wireless Sensor 3 Tamper: {this.ppkAdapterTamperState(item.wsensors[13].door)}
+		  <li className={item.wsensors[2] === undefined ? "hide" : this.baseCssClass(item.wsensors[2].power)}>
+		    Wireless Sensor 2 Power: {item.wsensors[2] === undefined ? "" : this.adapterPowerState(item.wsensors[2].power)}
 		  </li>
+
+		   <li className={item.wsensors[3] === undefined ? "hide" : this.baseCssClass(item.wsensors[3].conn)}>
+			Wireless Sensor 3 Status: {item.wsensors[3] === undefined ? "" : this.adapterConnectionStatus(item.wsensors[3].conn)}
+		  </li>
+		  <li className={item.wsensors[3] === undefined ? "hide" : this.baseCssClass(item.wsensors[3].door)}>
+			Wireless Sensor 3 Tamper: {item.wsensors[3] === undefined ? "" : this.ppkAdapterTamperState(item.wsensors[3].door)}
+		  </li>
+		  <li className={item.wsensors[3] === undefined ? "hide" : this.baseCssClass(item.wsensors[3].power)}>
+		    Wireless Sensor 3 Power: {item.wsensors[3] === undefined ? "" : this.adapterPowerState(item.wsensors[3].power)}
+		  </li>
+
+		   <li className={item.wsensors[4] === undefined ? "hide" : this.baseCssClass(item.wsensors[4].conn)}>
+			Wireless Sensor 4 Status: {item.wsensors[4] === undefined ? "" : this.adapterConnectionStatus(item.wsensors[4].conn)}
+		  </li>
+		  <li className={item.wsensors[4] === undefined ? "hide" : this.baseCssClass(item.wsensors[4].door)}>
+			Wireless Sensor 4 Tamper: {item.wsensors[4] === undefined ? "" : this.ppkAdapterTamperState(item.wsensors[4].door)}
+		  </li>
+		  <li className={item.wsensors[4] === undefined ? "hide" : this.baseCssClass(item.wsensors[4].power)}>
+		    Wireless Sensor 4 Power: {item.wsensors[4] === undefined ? "" : this.adapterPowerState(item.wsensors[4].power)}
+		  </li>
+
+		   <li className={item.wsensors[5] === undefined ? "hide" : this.baseCssClass(item.wsensors[5].conn)}>
+			Wireless Sensor 5 Status: {item.wsensors[5] === undefined ? "" : this.adapterConnectionStatus(item.wsensors[5].conn)}
+		  </li>
+		  <li className={item.wsensors[5] === undefined ? "hide" : this.baseCssClass(item.wsensors[5].door)}>
+			Wireless Sensor 5 Tamper: {item.wsensors[5] === undefined ? "" : this.ppkAdapterTamperState(item.wsensors[5].door)}
+		  </li>
+		  <li className={item.wsensors[5] === undefined ? "hide" : this.baseCssClass(item.wsensors[5].power)}>
+		    Wireless Sensor 5 Power: {item.wsensors[5] === undefined ? "" : this.adapterPowerState(item.wsensors[5].power)}
+		  </li>
+
+		  <li className={item.wsensors[6] === undefined ? "hide" : this.baseCssClass(item.wsensors[6].conn)}>
+			Wireless Sensor 6 Status: {item.wsensors[6] === undefined ? "" : this.adapterConnectionStatus(item.wsensors[6].conn)}
+		  </li>
+		  <li className={item.wsensors[6] === undefined ? "hide" : this.baseCssClass(item.wsensors[6].door)}>
+			Wireless Sensor 6 Tamper: {item.wsensors[6] === undefined ? "" : this.ppkAdapterTamperState(item.wsensors[6].door)}
+		  </li>
+		  <li className={item.wsensors[6] === undefined ? "hide" : this.baseCssClass(item.wsensors[6].power)}>
+		    Wireless Sensor 6 Power: {item.wsensors[6] === undefined ? "" : this.adapterPowerState(item.wsensors[6].power)}
+		  </li>
+
+		  <li className={item.wsensors[7] === undefined ? "hide" : this.baseCssClass(item.wsensors[7].conn)}>
+			Wireless Sensor 7 Status: {item.wsensors[7] === undefined ? "" : this.adapterConnectionStatus(item.wsensors[7].conn)}
+		  </li>
+		  <li className={item.wsensors[7] === undefined ? "hide" : this.baseCssClass(item.wsensors[7].door)}>
+			Wireless Sensor 7 Tamper: {item.wsensors[7] === undefined ? "" : this.ppkAdapterTamperState(item.wsensors[7].door)}
+		  </li>
+		  <li className={item.wsensors[7] === undefined ? "hide" : this.baseCssClass(item.wsensors[7].power)}>
+		    Wireless Sensor 7 Power: {item.wsensors[7] === undefined ? "" : this.adapterPowerState(item.wsensors[7].power)}
+		  </li>
+
+		  <li className={item.wsensors[8] === undefined ? "hide" : this.baseCssClass(item.wsensors[8].conn)}>
+			Wireless Sensor 8 Status: {item.wsensors[8] === undefined ? "" : this.adapterConnectionStatus(item.wsensors[8].conn)}
+		  </li>
+		  <li className={item.wsensors[8] === undefined ? "hide" : this.baseCssClass(item.wsensors[8].door)}>
+			Wireless Sensor 8 Tamper: {item.wsensors[8] === undefined ? "" : this.ppkAdapterTamperState(item.wsensors[8].door)}
+		  </li>
+		  <li className={item.wsensors[8] === undefined ? "hide" : this.baseCssClass(item.wsensors[8].power)}>
+		    Wireless Sensor 8 Power: {item.wsensors[8] === undefined ? "" : this.adapterPowerState(item.wsensors[8].power)}
+		  </li>
+
+		  <li className={item.wsensors[9] === undefined ? "hide" : this.baseCssClass(item.wsensors[9].conn)}>
+			Wireless Sensor 9 Status: {item.wsensors[9] === undefined ? "" : this.adapterConnectionStatus(item.wsensors[9].conn)}
+		  </li>
+		  <li className={item.wsensors[9] === undefined ? "hide" : this.baseCssClass(item.wsensors[9].door)}>
+			Wireless Sensor 9 Tamper: {item.wsensors[9] === undefined ? "" : this.ppkAdapterTamperState(item.wsensors[9].door)}
+		  </li>
+		  <li className={item.wsensors[9] === undefined ? "hide" : this.baseCssClass(item.wsensors[9].power)}>
+		    Wireless Sensor 9 Power: {item.wsensors[9] === undefined ? "" : this.adapterPowerState(item.wsensors[9].power)}
+		  </li>
+
+		  <li className={item.wsensors[10] === undefined ? "hide" : this.baseCssClass(item.wsensors[10].conn)}>
+			Wireless Sensor 10 Status: {item.wsensors[10] === undefined ? "" : this.adapterConnectionStatus(item.wsensors[10].conn)}
+		  </li>
+		  <li className={item.wsensors[10] === undefined ? "hide" : this.baseCssClass(item.wsensors[10].door)}>
+			Wireless Sensor 10 Tamper: {item.wsensors[10] === undefined ? "" : this.ppkAdapterTamperState(item.wsensors[10].door)}
+		  </li>
+		  <li className={item.wsensors[10] === undefined ? "hide" : this.baseCssClass(item.wsensors[10].power)}>
+		    Wireless Sensor 10 Power: {item.wsensors[10] === undefined ? "" : this.adapterPowerState(item.wsensors[10].power)}
+		  </li>
+
+		  <li className={item.wsensors[11] === undefined ? "hide" : this.baseCssClass(item.wsensors[11].conn)}>
+			Wireless Sensor 11 Status: {item.wsensors[11] === undefined ? "" : this.adapterConnectionStatus(item.wsensors[11].conn)}
+		  </li>
+		  <li className={item.wsensors[11] === undefined ? "hide" : this.baseCssClass(item.wsensors[11].door)}>
+			Wireless Sensor 11 Tamper: {item.wsensors[11] === undefined ? "" : this.ppkAdapterTamperState(item.wsensors[11].door)}
+		  </li>
+		  <li className={item.wsensors[11] === undefined ? "hide" : this.baseCssClass(item.wsensors[11].power)}>
+		    Wireless Sensor 11 Power: {item.wsensors[11] === undefined ? "" : this.adapterPowerState(item.wsensors[11].power)}
+		  </li>
+
+		  <li className={item.wsensors[12] === undefined ? "hide" : this.baseCssClass(item.wsensors[12].conn)}>
+			Wireless Sensor 12 Status: {item.wsensors[12] === undefined ? "" : this.adapterConnectionStatus(item.wsensors[12].conn)}
+		  </li>
+		  <li className={item.wsensors[12] === undefined ? "hide" : this.baseCssClass(item.wsensors[12].door)}>
+			Wireless Sensor 12 Tamper: {item.wsensors[12] === undefined ? "" : this.ppkAdapterTamperState(item.wsensors[12].door)}
+		  </li>
+		  <li className={item.wsensors[12] === undefined ? "hide" : this.baseCssClass(item.wsensors[12].power)}>
+		    Wireless Sensor 12 Power: {item.wsensors[12] === undefined ? "" : this.adapterPowerState(item.wsensors[12].power)}
+		  </li>
+
+		  <li className={item.wsensors[13] === undefined ? "hide" : this.baseCssClass(item.wsensors[13].conn)}>
+			Wireless Sensor 13 Status: {item.wsensors[13] === undefined ? "" : this.adapterConnectionStatus(item.wsensors[13].conn)}
+		  </li>
+		  <li className={item.wsensors[13] === undefined ? "hide" : this.baseCssClass(item.wsensors[13].door)}>
+			Wireless Sensor 13 Tamper: {item.wsensors[13] === undefined ? "" : this.ppkAdapterTamperState(item.wsensors[13].door)}
+		  </li>
+		  <li className={item.wsensors[13] === undefined ? "hide" : this.baseCssClass(item.wsensors[13].power)}>
+		    Wireless Sensor 13 Power: {item.wsensors[13] === undefined ? "" : this.adapterPowerState(item.wsensors[13].power)}
+		  </li>
+
+		  <li className={item.wsensors[14] === undefined ? "hide" : this.baseCssClass(item.wsensors[14].conn)}>
+			Wireless Sensor 14 Status: {item.wsensors[14] === undefined ? "" : this.adapterConnectionStatus(item.wsensors[14].conn)}
+		  </li>
+		  <li className={item.wsensors[14] === undefined ? "hide" : this.baseCssClass(item.wsensors[14].door)}>
+			Wireless Sensor 14 Tamper: {item.wsensors[14] === undefined ? "" : this.ppkAdapterTamperState(item.wsensors[14].door)}
+		  </li>
+		  <li className={item.wsensors[14] === undefined ? "hide" : this.baseCssClass(item.wsensors[14].power)}>
+		    Wireless Sensor 14 Power: {item.wsensors[14] === undefined ? "" : this.adapterPowerState(item.wsensors[14].power)}
+		  </li>
+
+		  <li className={item.wsensors[15] === undefined ? "hide" : this.baseCssClass(item.wsensors[15].conn)}>
+			Wireless Sensor 15 Status: {item.wsensors[15] === undefined ? "" : this.adapterConnectionStatus(item.wsensors[15].conn)}
+		  </li>
+		  <li className={item.wsensors[15] === undefined ? "hide" : this.baseCssClass(item.wsensors[15].door)}>
+			Wireless Sensor 15 Tamper: {item.wsensors[15] === undefined ? "" : this.ppkAdapterTamperState(item.wsensors[15].door)}
+		  </li>
+		  <li className={item.wsensors[15] === undefined ? "hide" : this.baseCssClass(item.wsensors[15].power)}>
+		    Wireless Sensor 15 Power: {item.wsensors[15] === undefined ? "" : this.adapterPowerState(item.wsensors[15].power)}
+		  </li>
+
+		  <li className={item.wsensors[16] === undefined ? "hide" : this.baseCssClass(item.wsensors[16].conn)}>
+			Wireless Sensor 16 Status: {item.wsensors[16] === undefined ? "" : this.adapterConnectionStatus(item.wsensors[16].conn)}
+		  </li>
+		  <li className={item.wsensors[16] === undefined ? "hide" : this.baseCssClass(item.wsensors[16].door)}>
+			Wireless Sensor 16 Tamper: {item.wsensors[16] === undefined ? "" : this.ppkAdapterTamperState(item.wsensors[16].door)}
+		  </li>
+		  <li className={item.wsensors[16] === undefined ? "hide" : this.baseCssClass(item.wsensors[16].power)}>
+		    Wireless Sensor 16 Power: {item.wsensors[16] === undefined ? "" : this.adapterPowerState(item.wsensors[16].power)}
+		  </li>
+		 
 		  
 		  {/*Outputs and Relay*/} 	
           <li className={item.c[0] === 0 ? "green" : 

@@ -29,6 +29,7 @@ if (localStorage.getItem("formData")) {
 
     this.loadPpkInfo = this.loadPpkInfo.bind(this);	
 	this.zonesCurrentState = this.zonesCurrentState.bind(this);
+	this.remotePpkControl = this.remotePpkControl.bind(this);
   }
 
     setinterv(e){   
@@ -99,6 +100,40 @@ if (localStorage.getItem("formData")) {
       }); 
       
   }
+
+	remotePpkControl(ppkNumber, command, entityName, entityNumber){
+		//e.preventDefault();
+		const ipAddress = this.state.ipState;
+		const port = this.state.portState;
+		const userName = this.state.userNameState;
+		const pass = this.state.passwordState;		
+		  
+	    axios.post("http://"+ipAddress+":"+port+"/api/devices/"+ppkNumber+"/command/", {}, {
+	       headers: {
+	        "Access-Control-Allow-Origin": "*", 
+	        "Access-Control-Allow-Method": "POST",		
+	        "Content-Type": "application/json"                 
+	      },
+	      auth: {
+	        username: userName,
+	        password: pass
+	      },
+	      data: {
+	      	"command": command,
+	        "entity_name": entityName,
+		    "entity_number": entityNumber,
+		    "device_license_key": "169-235-006-120-007-196",  //4l => 169-235-006-120-007-196  8l => 037-246-006-048-003-030
+		    "device_password": "123456"
+	      }            
+	    })
+	    .then((res) => {
+	    	console.log(res);
+	    	//this.loadPpkInfo();
+	    })
+	    .catch((err) => {
+	    	console.log(err);
+	    })
+		}
   
    alertHandler(){	   
 	   Alert.error('ALARM! ZONE BREAK!', {		    
@@ -265,6 +300,14 @@ if (localStorage.getItem("formData")) {
 	   		 return "grey";
 	   	}
    }
+
+   disabledButtonControl(online){       // , enabled
+   	if (online === 0){                 // || enabled === 0
+   		return true;
+   	} else {
+   		return false;
+   	}
+   }
       
  render(){  
 
@@ -332,7 +375,8 @@ if (localStorage.getItem("formData")) {
        type="submit">Show current info
      </button>
       */}
-      <h2> My Devices:</h2>    
+      <h2> My Devices:</h2>           
+		
       <ul>
       {ppkData.map((item, index) => {	
        if (item.model === "8l")	{  
@@ -358,9 +402,12 @@ if (localStorage.getItem("formData")) {
 			Tamper: {this.ppkAdapterTamperState(item.door)}
 		  </li>
 		  
-		  {/*Groups*/}
+		  {/*Groups*/}	  
+
           <li className={this.ppkGroupClass(item.groups[1])}>
 			Group 1: {this.ppsGroupState(item.groups[1])}
+			<button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 1) }}>Arm Group</button> 
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 1) }}>Disarm Group</button>
 		  </li>
           <li className={this.ppkGroupClass(item.groups[2])}>
 			Group 2: {this.ppsGroupState(item.groups[2])}
@@ -413,12 +460,18 @@ if (localStorage.getItem("formData")) {
           {/*Outputs and Relay*/} 		  
           <li className={ this.outputRelayCssClass(item.uk2) }>
 		    UK2: {this.ppkCurrentState(item.uk2)}
-		  </li>
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "uk", 2) }}>Turn Uk2 ON</button> 
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "uk", 2) }}>Turn Uk2 OFF</button>
+		  </li>		  
           <li className={ this.outputRelayCssClass(item.uk3) }>
 		    UK3: {this.ppkCurrentState(item.uk3)}
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "uk", 3) }}>Turn Uk2 ON</button> 
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "uk", 3) }}>Turn Uk2 OFF</button>
 		  </li>
           <li className={ this.outputRelayCssClass(item.relay2) }>
 		    Relay: {this.ppkCurrentState(item.relay2)}
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "relay", 2) }}>Turn Uk2 ON</button> 
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "relay", 2) }}>Turn Uk2 OFF</button>
 		  </li>
           <br /> 
           </div>
@@ -449,15 +502,23 @@ if (localStorage.getItem("formData")) {
 		  {/*Groups*/}
           <li className={this.ppkGroupClass(item.groups[1])}>
 		    Group 1: {this.ppsGroupState(item.groups[1])}
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 1) }}>Arm Group</button> 
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 1) }}>Disarm Group</button>
 		  </li>
           <li className={this.ppkGroupClass(item.groups[2])}>
 		    Group 2: {this.ppsGroupState(item.groups[2])}
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 2) }}>Arm Group</button> 
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 2) }}>Disarm Group</button>
 		  </li>
           <li className={this.ppkGroupClass(item.groups[3])}>
 		    Group 3: {this.ppsGroupState(item.groups[3])}
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 3) }}>Arm Group</button> 
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 3) }}>Disarm Group</button>
 		  </li>
           <li className={this.ppkGroupClass(item.groups[4])}>
 		    Group 4: {this.ppsGroupState(item.groups[4])}
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 4) }}>Arm Group</button> 
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 4) }}>Disarm Group</button>
 		  </li>
 		  <li className={this.ppkGroupClass(item.groups[5])}>
 		    Group 5: {this.ppsGroupState(item.groups[5])}
@@ -755,15 +816,23 @@ if (localStorage.getItem("formData")) {
 		  {/*Outputs and Relay*/} 	
           <li className={ this.outputRelayCssClass(item.c[0]) }>
 		    Relay: {this.ppkCurrentState(item.c[0])}
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "relay", 0) }}>Turn Uk2 ON</button> 
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "relay", 0) }}>Turn Uk2 OFF</button>
 		  </li>
 		  <li className={ this.outputRelayCssClass(item.c[1])}>
 		    C1: {this.ppkCurrentState(item.c[1])}
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "c", 1) }}>Turn Uk2 ON</button> 
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "c", 1) }}>Turn Uk2 OFF</button>
 		  </li>
 		  <li className={ this.outputRelayCssClass(item.c[2]) }>
 		    C2: {this.ppkCurrentState(item.c[2])}
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "c", 2) }}>Turn Uk2 ON</button> 
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "c", 2) }}>Turn Uk2 OFF</button>
 		  </li>
 		  <li className={ this.outputRelayCssClass(item.c[3]) }>
 		    C3: {this.ppkCurrentState(item.c[3])}
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "c", 3) }}>Turn Uk2 ON</button> 
+		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "c", 3) }}>Turn Uk2 OFF</button>
 		  </li>	  
 		  <br />  
           </div>

@@ -382,6 +382,21 @@ if (localStorage.getItem("formData")) {
        if (item.model === "8l")	{  
         return (
           <div className="ppkCard" key={index + 1}>
+
+          <div className="input-group input-group-sm mb-3">
+		  <div className="input-group-prepend">
+		    <span className="input-group-text" id="inputGroup-sizing-sm">Enter License Key</span>
+		  </div>
+		  <input type="text" className="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+		</div>
+		 <div className="input-group input-group-sm mb-3">
+		  <div className="input-group-prepend">
+		    <span className="input-group-text" id="inputGroup-sizing-sm">Enter Password</span>
+		  </div>
+		  <input type="text" className="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+		</div>
+
+
 		  <li className="ppkNumber">PPK Number: {ppk[index]}</li>
           <li style={{ color: "#0d19a5", fontWeight: "bold"}}>
 		    <i className="fas fa-shield-alt"></i> PPK Model: {this.ppkModel(item.model)}

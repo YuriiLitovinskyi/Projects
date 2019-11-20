@@ -22,6 +22,9 @@ if (localStorage.getItem("formData")) {
     portState: "",
     userNameState: "",
     passwordState: "",
+    licenseKey: "",
+    licenseKeys: [],
+    licenseKeysObject: []
    // refreshButttonDisabled: true
 }
     
@@ -30,6 +33,8 @@ if (localStorage.getItem("formData")) {
     this.loadPpkInfo = this.loadPpkInfo.bind(this);	
 	this.zonesCurrentState = this.zonesCurrentState.bind(this);
 	this.remotePpkControl = this.remotePpkControl.bind(this);
+	this.licenseKeysHandler = this.licenseKeysHandler.bind(this);
+	this.licenseKeysSetter = this.licenseKeysSetter.bind(this);
   }
 
     setinterv(e){   
@@ -66,6 +71,29 @@ if (localStorage.getItem("formData")) {
       localStorage.setItem("formData", JSON.stringify(this.state));
     })
   }
+
+  licenseKeysHandler = (event) => {  	
+  	this.setState({licenseKey: event.target.value}, () => {
+  		console.log(this.state.licenseKey);
+  	})  	
+  }
+
+  licenseKeysSetter = (ppkNumber) => {
+ 	if (this.state.licenseKey !== ""){
+  		//console.log(this.state.licenseKeys);
+  		this.setState({
+  			licenseKeys: [ ...this.state.licenseKeys || [], this.state.licenseKey],
+  			licenseKeysObject: [ ...this.state.licenseKeysObject || [], {
+  				'number': ppkNumber,
+  				'key': this.state.licenseKey
+  			}]
+  		}, () => {
+  			console.log(this.state.licenseKeys);
+  			console.log(this.state.licenseKeysObject);
+  		});
+  	}  	
+  }
+
 
   loadPpkInfo(){
 	  //e.preventDefault();
@@ -122,7 +150,7 @@ if (localStorage.getItem("formData")) {
 	      	"command": command,
 	        "entity_name": entityName,
 		    "entity_number": entityNumber,
-		    "device_license_key": "169-235-006-120-007-196",  //4l => 169-235-006-120-007-196  8l => 037-246-006-048-003-030
+		    "device_license_key": this.state.licenseKey,  //4l => 169-235-006-120-007-196  8l => 037-246-006-048-003-030
 		    "device_password": "123456"
 	      }            
 	    })
@@ -383,18 +411,31 @@ if (localStorage.getItem("formData")) {
         return (
           <div className="ppkCard" key={index + 1}>
 
+          <form>
           <div className="input-group input-group-sm mb-3">
 		  <div className="input-group-prepend">
 		    <span className="input-group-text" id="inputGroup-sizing-sm">Enter License Key</span>
 		  </div>
-		  <input type="text" className="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+		  <input type="text"
+		         className="form-control"
+		         placeholder="000-000-000-000-000-000" 
+		         onChange={this.licenseKeysHandler}
+		         value={this.state.licenseKey || ''} 
+		         aria-label="Small" 
+		         aria-describedby="inputGroup-sizing-sm" />
 		</div>
 		 <div className="input-group input-group-sm mb-3">
 		  <div className="input-group-prepend">
 		    <span className="input-group-text" id="inputGroup-sizing-sm">Enter Password</span>
 		  </div>
-		  <input type="text" className="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+		  <input type="text" 
+		         className="form-control"
+		         placeholder="000000" 
+		         aria-label="Small" 
+		         aria-describedby="inputGroup-sizing-sm" />
 		</div>
+		<button type="button" onClick={this.licenseKeysSetter} >Save</button>     {/*onClick={() => {this.licenseKeysSetter(456)}}*/}
+		</form>
 
 
 		  <li className="ppkNumber">PPK Number: {ppk[index]}</li>

@@ -12,9 +12,13 @@ class App extends React.Component {
   constructor(props){
     super(props);
 
-if (localStorage.getItem("formData")) {
-  this.state = JSON.parse(localStorage.getItem("formData"));
-} else {
+// if (localStorage.getItem("formData")) {
+//   let state = JSON.parse(localStorage.getItem("formData"));
+//   if(!Array.isArray(state.licenseKeys)) {
+//       state.licencseKeys = [];
+//    }
+//    this.state = state;
+// } else {
   this.state = {
     ppks: [],
     alert: false,
@@ -26,9 +30,8 @@ if (localStorage.getItem("formData")) {
     licenseKeys: [],
     licenseKeysObject: []
    // refreshButttonDisabled: true
-}
-    
-    }
+}    
+    //}
 
     this.loadPpkInfo = this.loadPpkInfo.bind(this);	
 	this.zonesCurrentState = this.zonesCurrentState.bind(this);
@@ -36,6 +39,10 @@ if (localStorage.getItem("formData")) {
 	this.licenseKeysHandler = this.licenseKeysHandler.bind(this);
 	this.licenseKeysSetter = this.licenseKeysSetter.bind(this);
   }
+
+   componentDidMount() {
+     this.setState(JSON.parse(localStorage.getItem("formData")))   
+   }
 
     setinterv(e){   
        e.preventDefault();	
@@ -78,22 +85,24 @@ if (localStorage.getItem("formData")) {
   	})  	
   }
 
-  licenseKeysSetter = (ppkNumber) => {
- 	if (this.state.licenseKey !== ""){
+  licenseKeysSetter = (index) => {
+  	//console.log(this.state.licenseKey);
+  	console.log(this.state.licenseKeys);
+  	//console.log(this.state); 	
+ 	if (this.state.licenseKey !== "" && !this.state.licenseKeys.includes(this.state.licenseKey)){            
   		//console.log(this.state.licenseKeys);
   		this.setState({
   			licenseKeys: [ ...this.state.licenseKeys || [], this.state.licenseKey],
   			licenseKeysObject: [ ...this.state.licenseKeysObject || [], {
-  				'number': ppkNumber,
-  				'key': this.state.licenseKey
-  			}]
+   				'number': index,
+ 				'key': this.state.licenseKey
+  			}]  			
   		}, () => {
-  			console.log(this.state.licenseKeys);
-  			console.log(this.state.licenseKeysObject);
-  		});
-  	}  	
+  			console.log(this.state.licenseKeys); 
+  			console.log(this.state.licenseKeysObject);  			
+  		});   
+  	}	
   }
-
 
   loadPpkInfo(){
 	  //e.preventDefault();

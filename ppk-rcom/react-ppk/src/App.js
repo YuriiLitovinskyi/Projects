@@ -28,11 +28,13 @@ class App extends React.Component {
     passwordState: "",
     licenseKey: "",
     licenseKeys: [],
-    licenseKeysObject: []
+    licenseKeysObject: [],
+    apiVersion: ""
    // refreshButttonDisabled: true
 }    
     //}
-
+    
+    this.getApiVersion = this.getApiVersion.bind(this);
     this.loadPpkInfo = this.loadPpkInfo.bind(this);	
 	this.zonesCurrentState = this.zonesCurrentState.bind(this);
 	this.remotePpkControl = this.remotePpkControl.bind(this);
@@ -41,13 +43,15 @@ class App extends React.Component {
   }
 
    componentDidMount() {
-     this.setState(JSON.parse(localStorage.getItem("formData")))   
+     this.setState(JSON.parse(localStorage.getItem("formData")));
+     //this.getApiVersion();   
    }
 
     setinterv(e){   
        e.preventDefault();	
 	   this.intervalId = setInterval(() => this.loadPpkInfo(), 50000);
 	   this.loadPpkInfo();
+	   this.getApiVersion();
     }
 	
 	componentWillUnmount(){
@@ -104,6 +108,22 @@ class App extends React.Component {
   	}	
   }
 
+  getApiVersion = () => {
+  	 const ipAddress = this.state.ipState;
+	 const port = this.state.portState;	  
+	  
+    axios.get("http://"+ipAddress+":"+port+"/api/version/")
+      .then((version) => {
+        console.log(version.data);
+        this.setState({
+          apiVersion: version.data.version         
+        });           		  
+      })
+      .catch((err) => {
+        console.log(err);        
+      }); 
+  }
+
   loadPpkInfo(){
 	  //e.preventDefault();
 	  const ipAddress = this.state.ipState;
@@ -123,7 +143,7 @@ class App extends React.Component {
       }            
     })
       .then((ppks) => {
-        console.log(ppks.data);
+        console.log(ppks.data);        
         this.setState({
           ppks: ppks.data.data
          // refreshButttonDisabled: false
@@ -352,7 +372,7 @@ class App extends React.Component {
     let ppk = Object.keys(this.state.ppks);
     
    return (
-    <div className="App">   
+    <div className="App"> 
       <form className="formInput" onSubmit={this.setinterv.bind(this)}>
   <div className="form-row">
     <div className="col">
@@ -412,6 +432,7 @@ class App extends React.Component {
        type="submit">Show current info
      </button>
       */}
+      <p>API version: {this.state.apiVersion}</p>      
       <h2> My Devices:</h2>           
 		
       <ul>

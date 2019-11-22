@@ -187,7 +187,7 @@ class App extends React.Component {
 	      	"command": command,
 	        "entity_name": entityName,
 		    "entity_number": entityNumber,
-		    "device_license_key": this.state.licenseKeysObject[ppkNumber], //this.state.licenseKey,  //4l => 169-235-006-120-007-196  8l => 037-246-006-048-003-030
+		    "device_license_key": this.state.licenseKeysObject[0].key, //this.state.licenseKey,  //4l => 169-235-006-120-007-196  8l => 037-246-006-048-003-030
 		    "device_password": this.state.ppkRemotePassword  //123456
 	      }            
 	    })
@@ -198,7 +198,8 @@ class App extends React.Component {
 	    .catch((err) => {
 	    	console.log(err);
 	    	console.log(Object.values(this.state.licenseKeysObject));
-	    	console.log(this.state.licenseKeysObject[0][ppkNumber]);
+	    	console.log(this.state.licenseKeysObject[0].key);
+	    	console.log(Object.entries(this.state.licenseKeysObject));
 	    })
 		}
   

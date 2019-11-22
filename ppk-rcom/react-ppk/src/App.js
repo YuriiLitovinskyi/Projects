@@ -29,7 +29,8 @@ class App extends React.Component {
     licenseKey: "",
     licenseKeys: [],
     licenseKeysObject: [],
-    apiVersion: ""
+    apiVersion: "",
+    ppkRemotePassword: ""
    // refreshButttonDisabled: true
 }    
     //}
@@ -39,6 +40,7 @@ class App extends React.Component {
 	this.zonesCurrentState = this.zonesCurrentState.bind(this);
 	this.remotePpkControl = this.remotePpkControl.bind(this);
 	this.licenseKeysHandler = this.licenseKeysHandler.bind(this);
+	this.ppkRemotePasswordHandler = this.ppkRemotePasswordHandler.bind(this);
 	this.licenseKeysSetter = this.licenseKeysSetter.bind(this);
   }
 
@@ -89,6 +91,12 @@ class App extends React.Component {
   	})  	
   }
 
+  ppkRemotePasswordHandler = (event) => {  	
+  	this.setState({ppkRemotePassword: event.target.value}, () => {
+  		console.log(this.state.ppkRemotePassword);
+  	})  	
+  }
+
   licenseKeysSetter = (index) => {
   	//console.log(this.state.licenseKey);
   	console.log(this.state.licenseKeys);
@@ -98,7 +106,7 @@ class App extends React.Component {
   		this.setState({
   			licenseKeys: [ ...this.state.licenseKeys || [], this.state.licenseKey],
   			licenseKeysObject: [ ...this.state.licenseKeysObject || [], {
-   				'number': index,
+   				'number': parseInt(index),
  				'key': this.state.licenseKey
   			}]  			
   		}, () => {
@@ -179,16 +187,18 @@ class App extends React.Component {
 	      	"command": command,
 	        "entity_name": entityName,
 		    "entity_number": entityNumber,
-		    "device_license_key": this.state.licenseKey,  //4l => 169-235-006-120-007-196  8l => 037-246-006-048-003-030
-		    "device_password": "123456"
+		    "device_license_key": this.state.licenseKeysObject[ppkNumber], //this.state.licenseKey,  //4l => 169-235-006-120-007-196  8l => 037-246-006-048-003-030
+		    "device_password": this.state.ppkRemotePassword  //123456
 	      }            
 	    })
 	    .then((res) => {
 	    	console.log(res);
-	    	//this.loadPpkInfo();
+	    	console.log(this.state.licenseKeysObject[0][ppkNumber]);
 	    })
 	    .catch((err) => {
 	    	console.log(err);
+	    	console.log(Object.values(this.state.licenseKeysObject));
+	    	console.log(this.state.licenseKeysObject[0][ppkNumber]);
 	    })
 		}
   
@@ -461,10 +471,12 @@ class App extends React.Component {
 		  <input type="text" 
 		         className="form-control"
 		         placeholder="000000" 
+		         onChange={this.ppkRemotePasswordHandler}
+		         value={this.state.ppkRemotePassword || ''}
 		         aria-label="Small" 
 		         aria-describedby="inputGroup-sizing-sm" />
 		</div>
-		<button type="button" onClick={this.licenseKeysSetter} >Save</button>     {/*onClick={() => {this.licenseKeysSetter(456)}}*/}
+		<button type="button" onClick={() => {this.licenseKeysSetter(ppk[index])}} >Save</button>     {/*onClick={() => {this.licenseKeysSetter(456)}}*/}
 		</form>
 
 

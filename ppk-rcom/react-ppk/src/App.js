@@ -44,7 +44,8 @@ class App extends React.Component {
 	this.licenseKeysPassSetter = this.licenseKeysPassSetter.bind(this);
 	this.searchKey = this.searchKey.bind(this);
 	this.searchPassword = this.searchPassword.bind(this);
-	this.checkObject = this.checkObject.bind(this);
+	this.checkObject = this.checkObject.bind(this);	
+	this.deleteObject = this.deleteObject.bind(this);
   }
 
    componentDidMount() {
@@ -103,7 +104,7 @@ class App extends React.Component {
   licenseKeysPassSetter = (index) => {
   	//console.log(this.state.licenseKey);  
   	console.log(this.state.licenseKeysObject);
-  	//console.log(this.state); 	
+  	//console.log(this.state); 	  
  	if (this.state.licenseKey !== "" && this.state.ppkRemotePassword !== "") {             //&& !this.state.licenseKeys.includes(this.state.licenseKey))
   		if (this.checkObject(index, this.state.licenseKey, this.state.ppkRemotePassword, this.state.licenseKeysObject) !== true) {
   			this.setState({
@@ -117,27 +118,59 @@ class App extends React.Component {
   			//console.log(this.state.licenseKeys); 
   			console.log(this.state.licenseKeysObject); 
   			console.log(this.state.ppkRemotePassword); 
-  			console.log(this.checkObject(index, this.state.licenseKey, this.state.ppkRemotePassword, this.state.licenseKeysObject));			
+  			console.log(this.checkObject(index, this.state.licenseKey, this.state.ppkRemotePassword, this.state.licenseKeysObject));
+  			console.log(index);			
   		}); 
-  		}  		  
+  		}    				  
   	}	
+  	console.log(this.checkObject(index, this.state.licenseKey, this.state.ppkRemotePassword, this.state.licenseKeysObject));
+  	console.log(index);	
   }
 
   checkObject = (number, key, password, array) => {
-  	for (let i = 0; i < array.length; i++){
-  		if (array[i].key === key && array[i].password === password){
-  			return true;
-  		} 
-  		//else if (array[i].number === number){
+    if (array.find(obj => obj.number === number)){
+        return true;
+    } else {
+    	return false;
+    }
+  }
+
+  	//for (let i = 0; i < array.length; i++){
+  		//if (array[i].key === key && array[i].password === password){
+  		//	return true;
+  		//} 
+  		//else 
+  	//		if (array[i].number === number){
 			//array[i].key = key;
 			//array[i].password = password;  
-		//	return true;			
-  		//} 
-  		else {
-  			return false;
-  		}
-  	}
-  }
+	//		return true;			
+  	//	} else {
+  		//	return false;
+  	//	}
+  //	}
+ // }
+
+  deleteObjectBeforeAssignNew = (number, array) => {
+  	//for (let i = 0; i < array.length; i++){
+  		//if (array[i].number === number){
+  			this.setState({
+  				//licenseKeysObject: this.state.licenseKeysObject.filter((_, i) => i !== number)
+  				licenseKeysObject: this.state.licenseKeysObject.filter(item => item.number === number)
+  			}, () => {
+  				console.log(this.state.licenseKeysObject); 
+  			});
+  		//}
+  	//}
+  }  
+
+  deleteObject(number) {
+    this.setState(prevState => {
+        const licenseKeysObject = prevState.licenseKeysObject.filter(object => object.number !== number);
+        return { licenseKeysObject };
+    }, () => {
+    	console.log(this.state.licenseKeysObject); 
+    });
+}
 
   searchKey = (number, array) => {
   	for (let i = 0; i < array.length; i++){
@@ -518,6 +551,7 @@ class App extends React.Component {
 		         aria-describedby="inputGroup-sizing-sm" />
 		</div>
 		<button type="button" onClick={() => {this.licenseKeysPassSetter(ppk[index])}} >Save</button>     {/*onClick={() => {this.licenseKeysPassSetter(456)}}*/}
+		<button type="button" onClick={() => {this.deleteObject(ppk[index])} }>Delete</button>
 		</form>
 
 		  <p>License Key: {this.searchKey(ppk[index], this.state.licenseKeysObject)}</p>

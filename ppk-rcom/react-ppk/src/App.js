@@ -27,7 +27,7 @@ class App extends React.Component {
     userNameState: "",
     passwordState: "",
     licenseKey: "",
-    licenseKeys: [],
+    //licenseKeys: [],
     licenseKeysObject: [],
     apiVersion: "",
     ppkRemotePassword: ""
@@ -41,7 +41,10 @@ class App extends React.Component {
 	this.remotePpkControl = this.remotePpkControl.bind(this);
 	this.licenseKeysHandler = this.licenseKeysHandler.bind(this);
 	this.ppkRemotePasswordHandler = this.ppkRemotePasswordHandler.bind(this);
-	this.licenseKeysSetter = this.licenseKeysSetter.bind(this);
+	this.licenseKeysPassSetter = this.licenseKeysPassSetter.bind(this);
+	this.searchKey = this.searchKey.bind(this);
+	this.searchPassword = this.searchPassword.bind(this);
+	this.checkObject = this.checkObject.bind(this);
   }
 
    componentDidMount() {
@@ -97,23 +100,59 @@ class App extends React.Component {
   	})  	
   }
 
-  licenseKeysSetter = (index) => {
-  	//console.log(this.state.licenseKey);
-  	console.log(this.state.licenseKeys);
+  licenseKeysPassSetter = (index) => {
+  	//console.log(this.state.licenseKey);  
+  	console.log(this.state.licenseKeysObject);
   	//console.log(this.state); 	
- 	if (this.state.licenseKey !== "" && !this.state.licenseKeys.includes(this.state.licenseKey)){            
-  		//console.log(this.state.licenseKeys);
-  		this.setState({
-  			licenseKeys: [ ...this.state.licenseKeys || [], this.state.licenseKey],
+ 	if (this.state.licenseKey !== "" && this.state.ppkRemotePassword !== "") {             //&& !this.state.licenseKeys.includes(this.state.licenseKey))
+  		if (this.checkObject(index, this.state.licenseKey, this.state.ppkRemotePassword, this.state.licenseKeysObject) !== true) {
+  			this.setState({
+  			//licenseKeys: [ ...this.state.licenseKeys || [], this.state.licenseKey],
   			licenseKeysObject: [ ...this.state.licenseKeysObject || [], {
-   				'number': parseInt(index),
- 				'key': this.state.licenseKey
+   				'number': index,    //parseInt(index)
+ 				'key': this.state.licenseKey,
+ 				'password': this.state.ppkRemotePassword
   			}]  			
   		}, () => {
-  			console.log(this.state.licenseKeys); 
-  			console.log(this.state.licenseKeysObject);  			
-  		});   
+  			//console.log(this.state.licenseKeys); 
+  			console.log(this.state.licenseKeysObject); 
+  			console.log(this.state.ppkRemotePassword); 
+  			console.log(this.checkObject(index, this.state.licenseKey, this.state.ppkRemotePassword, this.state.licenseKeysObject));			
+  		}); 
+  		}  		  
   	}	
+  }
+
+  checkObject = (number, key, password, array) => {
+  	for (let i = 0; i < array.length; i++){
+  		if (array[i].key === key && array[i].password === password){
+  			return true;
+  		} 
+  		//else if (array[i].number === number){
+			//array[i].key = key;
+			//array[i].password = password;  
+		//	return true;			
+  		//} 
+  		else {
+  			return false;
+  		}
+  	}
+  }
+
+  searchKey = (number, array) => {
+  	for (let i = 0; i < array.length; i++){
+  		if (array[i].number === number){
+  			return array[i].key;
+  		}
+  	}
+  }
+
+  searchPassword = (number, array) => {
+  	for (let i = 0; i < array.length; i++){
+  		if (array[i].number === number){
+  			return array[i].password;
+  		}
+  	}
   }
 
   getApiVersion = () => {
@@ -187,19 +226,20 @@ class App extends React.Component {
 	      	"command": command,
 	        "entity_name": entityName,
 		    "entity_number": entityNumber,
-		    "device_license_key": this.state.licenseKeysObject[0].key, //this.state.licenseKey,  //4l => 169-235-006-120-007-196  8l => 037-246-006-048-003-030
-		    "device_password": this.state.ppkRemotePassword  //123456
+		    "device_license_key": this.searchKey(ppkNumber, this.state.licenseKeysObject), 
+		    //this.state.licenseKeysObject[0].key, //this.state.licenseKey,  //4l => 169-235-006-120-007-196  8l => 037-246-006-048-003-030
+		    "device_password": this.searchPassword(ppkNumber, this.state.licenseKeysObject)  //123456
 	      }            
 	    })
 	    .then((res) => {
-	    	console.log(res);
-	    	console.log(this.state.licenseKeysObject[0][ppkNumber]);
+	    	console.log(res);	    	
 	    })
 	    .catch((err) => {
 	    	console.log(err);
-	    	console.log(Object.values(this.state.licenseKeysObject));
-	    	console.log(this.state.licenseKeysObject[0].key);
+	    	console.log(Object.values(this.state.licenseKeysObject));	    	
 	    	console.log(Object.entries(this.state.licenseKeysObject));
+	    	console.log(this.searchKeyPassword(ppkNumber, this.state.licenseKeysObject));
+	    	console.log(typeof(ppkNumber));
 	    })
 		}
   
@@ -477,8 +517,11 @@ class App extends React.Component {
 		         aria-label="Small" 
 		         aria-describedby="inputGroup-sizing-sm" />
 		</div>
-		<button type="button" onClick={() => {this.licenseKeysSetter(ppk[index])}} >Save</button>     {/*onClick={() => {this.licenseKeysSetter(456)}}*/}
+		<button type="button" onClick={() => {this.licenseKeysPassSetter(ppk[index])}} >Save</button>     {/*onClick={() => {this.licenseKeysPassSetter(456)}}*/}
 		</form>
+
+		  <p>License Key: {this.searchKey(ppk[index], this.state.licenseKeysObject)}</p>
+		  <p>Password: {this.searchPassword(ppk[index], this.state.licenseKeysObject)}</p>
 
 
 		  <li className="ppkNumber">PPK Number: {ppk[index]}</li>

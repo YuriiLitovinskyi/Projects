@@ -112,11 +112,30 @@ li:hover {
 	margin: auto;
 }
 
-.form-control {
+.form-control, .input-group-text {
 	border-radius: 5px;
 	background-color: #343a40;
 	color: white;
 	box-shadow: 5px 5px 10px #888888;
+}
+
+.formForKeyPass {
+	width: 60%;
+	margin: auto;
+}
+
+.current-key-pass {
+	color: #6d6d6d;
+	font-weight: bold;
+	margin: 5px;	
+	font-family: Arial Black;
+}
+
+.userInfo {
+	color: #6d6d6d;
+	font-weight: bold;
+	margin: 0px;
+	font-size: 80%;
 }
 
 label {

@@ -49,8 +49,10 @@ class App extends React.Component {
   }
 
    componentDidMount() {
-     this.setState(JSON.parse(localStorage.getItem("formData")));
-     //this.getApiVersion();   
+     this.setState(JSON.parse(localStorage.getItem("formData"))); 
+     this.setState({
+     	licenseKeysObject: JSON.parse(localStorage.getItem('licenseKeysObject') || "[]")
+     })       
    }
 
     setinterv(e){   
@@ -66,37 +68,39 @@ class App extends React.Component {
 
   //Event Handlers
   ipHandler = (event) => {
-	  this.setState({ipState: event.target.value}, () => {
-      localStorage.setItem("formData", JSON.stringify(this.state));
+	this.setState({ipState: event.target.value}, () => {
+        localStorage.setItem("formData", JSON.stringify(this.state));
     })
   }
   
   portHandler = (event) => {
-	  this.setState({portState: event.target.value}, () => {
-      localStorage.setItem("formData", JSON.stringify(this.state));
+	this.setState({portState: event.target.value}, () => {
+        localStorage.setItem("formData", JSON.stringify(this.state));
     })
   }
   
   userNameHandler = (event) => {
-	  this.setState({userNameState: event.target.value}, () => {
-      localStorage.setItem("formData", JSON.stringify(this.state));
+	this.setState({userNameState: event.target.value}, () => {
+        localStorage.setItem("formData", JSON.stringify(this.state));
     })
   }
   
   passwordHandler = (event) => {
-	  this.setState({passwordState: event.target.value}, () => {
-      localStorage.setItem("formData", JSON.stringify(this.state));
+	this.setState({passwordState: event.target.value}, () => {
+        localStorage.setItem("formData", JSON.stringify(this.state));
     })
   }
 
   licenseKeysHandler = (event) => {  	
   	this.setState({licenseKey: event.target.value}, () => {
+  		//localStorage.setItem("formData", JSON.stringify(this.state));
   		console.log(this.state.licenseKey);
   	})  	
   }
 
   ppkRemotePasswordHandler = (event) => {  	
   	this.setState({ppkRemotePassword: event.target.value}, () => {
+  		//localStorage.setItem("formData", JSON.stringify(this.state));
   		console.log(this.state.ppkRemotePassword);
   	})  	
   }
@@ -106,7 +110,7 @@ class App extends React.Component {
   	console.log(this.state.licenseKeysObject);
   	//console.log(this.state); 	  
  	if (this.state.licenseKey !== "" && this.state.ppkRemotePassword !== "") {             //&& !this.state.licenseKeys.includes(this.state.licenseKey))
-  		if (this.checkObject(index, this.state.licenseKey, this.state.ppkRemotePassword, this.state.licenseKeysObject) !== true) {
+  		if (this.checkObject(index, this.state.licenseKeysObject) !== true) {
   			this.setState({
   			//licenseKeys: [ ...this.state.licenseKeys || [], this.state.licenseKey],
   			licenseKeysObject: [ ...this.state.licenseKeysObject || [], {
@@ -115,19 +119,23 @@ class App extends React.Component {
  				'password': this.state.ppkRemotePassword
   			}]  			
   		}, () => {
-  			//console.log(this.state.licenseKeys); 
+  			this.setState({
+  				licenseKey: "",
+  				ppkRemotePassword: ""
+  			});  
+  			localStorage.setItem('licenseKeysObject', JSON.stringify(this.state.licenseKeysObject));			
   			console.log(this.state.licenseKeysObject); 
   			console.log(this.state.ppkRemotePassword); 
-  			console.log(this.checkObject(index, this.state.licenseKey, this.state.ppkRemotePassword, this.state.licenseKeysObject));
+  			console.log(this.checkObject(index, this.state.licenseKeysObject));
   			console.log(index);			
   		}); 
   		}    				  
   	}	
-  	console.log(this.checkObject(index, this.state.licenseKey, this.state.ppkRemotePassword, this.state.licenseKeysObject));
+  	console.log(this.checkObject(index, this.state.licenseKeysObject));
   	console.log(index);	
   }
 
-  checkObject = (number, key, password, array) => {
+  checkObject = (number, array) => {
     if (array.find(obj => obj.number === number)){
         return true;
     } else {
@@ -135,41 +143,25 @@ class App extends React.Component {
     }
   }
 
-  	//for (let i = 0; i < array.length; i++){
-  		//if (array[i].key === key && array[i].password === password){
-  		//	return true;
-  		//} 
-  		//else 
-  	//		if (array[i].number === number){
-			//array[i].key = key;
-			//array[i].password = password;  
-	//		return true;			
-  	//	} else {
-  		//	return false;
-  	//	}
-  //	}
- // }
-
-  deleteObjectBeforeAssignNew = (number, array) => {
-  	//for (let i = 0; i < array.length; i++){
-  		//if (array[i].number === number){
-  			this.setState({
-  				//licenseKeysObject: this.state.licenseKeysObject.filter((_, i) => i !== number)
-  				licenseKeysObject: this.state.licenseKeysObject.filter(item => item.number === number)
-  			}, () => {
-  				console.log(this.state.licenseKeysObject); 
-  			});
-  		//}
-  	//}
-  }  
-
   deleteObject(number) {
     this.setState(prevState => {
         const licenseKeysObject = prevState.licenseKeysObject.filter(object => object.number !== number);
         return { licenseKeysObject };
     }, () => {
     	console.log(this.state.licenseKeysObject); 
-    });
+    	//Removing an object with a particular 'number' from localStorage
+    	var obj = localStorage.getItem('licenseKeysObject') ? JSON.parse(localStorage.getItem('licenseKeysObject')) : [];
+	    var index;
+	    for (var i = 0; i < obj.length; i++) {
+	        if (obj[i].number === number) {
+	          index=i;
+	          break;
+	        }
+	    }
+	    if(index === undefined) return 
+	    obj.splice(index, 1);
+	    localStorage.setItem('licenseKeysObject', JSON.stringify(obj)); //setting a new object to localStorage
+	    });
 }
 
   searchKey = (number, array) => {
@@ -271,7 +263,7 @@ class App extends React.Component {
 	    	console.log(err);
 	    	console.log(Object.values(this.state.licenseKeysObject));	    	
 	    	console.log(Object.entries(this.state.licenseKeysObject));
-	    	console.log(this.searchKeyPassword(ppkNumber, this.state.licenseKeysObject));
+	    	//console.log(this.searchKeyPassword(ppkNumber, this.state.licenseKeysObject));
 	    	console.log(typeof(ppkNumber));
 	    })
 		}
@@ -516,48 +508,14 @@ class App extends React.Component {
        type="submit">Show current info
      </button>
       */}
-      <p>API version: {this.state.apiVersion}</p>      
+      <p className="current-key-pass">API version: {this.state.apiVersion}</p>      
       <h2> My Devices:</h2>           
 		
       <ul>
       {ppkData.map((item, index) => {	
        if (item.model === "8l")	{  
         return (
-          <div className="ppkCard" key={index + 1}>
-
-          <form>
-          <div className="input-group input-group-sm mb-3">
-		  <div className="input-group-prepend">
-		    <span className="input-group-text" id="inputGroup-sizing-sm">Enter License Key</span>
-		  </div>
-		  <input type="text"
-		         className="form-control"
-		         placeholder="000-000-000-000-000-000" 
-		         onChange={this.licenseKeysHandler}
-		         value={this.state.licenseKey || ''} 
-		         aria-label="Small" 
-		         aria-describedby="inputGroup-sizing-sm" />
-		</div>
-		 <div className="input-group input-group-sm mb-3">
-		  <div className="input-group-prepend">
-		    <span className="input-group-text" id="inputGroup-sizing-sm">Enter Password</span>
-		  </div>
-		  <input type="text" 
-		         className="form-control"
-		         placeholder="000000" 
-		         onChange={this.ppkRemotePasswordHandler}
-		         value={this.state.ppkRemotePassword || ''}
-		         aria-label="Small" 
-		         aria-describedby="inputGroup-sizing-sm" />
-		</div>
-		<button type="button" onClick={() => {this.licenseKeysPassSetter(ppk[index])}} >Save</button>     {/*onClick={() => {this.licenseKeysPassSetter(456)}}*/}
-		<button type="button" onClick={() => {this.deleteObject(ppk[index])} }>Delete</button>
-		</form>
-
-		  <p>License Key: {this.searchKey(ppk[index], this.state.licenseKeysObject)}</p>
-		  <p>Password: {this.searchPassword(ppk[index], this.state.licenseKeysObject)}</p>
-
-
+          <div className="ppkCard" key={index + 1}>      
 		  <li className="ppkNumber">PPK Number: {ppk[index]}</li>
           <li style={{ color: "#0d19a5", fontWeight: "bold"}}>
 		    <i className="fas fa-shield-alt"></i> PPK Model: {this.ppkModel(item.model)}
@@ -582,8 +540,18 @@ class App extends React.Component {
 
           <li className={this.ppkGroupClass(item.groups[1])}>
 			Group 1: {this.ppsGroupState(item.groups[1])}
-			<button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 1) }}>Arm Group</button> 
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 1) }}>Disarm Group</button>
+			<button 
+			       className="btn btn-primary"
+			       disabled={ this.disabledButtonControl(item.online) } 
+			       type="button" 
+			       onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 1) }}
+			       >Arm Group</button> 
+		    <button 
+		           className="btn btn-success"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 1) }}
+		           >Disarm Group</button>
 		  </li>
           <li className={this.ppkGroupClass(item.groups[2])}>
 			Group 2: {this.ppsGroupState(item.groups[2])}
@@ -636,23 +604,99 @@ class App extends React.Component {
           {/*Outputs and Relay*/} 		  
           <li className={ this.outputRelayCssClass(item.uk2) }>
 		    UK2: {this.ppkCurrentState(item.uk2)}
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "uk", 2) }}>Turn Uk2 ON</button> 
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "uk", 2) }}>Turn Uk2 OFF</button>
+		    <button 
+		          className="btn btn-primary"
+		          disabled={ this.disabledButtonControl(item.online) } 
+		          type="button" 
+		          onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "uk", 2) }}
+		          >Turn Uk2 ON</button> 
+		    <button 
+		           className="btn btn-success"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "uk", 2) }}
+		           >Turn Uk2 OFF</button>
 		  </li>		  
           <li className={ this.outputRelayCssClass(item.uk3) }>
 		    UK3: {this.ppkCurrentState(item.uk3)}
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "uk", 3) }}>Turn Uk2 ON</button> 
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "uk", 3) }}>Turn Uk2 OFF</button>
+		    <button 
+                   className="btn btn-primary"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "uk", 3) }}
+		           >Turn Uk2 ON</button> 
+		    <button 
+		           className="btn btn-success"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "uk", 3) }}
+		           >Turn Uk2 OFF</button>
 		  </li>
           <li className={ this.outputRelayCssClass(item.relay2) }>
 		    Relay: {this.ppkCurrentState(item.relay2)}
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "relay", 2) }}>Turn Uk2 ON</button> 
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "relay", 2) }}>Turn Uk2 OFF</button>
+		    <button 
+		           className="btn btn-primary"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "relay", 2) }}
+		           >Turn Uk2 ON</button> 
+		    <button 
+		           className="btn btn-success"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "relay", 2) }}
+		           >Turn Uk2 OFF</button>
 		  </li>
           <br /> 
+          <p className="userInfo">Enter License Key and Password for remote control of this device</p>
+          <p className="current-key-pass">License Key: {this.searchKey(ppk[index], this.state.licenseKeysObject)}</p>
+		  <p className="current-key-pass">Password: {this.searchPassword(ppk[index], this.state.licenseKeysObject)}</p>
+          <form className="formForKeyPass">
+          <div className="input-group input-group-sm mb-3">
+		  <div className="input-group-prepend">
+		    <span className="input-group-text" id="inputGroup-sizing-sm">Enter License Key</span>
+		  </div>
+		  <input type="text"
+		         className="form-control"
+		         placeholder="000-000-000-000-000-000"
+		         required 
+		         maxLength="23"
+		         pattern="^([0-9]{1,3}\.){6}[0-9]{1,3}$"
+		         onChange={this.licenseKeysHandler}
+		         value={this.state.licenseKey || ''} 
+		         disabled={(this.checkObject(ppk[index], this.state.licenseKeysObject)) ? "disabled" : ""}		         
+		         aria-label="Small" 
+		         aria-describedby="inputGroup-sizing-sm" />
+		</div>
+		 <div className="input-group input-group-sm mb-3">
+		  <div className="input-group-prepend">
+		    <span className="input-group-text" id="inputGroup-sizing-sm">Enter Password</span>
+		  </div>
+		  <input type="text" 
+		         className="form-control"
+		         placeholder="000000" 
+		         required
+		         maxLength="6"		         		         
+		         onChange={this.ppkRemotePasswordHandler}
+		         value={this.state.ppkRemotePassword || ''}
+		         disabled={(this.checkObject(ppk[index], this.state.licenseKeysObject)) ? "disabled" : ""}
+		         aria-label="Small" 
+		         aria-describedby="inputGroup-sizing-sm" />
+		</div>
+		<button type="submit"
+		        className="btn btn-dark" 
+	            onClick={() => {this.licenseKeysPassSetter(ppk[index])}} 
+	            disabled={(this.checkObject(ppk[index], this.state.licenseKeysObject)) ? "disabled" : ""}
+	            >Save Key/Pass</button>     {/*onClick={() => {this.licenseKeysPassSetter(456)}}*/}
+		<button type="button" 
+		        className="btn btn-dark"
+		        onClick={() => {this.deleteObject(ppk[index])} }
+		        disabled={!(this.checkObject(ppk[index], this.state.licenseKeysObject)) ? "disabled" : ""}
+		        >Delete Key/Pass</button>
+		</form>		  
           </div>
 		  
-     ) } else if (item.model === "4l" || "2l") {
+     ) } else if (item.model === "4l") {
 	 return (
           <div className="ppkCard" key={index + 1}>
 		  <li className="ppkNumber">PPK Number: {ppk[index]}</li>
@@ -678,23 +722,63 @@ class App extends React.Component {
 		  {/*Groups*/}
           <li className={this.ppkGroupClass(item.groups[1])}>
 		    Group 1: {this.ppsGroupState(item.groups[1])}
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 1) }}>Arm Group</button> 
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 1) }}>Disarm Group</button>
+		    <button 
+		           className="btn btn-primary"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 1) }}
+		           >Arm Group</button> 
+		    <button 
+		           className="btn btn-success"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 1) }}
+		           >Disarm Group</button>
 		  </li>
           <li className={this.ppkGroupClass(item.groups[2])}>
 		    Group 2: {this.ppsGroupState(item.groups[2])}
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 2) }}>Arm Group</button> 
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 2) }}>Disarm Group</button>
+		    <button 
+		           className="btn btn-primary"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 2) }}
+		           >Arm Group</button> 
+		    <button 
+		           className="btn btn-success"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 2) }}
+		           >Disarm Group</button>
 		  </li>
           <li className={this.ppkGroupClass(item.groups[3])}>
 		    Group 3: {this.ppsGroupState(item.groups[3])}
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 3) }}>Arm Group</button> 
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 3) }}>Disarm Group</button>
+		    <button 
+		           className="btn btn-primary"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 3) }}
+		           >Arm Group</button> 
+		    <button 
+		           className="btn btn-success"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 3) }}
+		           >Disarm Group</button>
 		  </li>
           <li className={this.ppkGroupClass(item.groups[4])}>
 		    Group 4: {this.ppsGroupState(item.groups[4])}
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 4) }}>Arm Group</button> 
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 4) }}>Disarm Group</button>
+		    <button 
+		           className="btn btn-primary"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 4) }}
+		           >Arm Group</button> 
+		    <button 
+		           className="btn btn-success"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 4) }}
+		           >Disarm Group</button>
 		  </li>
 		  <li className={this.ppkGroupClass(item.groups[5])}>
 		    Group 5: {this.ppsGroupState(item.groups[5])}
@@ -992,25 +1076,108 @@ class App extends React.Component {
 		  {/*Outputs and Relay*/} 	
           <li className={ this.outputRelayCssClass(item.c[0]) }>
 		    Relay: {this.ppkCurrentState(item.c[0])}
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "relay", 0) }}>Turn Uk2 ON</button> 
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "relay", 0) }}>Turn Uk2 OFF</button>
+		    <button 
+		           className="btn btn-primary"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "relay", 0) }}
+		           >Turn Uk2 ON</button> 
+		    <button 
+		           className="btn btn-success"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "relay", 0) }}
+		           >Turn Uk2 OFF</button>
 		  </li>
 		  <li className={ this.outputRelayCssClass(item.c[1])}>
 		    C1: {this.ppkCurrentState(item.c[1])}
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "c", 1) }}>Turn Uk2 ON</button> 
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "c", 1) }}>Turn Uk2 OFF</button>
+		    <button 
+		           className="btn btn-primary"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "c", 1) }}
+		           >Turn Uk2 ON</button> 
+		    <button 
+		           className="btn btn-success"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "c", 1) }}
+		           >Turn Uk2 OFF</button>
 		  </li>
 		  <li className={ this.outputRelayCssClass(item.c[2]) }>
 		    C2: {this.ppkCurrentState(item.c[2])}
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "c", 2) }}>Turn Uk2 ON</button> 
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "c", 2) }}>Turn Uk2 OFF</button>
+		    <button 
+		           className="btn btn-primary"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "c", 2) }}
+		           >Turn Uk2 ON</button> 
+		    <button 
+		           className="btn btn-success"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "c", 2) }}
+		           >Turn Uk2 OFF</button>
 		  </li>
 		  <li className={ this.outputRelayCssClass(item.c[3]) }>
 		    C3: {this.ppkCurrentState(item.c[3])}
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "c", 3) }}>Turn Uk2 ON</button> 
-		    <button disabled={ this.disabledButtonControl(item.online) } type="button" onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "c", 3) }}>Turn Uk2 OFF</button>
+		    <button 
+		           className="btn btn-primary"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "c", 3) }}
+		           >Turn Uk2 ON</button> 
+		    <button 
+		           className="btn btn-success"
+		           disabled={ this.disabledButtonControl(item.online) } 
+		           type="button" 
+		           onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "c", 3) }}
+		           >Turn Uk2 OFF</button>
 		  </li>	  
-		  <br />  
+		  <br />
+		  <p className="userInfo">Enter License Key and Password for remote control of this device</p>
+		  <p className="current-key-pass">License Key: {this.searchKey(ppk[index], this.state.licenseKeysObject)}</p>
+		  <p className="current-key-pass">Password: {this.searchPassword(ppk[index], this.state.licenseKeysObject)}</p> 
+		  <form className="formForKeyPass">
+          <div className="input-group input-group-sm mb-3">
+		  <div className="input-group-prepend">
+		    <span className="input-group-text" id="inputGroup-sizing-sm">Enter License Key</span>
+		  </div>
+		  <input type="text"
+		         className="form-control"
+		         placeholder="000-000-000-000-000-000"
+		         required 
+		         onChange={this.licenseKeysHandler}
+		         value={this.state.licenseKey || ''} 
+		         disabled={(this.checkObject(ppk[index], this.state.licenseKeysObject)) ? "disabled" : ""}		         
+		         aria-label="Small" 
+		         aria-describedby="inputGroup-sizing-sm" />
+		</div>
+		 <div className="input-group input-group-sm mb-3">
+		  <div className="input-group-prepend">
+		    <span className="input-group-text" id="inputGroup-sizing-sm">Enter Password</span>
+		  </div>
+		  <input type="text" 
+		         className="form-control"
+		         placeholder="000000" 
+		         required
+		         onChange={this.ppkRemotePasswordHandler}
+		         value={this.state.ppkRemotePassword || ''}
+		         disabled={(this.checkObject(ppk[index], this.state.licenseKeysObject)) ? "disabled" : ""}
+		         aria-label="Small" 
+		         aria-describedby="inputGroup-sizing-sm" />
+		</div>
+		<button type="submit" 
+		        className="btn btn-dark"
+	            onClick={() => {this.licenseKeysPassSetter(ppk[index])}} 
+	            disabled={(this.checkObject(ppk[index], this.state.licenseKeysObject)) ? "disabled" : ""}
+	            >Save Key/Pass</button>     {/*onClick={() => {this.licenseKeysPassSetter(456)}}*/}
+		<button type="button" 
+		        className="btn btn-dark"
+		        onClick={() => {this.deleteObject(ppk[index])} }
+		        disabled={!(this.checkObject(ppk[index], this.state.licenseKeysObject)) ? "disabled" : ""}
+		        >Delete Key/Pass</button>
+		</form>		 
           </div>
           )
       } else {

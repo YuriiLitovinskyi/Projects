@@ -145,6 +145,27 @@ label {
 	font-weight: bold;
 }
 
+.tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 3px 0;  
+  position: absolute;  
+}
+
+.tooltipLogged {
+	visibility: hidden;
+	position: absolute; 
+}
+
+button:hover .tooltiptext {  
+  visibility: visible;
+  transition-delay: 0.5s;  
+}
+
 @media screen and (max-width: 992px) {
     .ppkCard {
 		width: 85%;

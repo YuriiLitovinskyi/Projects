@@ -252,7 +252,7 @@ class App extends React.Component {
 	        "entity_name": entityName,
 		    "entity_number": entityNumber,
 		    "device_license_key": this.searchKey(ppkNumber, this.state.licenseKeysObject), 
-		    //this.state.licenseKeysObject[0].key, //this.state.licenseKey,  //4l => 169-235-006-120-007-196  8l => 037-246-006-048-003-030
+		     //4l => 169-235-006-120-007-196  8l => 037-246-006-048-003-030
 		    "device_password": this.searchPassword(ppkNumber, this.state.licenseKeysObject)  //123456
 	      }            
 	    })
@@ -555,7 +555,7 @@ class App extends React.Component {
 			       disabled={ this.disabledButtonControl(item.online) } 
 			       type="button" 
 			       onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 1) }}
-			       >Arm Group
+			       >Arm Group 1
 			       <span className={!this.disabledButtonControl(item.online) ? "tooltipLogged" : "tooltiptext"}>Device must be online and enabled!</span>
 			       </button> 			
 		    <button 
@@ -563,7 +563,7 @@ class App extends React.Component {
 		           disabled={ this.disabledButtonControl(item.online) } 
 		           type="button" 
 		           onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 1) }}
-		           >Disarm Group
+		           >Disarm Group 1
 		           <span className={!this.disabledButtonControl(item.online) ? "tooltipLogged" : "tooltiptext"}>Device must be online and enabled!</span>
 		           </button>
 		  </li>
@@ -661,7 +661,7 @@ class App extends React.Component {
 		           disabled={ this.disabledButtonControl(item.online) } 
 		           type="button" 
 		           onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "relay", 2) }}
-		           >Turn relay ON
+		           >Turn Relay ON
 		           <span className={!this.disabledButtonControl(item.online) ? "tooltipLogged" : "tooltiptext"}>Device must be online and enabled!</span>
 		           </button> 
 		    <button 
@@ -674,7 +674,7 @@ class App extends React.Component {
 		           </button>
 		  </li>
           <br /> 
-          <p className="userInfo">Enter License Key and Password for remote control of this device</p>
+          <p className={!(this.checkObject(ppk[index], this.state.licenseKeysObject)) ? "userInfo" : "hide"}>Enter License Key and Password for remote control of this device</p>
           <p className="current-key-pass">License Key: {this.searchKey(ppk[index], this.state.licenseKeysObject)}</p>
 		  <p className="current-key-pass">Password: {this.searchPassword(ppk[index], this.state.licenseKeysObject)}</p>
           <form className="formForKeyPass">
@@ -753,7 +753,7 @@ class App extends React.Component {
 		           disabled={ this.disabledButtonControl(item.online) } 
 		           type="button" 
 		           onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 1) }}
-		           >Arm Group
+		           >Arm Group 1
 		           <span className={!this.disabledButtonControl(item.online) ? "tooltipLogged" : "tooltiptext"}>Device must be online and enabled!</span>
 		           </button> 
 		    <button 
@@ -761,7 +761,7 @@ class App extends React.Component {
 		           disabled={ this.disabledButtonControl(item.online) } 
 		           type="button" 
 		           onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 1) }}
-		           >Disarm Group
+		           >Disarm Group 1
 		           <span className={!this.disabledButtonControl(item.online) ? "tooltipLogged" : "tooltiptext"}>Device must be online and enabled!</span>
 		           </button>
 		  </li>
@@ -772,7 +772,7 @@ class App extends React.Component {
 		           disabled={ this.disabledButtonControl(item.online) } 
 		           type="button" 
 		           onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 2) }}
-		           >Arm Group
+		           >Arm Group 2
 		           <span className={!this.disabledButtonControl(item.online) ? "tooltipLogged" : "tooltiptext"}>Device must be online and enabled!</span>
 		           </button> 
 		    <button 
@@ -780,7 +780,7 @@ class App extends React.Component {
 		           disabled={ this.disabledButtonControl(item.online) } 
 		           type="button" 
 		           onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 2) }}
-		           >Disarm Group
+		           >Disarm Group 2
 		           <span className={!this.disabledButtonControl(item.online) ? "tooltipLogged" : "tooltiptext"}>Device must be online and enabled!</span>
 		           </button>
 		  </li>
@@ -791,7 +791,7 @@ class App extends React.Component {
 		           disabled={ this.disabledButtonControl(item.online) } 
 		           type="button" 
 		           onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 3) }}
-		           >Arm Group
+		           >Arm Group 3
 		           <span className={!this.disabledButtonControl(item.online) ? "tooltipLogged" : "tooltiptext"}>Device must be online and enabled!</span>
 		           </button> 
 		    <button 
@@ -799,7 +799,7 @@ class App extends React.Component {
 		           disabled={ this.disabledButtonControl(item.online) } 
 		           type="button" 
 		           onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 3) }}
-		           >Disarm Group
+		           >Disarm Group 3
 		           <span className={!this.disabledButtonControl(item.online) ? "tooltipLogged" : "tooltiptext"}>Device must be online and enabled!</span>
 		           </button>
 		  </li>
@@ -810,7 +810,7 @@ class App extends React.Component {
 		           disabled={ this.disabledButtonControl(item.online) } 
 		           type="button" 
 		           onClick={() => { this.remotePpkControl(ppk[index], "turn_on", "group", 4) }}
-		           >Arm Group
+		           >Arm Group 4
 		           <span className={!this.disabledButtonControl(item.online) ? "tooltipLogged" : "tooltiptext"}>Device must be online and enabled!</span>
 		           </button> 
 		    <button 
@@ -818,7 +818,7 @@ class App extends React.Component {
 		           disabled={ this.disabledButtonControl(item.online) } 
 		           type="button" 
 		           onClick={() => { this.remotePpkControl(ppk[index], "turn_off", "group", 4) }}
-		           >Disarm Group
+		           >Disarm Group 4
 		           <span className={!this.disabledButtonControl(item.online) ? "tooltipLogged" : "tooltiptext"}>Device must be online and enabled!</span>
 		           </button>
 		  </li>
@@ -1193,7 +1193,7 @@ class App extends React.Component {
 		           </button>
 		  </li>	  
 		  <br />
-		  <p className="userInfo">Enter License Key and Password for remote control of this device</p>
+		  <p className={!(this.checkObject(ppk[index], this.state.licenseKeysObject)) ? "userInfo" : "hide"}>Enter License Key and Password for remote control of this device</p>
 		  <p className="current-key-pass">License Key: {this.searchKey(ppk[index], this.state.licenseKeysObject)}</p>
 		  <p className="current-key-pass">Password: {this.searchPassword(ppk[index], this.state.licenseKeysObject)}</p> 
 		  <form className="formForKeyPass">

@@ -674,6 +674,7 @@ class App extends React.Component {
 		           </button>
 		  </li>
           <br /> 
+          <hr />
           <p className={!(this.checkObject(ppk[index], this.state.licenseKeysObject)) ? "userInfo" : "hide"}>Enter License Key and Password for remote control of this device</p>
           <p className="current-key-pass">License Key: {this.searchKey(ppk[index], this.state.licenseKeysObject)}</p>
 		  <p className="current-key-pass">Password: {this.searchPassword(ppk[index], this.state.licenseKeysObject)}</p>
@@ -1193,6 +1194,7 @@ class App extends React.Component {
 		           </button>
 		  </li>	  
 		  <br />
+		  <hr />
 		  <p className={!(this.checkObject(ppk[index], this.state.licenseKeysObject)) ? "userInfo" : "hide"}>Enter License Key and Password for remote control of this device</p>
 		  <p className="current-key-pass">License Key: {this.searchKey(ppk[index], this.state.licenseKeysObject)}</p>
 		  <p className="current-key-pass">Password: {this.searchPassword(ppk[index], this.state.licenseKeysObject)}</p> 

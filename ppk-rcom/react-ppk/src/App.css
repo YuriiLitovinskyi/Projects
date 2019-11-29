@@ -60,10 +60,10 @@ button {
 .ppkCard {
   list-style-type: none;  
   padding: 0;
-  width: 600px;
+  width: 50%;
   margin: auto;
   margin-bottom: 30px;
-  background-color: #d2d7d3;
+  background-color: #dadada;
   padding: 10px;
   border-radius: 20px;
   letter-spacing: 0.5px;

@@ -223,8 +223,9 @@ class App extends React.Component {
       //localStorage.clear();       		  
       })
       .catch((err) => {
-        console.log(err);         
-        alert("No connection to Server..."); 
+        console.log(err);   
+        console.error(err.response.data);      
+        alert("No connection to Server...\nServer response: \nStatus: " + err.response.data.status + "\nError: " + err.response.data.error + "\nNote: " + err.response.data.note);    
         window.location.reload(); 		
       }); 
       
@@ -252,7 +253,7 @@ class App extends React.Component {
 	        "entity_name": entityName,
 		    "entity_number": entityNumber,
 		    "device_license_key": this.searchKey(ppkNumber, this.state.licenseKeysObject), 
-		     //4l => 169-235-006-120-007-196  8l => 037-246-006-048-003-030
+		     //4l => (ppk 111) 169-235-006-120-007-196  8l => (ppk 39) 037-246-006-048-003-030
 		    "device_password": this.searchPassword(ppkNumber, this.state.licenseKeysObject)  //123456
 	      }            
 	    })
@@ -262,8 +263,7 @@ class App extends React.Component {
 	    .catch((err) => {
 	    	console.log(err);
 	    	console.error(err.response.data); 
-	    	alert("Server response: " + err.response.data.status + ", " + err.response.data.note);
-	    	//console.error(err.response.data.note); 		    	
+	    	alert("Server response: \nStatus: " + err.response.data.status + "\nError: " + err.response.data.error + "\nNote: " + err.response.data.note);	    	 		    	
 	    })
 		}
   
@@ -444,8 +444,8 @@ class App extends React.Component {
 	   	}
    }
 
-   disabledButtonControl(online){       // , enabled
-   	if (online === 0){                 // || enabled === 0
+   disabledButtonControl(online, enabled){       // , enabled
+   	if (online === 0 || enabled === 0){                 // || enabled === 0
    		return true;
    	} else {
    		return false;

@@ -75,7 +75,14 @@ button {
 
 li {
 	padding: 1px;
-	font-family: sans-serif;
+	font-family: sans-serif;	
+}
+
+li button {
+	color: yellow !important;
+	
+ 
+ 
 }
 
 .ppkNumber {

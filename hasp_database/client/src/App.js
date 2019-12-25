@@ -6,6 +6,7 @@ import Modal from "./modal/modal";
 import Header from "./header/header";
 import Footer from "./footer/footer";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import { BASE_URL } from './index';
 
 class App extends React.Component {
 
@@ -39,11 +40,9 @@ class App extends React.Component {
     this.deleteAllHaspInfo = this.deleteAllHaspInfo.bind(this);
     this.deleteCurrentHaspInfo = this.deleteCurrentHaspInfo.bind(this);
     this.modifyCurrentHaspInfo = this.modifyCurrentHaspInfo.bind(this);
-    this.replaceModalItem = this.replaceModalItem.bind(this);
-    
-    
-  }
+    this.replaceModalItem = this.replaceModalItem.bind(this);   
 
+  }
 
   //Event Hendlers
   onChangeSerial = (event) => {
@@ -76,9 +75,9 @@ class App extends React.Component {
 
   loadHaspInfo = (e) => {
     //e.preventDefault();
-    axios.get("/hasp")
+    axios.get(`${BASE_URL}/hasp`)
       .then((haspData) => {
-        console.log(haspData.data);
+        //console.log(haspData.data);
         this.setState({
           hasps: haspData.data,
           sucAlert: false,
@@ -101,7 +100,7 @@ class App extends React.Component {
 
   addHaspInfo = (e) => {  
   e.preventDefault();  
-    axios.post("/hasp", {     
+    axios.post(`${BASE_URL}/hasp`, {     
             name: e.target[3].value,
             city: e.target[4].value,
             phone: e.target[5].value  ,          
@@ -110,9 +109,19 @@ class App extends React.Component {
             soft: e.target[1].value,
       })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
+        //this.loadHaspInfo();
         this.setState({
-          sucAlert: true 
+          sucAlert: true,
+          serial: "", 
+          soft: "",
+          numberOfKeys: "",
+          name: "",
+          city: "",
+          phone: "",        
+          delAllAlert: false,
+          delCurAlert: false,
+          modifCurAlert: false   
           });
       })
       .catch((err) => {
@@ -124,35 +133,20 @@ class App extends React.Component {
             delCurAlert: false,
             modifCurAlert: false            
           }) 
-      })
-      axios.get("/hasp") 
-      .then((haspData) => {
-        console.log(haspData.data);
-        this.setState({
-          hasps: haspData.data          
-        });
-      })   
-        this.setState({
-         serial: "", 
-         soft: "",
-         numberOfKeys: "",
-         name: "",
-         city: "",
-         phone: "",        
-         delAllAlert: false,
-         delCurAlert: false,
-         modifCurAlert: false         
-       })            
+      })                 
   }
 
  deleteAllHaspInfo = (e) => {     
    if (confirm("Do you really want to clear database?") === true){  //eslint-disable-line
       if (prompt("Enter password:") === "123456") {
-        axios.delete("/hasp/deleteAll", {
+        axios.delete(`${BASE_URL}/hasp/deleteAll`, {
           data: {}
          })
          .then((res) => {
-          console.log(res.data);
+          //console.log(res.data);
+          this.setState({
+            delAllAlert: true
+          })
          })
          .catch((err) => {
           console.log(err);
@@ -163,18 +157,7 @@ class App extends React.Component {
             delCurAlert: false,
             modifCurAlert: false            
         })    
-       })
-         axios.get("/hasp") 
-          .then((haspData) => {
-            console.log(haspData.data);
-            this.setState({
-              hasps: haspData.data,
-              sucAlert: false,
-              delCurAlert: false,
-              modifCurAlert: false,
-              delAllAlert: true
-            });
-          });
+       })         
        } else {
         alert("Wrong password!");
        }          
@@ -186,35 +169,27 @@ class App extends React.Component {
   deleteCurrentHaspInfo = (i) => {             
    if (confirm("Do you really want to delete this item from database?") === true){  //eslint-disable-line       
      if (prompt("Enter password:") === "123456") {
-       axios.delete("/hasp/delete", {
+       axios.delete(`${BASE_URL}/hasp/delete`, {
         data: {
           _id: this.state.hasps[i]._id
         }
        })
        .then((res) => {
-        console.log(res.data);
-       })
-       .catch((err) => {
-        console.log(err);
-        alert("Error. No connection to database...");
+        //console.log(res.data);
         this.setState({
-          sucAlert: false,
-          delAllAlert: false,
-          delCurAlert: false,
-          modifCurAlert: false            
-      })    
+          delCurAlert: true
+        })
        })
-       axios.get("/hasp") 
-        .then((haspData) => {
-          console.log(haspData.data);
+         .catch((err) => {
+          console.log(err);
+          alert("Error. No connection to database...");
           this.setState({
-            hasps: haspData.data,
             sucAlert: false,
             delAllAlert: false,
-            modifCurAlert: false,
-            delCurAlert: true
-         });
-         });
+            delCurAlert: false,
+            modifCurAlert: false            
+           })    
+          })       
         } else {
         alert("Wrong password!");
        }       
@@ -233,16 +208,16 @@ class App extends React.Component {
       cityToModal: this.state.hasps[index].city,
       phoneToModal: this.state.hasps[index].phone
     });
-    console.log(index);    
-    const i = this.state.requiredItem;
-    console.log(i);
-    console.log(this.state.hasps[i]);
+    //console.log(index);    
+    //const i = this.state.requiredItem;
+    //console.log(i);
+    //console.log(this.state.hasps[i]);
   }
 
  modifyCurrentHaspInfo(item) {
     const requiredItem = this.state.requiredItem;   
-    console.log(requiredItem);
-    axios.put("/hasp/change", 
+    //console.log(requiredItem);
+    axios.put(`${BASE_URL}/hasp/change`, 
         {
           _id:  this.state.hasps[requiredItem]._id,
           serial: item.serial,  
@@ -254,7 +229,10 @@ class App extends React.Component {
         }            
      )
     .then((res) => {
-      console.log(res.status);      
+      //console.log(res.status);   
+      this.setState({
+        modifCurAlert: true
+      })   
     })
     .catch((err) => {
       console.log(err);
@@ -265,19 +243,7 @@ class App extends React.Component {
         delCurAlert: false,
         modifCurAlert: false            
       }) 
-    })
-    axios.get("/hasp") 
-    .then((haspData) => {
-      console.log(haspData.data);
-      this.setState({
-        hasps: haspData.data,
-        sucAlert: false,
-        delAllAlert: false,
-        delCurAlert: false,
-        modifCurAlert: true,
-      });
-    });
-    
+    })  
   }
  
  render(){  

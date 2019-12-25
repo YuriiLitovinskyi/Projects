@@ -2,16 +2,21 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
-app.use(cors());   //no cors rules
+//app.use(cors());   //no cors rules
 //const corsOptions = require("./cors-rules/cors-rules");  //apply cors rules. header is needed in requests
 //app.use(cors(corsOptions));
+
+//Production
+const origin = process.env.NODE_ENV !== 'production' ? 'http://localhost:3000' : 'https://hasp-database-react-client.netlify.com';
+app.use(cors({ origin }));
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 const mongoose = require("mongoose");
-const db = mongoose.connect("mongodb://localhost/haspDB", {useNewUrlParser: true });
+const db = mongoose.connect("mongodb+srv://Yurii:0x55@cluster0-as40t.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser: true }); //local: "mongodb://localhost/haspDB" 
+//mongo atlas: mongodb+srv://Yurii:<password>@cluster0-as40t.mongodb.net/test?retryWrites=true&w=majority
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
@@ -81,7 +86,7 @@ app.delete("/hasp/delete", function(req, res) {
 app.delete("/hasp/deleteAll", function(req, res) {
 	HaspInfo.deleteMany({}, function(err) {
 		if (err) {
-			res.status(500).send({error: "Could not clead database..."});			
+			res.status(500).send({error: "Could not clean database..."});			
 		} else {
 			res.status(200).send({message: "All hasp info deleted from database succesfully..."});
 		}
@@ -89,7 +94,7 @@ app.delete("/hasp/deleteAll", function(req, res) {
 });
 
 
-const port = 3004;
+const port = process.env.PORT || 3004;
 app.listen(port, function(){
 	console.log("Server started on port "+ port +"...");
 });

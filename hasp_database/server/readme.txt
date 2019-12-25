@@ -33,3 +33,8 @@ var app = express();
 app.use(cors());
 
 we can add whitelist to cors rools, but in that case we need to add Head in request in Postman: Key: Origin; Value: http://localhost:3000
+
+deployment
+mongodbAtlas for storing MongoDB databases:
+https://www.youtube.com/watch?v=8d0yguA6RzQ
+https://cloud.mongodb.com/v2/5e034d06014b76c10d605ea2#clusters

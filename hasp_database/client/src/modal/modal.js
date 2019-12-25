@@ -62,7 +62,7 @@ class Modal extends React.Component {
 
     handleSave() {
         const item = this.state;
-        console.log(item);
+        //console.log(item);
         this.props.modifyCurrentHaspInfo(item)
     }
 

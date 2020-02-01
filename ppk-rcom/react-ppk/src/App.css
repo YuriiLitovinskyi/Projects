@@ -11,8 +11,12 @@ h2 {
 }
 
 button {
-	margin: 10px;
+	margin: 10px;	
 	box-shadow: 5px 5px 10px #888888;
+}
+
+.btn {
+	padding: 3px 6px;
 }
 
 
@@ -79,10 +83,7 @@ li {
 }
 
 li button {
-	color: yellow !important;
-	
- 
- 
+	color: yellow !important; 
 }
 
 .ppkNumber {
@@ -180,6 +181,21 @@ button:hover .tooltiptext {
 	
 	.ppkName {
 		width: 80%;
+	}
+
+	.ppkNumber {
+		width: 50%;
+		font-size: 14px;
+	}
+
+	.tooltiptext {
+		width: 150px;
+		font-size: 12px;
+		left: -50px;
+	}
+
+	.btn {
+		font-size: 12px;
 	}
   
 }

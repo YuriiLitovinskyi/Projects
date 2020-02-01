@@ -57,7 +57,10 @@ class App extends React.Component {
 
     setinterv(e){   
        e.preventDefault();	
-	   this.intervalId = setInterval(() => this.loadPpkInfo(), 60000);
+	   this.intervalId = setInterval(() => this.loadPpkInfo(), 30000);
+	//    this.setState({
+	// 	   ppks: []
+	//    });
 	   this.loadPpkInfo();
 	   this.getApiVersion();
     }

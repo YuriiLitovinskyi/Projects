@@ -223,10 +223,11 @@ class App extends React.Component {
       //localStorage.clear();       		  
       })
       .catch((err) => {
-        console.log(err);   
-        console.error(err.response.data);      
-        alert("No connection to Server...\nServer response: \nStatus: " + err.response.data.status + "\nError: " + err.response.data.error + "\nNote: " + err.response.data.note);    
-        window.location.reload(); 		
+		console.log(err);  
+		alert('No connection to RCOM server');
+		window.location.reload(); 
+		//	console.error(err.response.data);      
+        // alert("No connection to Server...\nServer response: \nStatus: " + err.response.data.status + "\nError: " + err.response.data.error + "\nNote: " + err.response.data.note);   		
       }); 
       
   }
@@ -462,7 +463,7 @@ class App extends React.Component {
       <form className="formInput" onSubmit={this.setinterv.bind(this)}>
   <div className="form-row">
     <div className="col">
-	  <label htmlFor="ip">IP Address</label>
+	  <label htmlFor="ip">IP</label>
       <input type="text" 
 	         minLength="7" 
 			 maxLength="15" 

@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  background-color: #e8ecf1;
   padding: 30px;
 }
 
@@ -79,7 +78,7 @@ button {
 
 li {
 	padding: 1px;
-	font-family: sans-serif;	
+	font-family: Verdana, "Lucida Sans Unicode", sans-serif;	
 }
 
 li button {

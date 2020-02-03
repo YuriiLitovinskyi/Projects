@@ -690,7 +690,7 @@ class App extends React.Component {
           <p className="current-key-pass">License Key: {this.searchKey(ppk[index], this.state.licenseKeysObject)}</p>
 		  <p className="current-key-pass">Password: {this.searchPassword(ppk[index], this.state.licenseKeysObject)}</p>
           <form className="formForKeyPass">
-          <div className="input-group input-group-sm mb-3">
+          <div className={(this.checkObject(ppk[index], this.state.licenseKeysObject)) ? "hide" : "input-group input-group-sm mb-3"} >
 		  <div className="input-group-prepend">
 		    <span className="input-group-text" id="inputGroup-sizing-sm">Enter License Key</span>
 		  </div>
@@ -706,7 +706,7 @@ class App extends React.Component {
 		         aria-label="Small" 
 		         aria-describedby="inputGroup-sizing-sm" />
 		</div>
-		 <div className="input-group input-group-sm mb-3">
+		 <div className={(this.checkObject(ppk[index], this.state.licenseKeysObject)) ? "hide" : "input-group input-group-sm mb-3"}>
 		  <div className="input-group-prepend">
 		    <span className="input-group-text" id="inputGroup-sizing-sm">Enter Password</span>
 		  </div>
@@ -1225,7 +1225,7 @@ class App extends React.Component {
 		  <p className="current-key-pass">License Key: {this.searchKey(ppk[index], this.state.licenseKeysObject)}</p>
 		  <p className="current-key-pass">Password: {this.searchPassword(ppk[index], this.state.licenseKeysObject)}</p> 
 		  <form className="formForKeyPass">
-          <div className="input-group input-group-sm mb-3">
+          <div className={(this.checkObject(ppk[index], this.state.licenseKeysObject)) ? "hide" : "input-group input-group-sm mb-3"}>
 		  <div className="input-group-prepend">
 		    <span className="input-group-text" id="inputGroup-sizing-sm">Enter License Key</span>
 		  </div>
@@ -1239,7 +1239,7 @@ class App extends React.Component {
 		         aria-label="Small" 
 		         aria-describedby="inputGroup-sizing-sm" />
 		</div>
-		 <div className="input-group input-group-sm mb-3">
+		 <div className={(this.checkObject(ppk[index], this.state.licenseKeysObject)) ? "hide" : "input-group input-group-sm mb-3"}>
 		  <div className="input-group-prepend">
 		    <span className="input-group-text" id="inputGroup-sizing-sm">Enter Password</span>
 		  </div>

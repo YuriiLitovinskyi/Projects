@@ -187,7 +187,7 @@ class App extends React.Component {
   	 const ipAddress = this.state.ipState;
 	 const port = this.state.portState;	  
 	  
-    axios.get("http://"+ipAddress+":"+port+"/api/version/")
+    axios.get(`http://${ipAddress}:${port}/api/version/`)   
       .then((version) => {
         //console.log(version.data);
         this.setState({
@@ -206,7 +206,7 @@ class App extends React.Component {
 	  const userName = this.state.userNameState;
 	  const pass = this.state.passwordState;
 	  
-    axios.post("http://"+ipAddress+":"+port+"/api/devices/state/", {}, {
+    axios.post(`http://${ipAddress}:${port}/api/devices/state/`, {}, {   
        headers: {
         "Access-Control-Allow-Origin": "*", 
         "Access-Control-Allow-Method": "POST",		

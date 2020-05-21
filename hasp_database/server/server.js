@@ -7,7 +7,7 @@ const app = express();
 //app.use(cors(corsOptions));
 
 //Production
-const origin = process.env.NODE_ENV !== 'production' ? 'http://localhost:3000' : 'https://hasp-database-react-client.netlify.com';
+const origin = process.env.NODE_ENV !== 'production' ? 'http://localhost:3000' : 'https://hasp-database-react-client.netlify.app';
 app.use(cors({ origin }));
 
 const bodyParser = require("body-parser");
